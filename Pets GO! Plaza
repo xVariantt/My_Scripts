@@ -13,10 +13,10 @@ getgenv().petsGoConfig = {
     AVOID_USERNAME = {""},  -- serverhop when it finds username, You can put multiple usernames
     
     -- Pets
-    SELL_100M_PET = true, SELL_PERCENTAGE_100M = 0.85,
-    SELL_500M_PET = true, SELL_PERCENTAGE_500M = 0.90,
+    SELL_100M_PET = true, SELL_PERCENTAGE_100M = 0.87,
+    SELL_500M_PET = true, SELL_PERCENTAGE_500M = 0.92,
     SELL_SECRET = true, SELL_PERCENTAGE_SECRET = 0.95,
-    SELL_HUGE = true, SELL_SHINY_HUGE = true, SELL_PERCENTAGE_HUGE = 0.93,
+    SELL_HUGE = true, SELL_SHINY_HUGE = true, SELL_PERCENTAGE_HUGE = 0.95,
     
     -- Consumables
     SELL_CONSUMABLE = true, SELL_CONSUMABLE_MIN = 1, SELL_CONSUMABLE_PERCENTAGE = 1,
@@ -46,7 +46,7 @@ getgenv().petsGoConfig = {
     SELL_PICKAXE = true, SELL_PICKAXE_PERCENTAGE = 1,
 
     -- Event
-    SELL_CHARGE_TOKEN = true, SELL_CHARGE_TOKEN_MIN = 5, SELL_CHARGE_TOKEN_PERCENTAGE = 1,
+    SELL_EVENT_TICKET = true, SELL_EVENT_TICKET_MIN = 5, SELL_EVENT_TICKET_PERCENTAGE = 1,
 
     MAIL_GEMS_USERNAME = {"comer_item"},  -- Empty = Disabled Gem Mail, You can put multiple usernames 1% fee
     MAIL_GEMS_MIN = 100000000,  -- Minimum gems required to send
