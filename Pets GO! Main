@@ -1,14 +1,14 @@
-script_key="CQVAuJCsMrklQVdjGhjRbkjDEAfPVDkT";
+script_key="QGpTcmqtkwfRyCDjqdVjzjjZiCmyosAK";
 
 getgenv().petsGoConfig = {
     AUTO_RESTART = true,
     CONSUME_CORRUPTED_HUGE_BAIT = true,
-    CONSUME_ALL_ENCHANT_SAFE = false,
     CONSUME_ALL_MINING_CHEST = false,
-    CONSUME_EVENT_EGG = false, -- Hype eggs not included
-    CONSUME_ALL_THIEVING_CHEST = false,
+    CONSUME_EVENT_EGG = false,
     CONSUME_INSTA_LUCK_4 = true,
-    IGNORE_DICE_COMBO = false, -- Consume Insta Luck 3 without combo
+    CONSUME_VAULT_KEY = false,
+    CONSUME_KRAKEN_TENTACLE = false,
+    CONSUME_BUCKET_O_CHUM = false,
 
     WEBHOOK_URL = "https://discord.com/api/webhooks/1340655437892026369/7lwAni2QqUSGnWWxrNcVGYlRHStJzWNEGCUwVAbkcQowT6MlKG92x7J2-7XvvhO78J-t",
     MAILING_WEBHOOK_URL = "https://discord.com/api/webhooks/1340655528535265330/MK6WFumOv4-nHnkJiFd0-oBKCAIYwDXm7JDVuVY2a7W_K8e6XAPhO5RwdXDppg3QsVBV",
@@ -23,7 +23,7 @@ getgenv().petsGoConfig = {
     MAIL_WEBHOOK_ODDS = 250000000, -- Minimum Pet Odds To Trigger MAIL Webhook
     MAIL_PET_ODDS = 250000000,  -- Minimum Pet Odds To Mail
 
-    USERNAME_TO_MAIL = {"yunisbabapiro_31"}, -- Mail to username, Example : USERNAME_TO_MAIL = {"username1", "username2"} 
+    USERNAME_TO_MAIL = {"RotateXDayii"}, -- Mail to username, Example : USERNAME_TO_MAIL = {"username1", "username2"} 
 }
 
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e81ea00ef49a917bb1242da4f41dc4f9.lua"))()
