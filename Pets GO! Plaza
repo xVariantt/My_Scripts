@@ -1,4 +1,4 @@
-script_key="CQVAuJCsMrklQVdjGhjRbkjDEAfPVDkT";
+script_key="QGpTcmqtkwfRyCDjqdVjzjjZiCmyosAK";
 
 -- Config with "MIN" = 1-5000 Minimum Quantity to sell
 -- Config with "SELL_PERCENTAGE" -> 1 = 100% RAP, 1.1 = 110% RAP, 0.8 = 80% RAP, , 0.85 = 85% RAP (Any Amount)
@@ -13,8 +13,8 @@ getgenv().petsGoConfig = {
     AVOID_USERNAME = {""},  -- serverhop when it finds username, You can put multiple usernames
     
     -- Pets
-    SELL_100M_PET = true, SELL_PERCENTAGE_100M = 0.87,
-    SELL_500M_PET = true, SELL_PERCENTAGE_500M = 0.92,
+    SELL_100M_PET = true, SELL_PERCENTAGE_100M = 0.85,
+    SELL_500M_PET = true, SELL_PERCENTAGE_500M = 0.90,
     SELL_SECRET = true, SELL_PERCENTAGE_SECRET = 0.95,
     SELL_HUGE = true, SELL_SHINY_HUGE = true, SELL_PERCENTAGE_HUGE = 0.95,
     
@@ -44,9 +44,7 @@ getgenv().petsGoConfig = {
     -- Tools
     SELL_FISHING_ROD = true, SELL_FISHING_ROD_PERCENTAGE = 1, 
     SELL_PICKAXE = true, SELL_PICKAXE_PERCENTAGE = 1,
-
-    -- Event
-    SELL_EVENT_TICKET = true, SELL_EVENT_TICKET_MIN = 5, SELL_EVENT_TICKET_PERCENTAGE = 1,
+    SELL_LOCKPICK = true, SELL_LOCKPICK_PERCENTAGE = 1,
 
     MAIL_GEMS_USERNAME = {"comer_item"},  -- Empty = Disabled Gem Mail, You can put multiple usernames 1% fee
     MAIL_GEMS_MIN = 100000000,  -- Minimum gems required to send
