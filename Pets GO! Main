@@ -1,14 +1,16 @@
 script_key="QGpTcmqtkwfRyCDjqdVjzjjZiCmyosAK";
+setfpscap(5)  -- number = fps
 
 getgenv().petsGoConfig = {
     AUTO_RESTART = true,
+    -- true/false (true = consume, false = automail)
     CONSUME_CORRUPTED_HUGE_BAIT = true,
-    CONSUME_ALL_MINING_CHEST = false,
-    CONSUME_EVENT_EGG = false,
+    CONSUME_ALL_MINING_CHEST = true,
+    CONSUME_EVENT_EGG = true, -- Hype eggs not included
     CONSUME_INSTA_LUCK_4 = true,
-    CONSUME_VAULT_KEY = false,
-    CONSUME_KRAKEN_TENTACLE = false,
-    CONSUME_BUCKET_O_CHUM = false,
+    CONSUME_VAULT_KEY = true,
+    CONSUME_KRAKEN_TENTACLE = true,
+    CONSUME_BUCKET_O_CHUM = true,
 
     WEBHOOK_URL = "https://discord.com/api/webhooks/1340655437892026369/7lwAni2QqUSGnWWxrNcVGYlRHStJzWNEGCUwVAbkcQowT6MlKG92x7J2-7XvvhO78J-t",
     MAILING_WEBHOOK_URL = "https://discord.com/api/webhooks/1340655528535265330/MK6WFumOv4-nHnkJiFd0-oBKCAIYwDXm7JDVuVY2a7W_K8e6XAPhO5RwdXDppg3QsVBV",
@@ -16,9 +18,10 @@ getgenv().petsGoConfig = {
     WEBHOOK_ODDS = 250000000, -- Minimum Pet Odds To Trigger Webhook
 
     DIAMOND_EGG = true,  -- true = Diamond Egg, false = F2P Egg
-    MINE_ALL_ORES = true,  -- true = all ore, false = runic & event ore
+    MINE_ALL_ORES = false,  -- true = all ore, false = runic & event ore
     
     MAILING = true,  -- Auto mail
+    MAIL_PICKAXE = false,  -- true = mail (smart mail [keep best pickaxe, mail excess])
     SHOW_PET_WEBHOOK_USERNAME = true,
     MAIL_WEBHOOK_ODDS = 250000000, -- Minimum Pet Odds To Trigger MAIL Webhook
     MAIL_PET_ODDS = 250000000,  -- Minimum Pet Odds To Mail
