@@ -16,7 +16,7 @@ _G.GWEBHOOK_LINK = "https://discord.com/api/webhooks/1356416554509537321/HWZed9P
 _G.GMAIL_RECEIVERS = {"comer_item"} -- for Huges and mailrules.
 _G.GMAIL_ITEMS = {
 ["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "9999b"}, -- mail diamonds, to enable lower MinAmount..
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "10m"}, -- mail diamonds, to enable lower MinAmount..
 ["Sapphire Gem"] = {Class = "Misc", Id = "Sapphire Gem", MinAmount = 9999},
 ["Ruby Gem"] = {Class = "Misc", Id = "Ruby Gem", MinAmount = 9999},
 ["Emerald Gem"] = {Class = "Misc", Id = "Emerald Gem", MinAmount = 5000},
