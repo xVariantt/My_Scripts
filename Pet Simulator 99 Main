@@ -1,4 +1,4 @@
-script_key = "your-key";
+script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
 _G.GDO_MINING_EVENT = true
 _G.GBUY_DIAMOND_PICKAXE = false
 _G.GMINING_EVENT_MAX_AUTO_CRAFT_RECIPE = 4
