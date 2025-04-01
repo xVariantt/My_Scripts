@@ -1,15 +1,17 @@
-script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
-_G.GDO_MINING_EVENT = true
-_G.GCLEAR_FAVORITE_PETS = true
-_G.GENCHANTS = {"Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs"}
-_G.GMAX_POWER_FOR_PET_MASTERY_VIA_FUSING = "240t"
-_G.GGFX_MODE = 1
-_G.GZONE_TO = 99
-_G.GWEBHOOK_USERID = "484739592239579136"
-_G.GWEBHOOK_LINK = "https://discord.com/api/webhooks/1356416554509537321/HWZed9PtO8ro9lH9vioL42n50K3qGLkB4WyZ5GXvGY5crtTWi4kCThVFxlVFVgvEIHOj"
-_G.GMAIL_RECEIVERS = {"comer_item"}
-_G.GMAIL_ITEMS = {
-["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "30m", MinAmount = "30m"}, -- mail diamonds, to enable lower MinAmount..
-}
+script_key="YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
+--PS99 LOADER!!
+_G.GPROGRESS_MODE = "Hybrid"
+_G.GGFX_MODE = 2  --1 = REMOVE_TEXTURES : more stable! but no visuals
+_G.GRANK_TO = 8
+_G.GZONE_TO = 99 -- 99 means it will stay in world 1 zone 99, put at 999 to just go to final world!!
+_G.GMAX_EGG_SLOTS = 103
+_G.GMAX_EQUIP_SLOTS = 99
+_G.GHOLD_GIFTS = false
+_G.GHOLD_BUNDLES = false
+_G.GMAX_ZONE_UPGRADE_COST = 1000000
+_G.GPOTIONS = {"Coins","Lucky","Treasure Hunter","Walkspeed","Diamonds","Damage"}
+_G.GPOTIONS_MAX_TIER = 5
+_G.GENCHANTS = {"Coins", "Coins", "Coins", "Strong Pets", "Strong Pets", "Criticals"}
+_G.GWEBHOOK_USERID = "484739592239579136" -- your discord userID, not your name. numerical id.
+_G.GWEBHOOK_LINK = "https://discord.com/api/webhooks/1254544485724065833/TIklOf1UXvqPKiCpu80A8_BEwj42wj8B6xHP1Sk_bLD7fLo7i2fGX8j1CFeV2W8VS5q6" -- a webhook URL from your private discord channel.
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
