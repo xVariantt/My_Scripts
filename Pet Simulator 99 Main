@@ -4,7 +4,7 @@ script_key="YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
 --PS99 LOADER!!
 _G.GPROGRESS_MODE = "Hybrid"
 _G.GGFX_MODE = 2  --1 = REMOVE_TEXTURES : more stable! but no visuals
-_G.GRANK_TO = 8
+_G.GRANK_TO = 10
 _G.GZONE_TO = 999 -- 99 means it will stay in world 1 zone 99, put at 999 to just go to final world!!
 _G.GMAX_EGG_SLOTS = 103
 _G.GMAX_EQUIP_SLOTS = 99
