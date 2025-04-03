@@ -1,21 +1,20 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-getgenv().Config = {
-    ["Farming"] = {
-        ["AreaToFarm"] = 8,
-        ["StartAtBottom"] = true,
-        ["AutoCraft"] = false, -- Autocraft Onyx Gems // After max cheaper upgrade is bought
-    },
-    ["Pickaxe"] = {
-        ["AutoEnchant"] = true, -- Enchants ur best Pickaxe
-        ["GetAllEnchants"] = true,
-        ["PickaxeEnchants"] = {
-            ["Fortune"] = 3, -- This will stop at Fortune 3, 4, 5
-            ["Diamond Farmer"] = 5, -- This will stop at Diamond Farmer 5
-        },
-    }
+script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
+_G.GDO_MINING_EVENT = true
+_G.GCLEAR_FAVORITE_PETS = true
+_G.GENCHANTS = {"Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs"}
+_G.GMAX_POWER_FOR_PET_MASTERY_VIA_FUSING = "240t"
+_G.GGFX_MODE = 1
+_G.GZONE_TO = 99
+_G.GWEBHOOK_USERID = "484739592239579136"
+_G.GWEBHOOK_LINK = "https://discord.com/api/webhooks/1356416554509537321/HWZed9PtO8ro9lH9vioL42n50K3qGLkB4WyZ5GXvGY5crtTWi4kCThVFxlVFVgvEIHOj"
+_G.GMAIL_RECEIVERS = {"karpuzkafali01"}
+_G.GMAIL_ITEMS = {
+["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "1m", MinAmount = "15m"}, -- mail diamonds, to enable lower MinAmount..
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d0b7e7eced327afcbf466e8c5ad296f8.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
 end)
 
 task.spawn(function()
