@@ -3,7 +3,8 @@ task.spawn(function()
 script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
 getgenv().GDO_CONVEYOR_INSTANCE = true
 getgenv().GCONVEYOR_MAX_PETS_LEVEL = 200 --max 200
-getgenv().GCONVEYOR_MAX_PETS_TO_BUY = 2
+getgenv().GCONVEYOR_MAX_PETS_TO_BUY = 30
+getgenv().GMAX_EGG_TIER = 15 --or lower
 getgenv().GCONVEYOR_RESET_UPGRADES = false
 getgenv().GEVENT_UPGRADES = {
 "ConveyorBetterChestLoot",
