@@ -1,10 +1,6 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-getgenv().AuthKey = "HUGE_DYWiboCFBVnv"
-getgenv().LoadSettings = {
-    Example_Setting = Example_Value
-}
-loadstring(game:HttpGet("https://HugeGames.io/ps99"))()
+loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()
 end)
 
 task.spawn(function()
