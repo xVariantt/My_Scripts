@@ -1,45 +1,10 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
-getgenv().GDO_CONVEYOR_INSTANCE = true
-getgenv().GCONVEYOR_MAX_PETS_LEVEL = 200 --max 200
-getgenv().GCONVEYOR_MAX_PETS_TO_BUY = 30
-getgenv().GMAX_EGG_TIER = 15 --or lower
-getgenv().GCONVEYOR_RESET_UPGRADES = false
-getgenv().GEVENT_UPGRADES = {
-"ConveyorBetterChestLoot",
-"ConveyorHugeChest",
-"ConveyorTitanicChest",
-"ConveyorBetterDrops",
-"ConveyorMoreDamage",
-"ConveyorMoreCoins",
-"ConveyorBetterEggChance",
-"ConveyorFasterConveyor",
-"ConveyorMoreBreakables",
-"ConveyorBreakableHugeChance",
-"ConveyorFasterBreakableSpawning",
-"ConveyorEasierSlimeMachine",
-"ConveyorMoreGiftBags",
-"ConveyorMoreSlimeTokens",
+getgenv().AuthKey = "HUGE_DYWiboCFBVnv"
+getgenv().LoadSettings = {
+    Example_Setting = Example_Value
 }
-getgenv().GEVENT_FPS  = 10
-getgenv().GLOOTBOXES = {"Locked Hype Egg"}
-getgenv().GGFX_MODE = 1 -- or 2 to still see something
-getgenv().GZONE_TO = 99 -- to enter event from W3 intead put 999
-getgenv().GWEBHOOK_USERID = "484739592239579136"
-getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1356416554509537321/HWZed9PtO8ro9lH9vioL42n50K3qGLkB4WyZ5GXvGY5crtTWi4kCThVFxlVFVgvEIHOj"
-getgenv().GMAIL_RECEIVERS = {"karpuzkafali01"} -- for Huges and mailrules.
-getgenv().GMAIL_ITEMS = {
-["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "2m", MinAmount = "50m"}, -- mail diamonds, to enable lower MinAmount..
-["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
-["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
-["Secret pet1"] = {Class = "Pet", Id = "Rainbow Swirl", MinAmount = 1, AllVariants = true},
-["Secret pet2"] = {Class = "Pet", Id = "Banana", MinAmount = 1, AllVariants = true},
-["Secret pet3"] = {Class = "Pet", Id = "Coin", MinAmount = 1, AllVariants = true},
-["Secret pet4"] = {Class = "Pet", Id = "Lucky Block", MinAmount = 1, AllVariants = true},
-}
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
+loadstring(game:HttpGet("https://HugeGames.io/ps99"))()
 end)
 
 task.spawn(function()
