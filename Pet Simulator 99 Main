@@ -1,1 +1,28 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
+getgenv().Settings = {
+    ["Egg Settings"] = {
+        OpenEggs = true,
+        Egg = "Best",
+        --// Supports ANY egg ("Rainbow Egg", "Infinity Egg", ...). Keep "Best" for new accounts.
+        
+        ["Notifications"] = {
+            Webhook = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
+            DiscordID = "484739592239579136",
+            Difficulty = "100k", --// Minimum Difficulty for Webhook Notifications
+        },
+
+        ["Rifts"] = {
+            FindRifts = true,
+            SortByMultiplier = false, 
+            --// true --> Sort by Multiplier out of ALL Targetted Rifts.
+            --// false --> Sort by Multiplier out of BEST Targetted Rifts.
+            
+            Targets = {"Aura Egg", "Hell Egg"},
+            --// Targets = {} will automatically find the Top 3 BEST Rifts to hatch.
+        },
+    },
+    
+    ["Debug"] = {
+        DisableUI = false,
+    },
+}
+loadstring(game:HttpGet("https://system-exodus.com/scripts/BGSI/OneClick.lua"))()
