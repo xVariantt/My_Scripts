@@ -22,7 +22,7 @@ getgenv().Settings = {
     },
     
     ["Debug"] = {
-        DisableUI = true,
+        DisableUI = false,
         FPSLimit = 10
         SellBubbles = true
     },
