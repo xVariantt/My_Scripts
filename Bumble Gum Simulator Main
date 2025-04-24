@@ -1,1 +1,31 @@
+getgenv().Settings = {
+    ["Egg Settings"] = {
+        OpenEggs = false,
+        Egg = "Throwback Egg",
 
+        ["Notifications"] = {
+            Webhook = "",
+            DiscordID = "",
+            Difficulty = 10000000,
+        },
+        ["Rifts"] = {
+            FindRifts = true,
+            SortByMultiplier = false,
+            Targets = {"Aura Egg", "Throwback Egg"},
+        },
+    },
+
+    ["Enchant Settings"] = {
+        EnchantPets = true,
+
+        ["Require All Enchants"] = true,
+        ["Enchants Needed"] = {
+            ["Team Up"] = {Tier = 3, HigherTiers = true},
+        },
+    },
+    ["Debug"] = {
+        DisableUI = false,
+        FPSLimit = 10,
+    },
+}
+loadstring(game:HttpGet("https://system-exodus.com/scripts/BGSI/OneClick.lua"))()
