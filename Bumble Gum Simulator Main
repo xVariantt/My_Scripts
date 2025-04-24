@@ -4,7 +4,7 @@ getgenv().Settings = {
         Egg = "Throwback Egg",
 
         ["Notifications"] = {
-            Webhook = "",
+            Webhook = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
             DiscordID = "",
             Difficulty = 10000000,
         },
