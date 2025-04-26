@@ -1,28 +1,20 @@
-getgenv().Settings = {
-    ["Egg Settings"] = {
-        OpenEggs = true,
-        Egg = "Throwback Egg",
-        --// Supports ANY egg ("Rainbow Egg", "Infinity Egg", ...). Keep "Best" for new accounts.
-        
-        ["Notifications"] = {
-            Webhook = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
-            DiscordID = "484739592239579136",
-            Difficulty = "100k", --// Minimum Difficulty for Webhook Notifications
-        },
-
-        ["Rifts"] = {
-            FindRifts = true,
-            SortByMultiplier = false, 
-            --// true --> Sort by Multiplier out of ALL Targetted Rifts.
-            --// false --> Sort by Multiplier out of BEST Targetted Rifts.
-            
-            Targets = {"Throwback Egg", "Bunny Egg", "Pastel Egg"},
-            --// Targets = {} will automatically find the Top 3 BEST Rifts to hatch.
-        },
+getgenv().Config = {
+    ["EquipEnchants"] = {"Coins", "Diamonds", "Treasure Hunter", "Strong Pets", "Tap Power"},
+    ["KickWhenReachGoal"] = {
+        ["Rank"] = 30,
+        ["Rebirth"] = 9,
+        ["Area"] = 234
+    },
+    ["StopAt"] = {
+        ["Rank"] = 15, 
+        ["Area"] = 234
     },
     
-    ["Debug"] = {
-        DisableUI = true,
-    },
+    ["AutoOpen"] = true,
+    ["AutoBalloon"] = true, -- WANT A BAN? REPORT A BUG IN THIS SCRIPT.
+
+    ["FPSBooster"] = true, -- REPORT NO SCRIPT BUGS.
+    ["UltraFPS"] = true, -- I WILL BAN YOU IF YOU REPORT ANY SCRIPT BUGS.
+    ["Webhook"] = "https://discord.com/api/webhooks/1254544485724065833/TIklOf1UXvqPKiCpu80A8_BEwj42wj8B6xHP1Sk_bLD7fLo7i2fGX8j1CFeV2W8VS5q6", -- DO NOT REPORT ANY SCRIPT BUGS. WE KNOW ITS BUGGED.
 }
-loadstring(game:HttpGet("https://system-exodus.com/scripts/BGSI/OneClick.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/177d65e916988f4b84dd21ed33a2aa91.lua"))()
