@@ -1,31 +1,15 @@
-getgenv().Settings = {
-    ["Egg Settings"] = {
-        OpenEggs = true,
-        Egg = "Best",
-
-        ["Notifications"] = {
-            Webhook = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
-            DiscordID = "484739592239579136",
-            Difficulty = 10000000,
-        },
+getgenv().Config = {
+    ["Hatching"] = {
         ["Rifts"] = {
-            FindRifts = true,
-            SortByMultiplier = false,
-            Targets = {""},
+            ["Eggs"] = {"Silly Egg", "Throwback Egg", "Nightmare Egg"}
         },
+        ["Egg"] = "100M Egg"
     },
-
-    ["Enchant Settings"] = {
-        EnchantPets = true,
-
-        ["Require All Enchants"] = true,
-        ["Enchants Needed"] = {
-            ["Team Up"] = {Tier = 1, HigherTiers = true},
-        },
+    ["Webhook"] = {
+        ["MinDifficulty"] = "1m",
+        ["UserID"] = "484739592239579136",
+        ["URL"] = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
     },
-    ["Debug"] = {
-        DisableUI = false,
-        FPSLimit = 10,
-    },
+    ["AutoEnchant"] = true -- // Enchant Team Up on all Equipped Pets
 }
-loadstring(game:HttpGet("https://system-exodus.com/scripts/BGSI/OneClick.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/6a28683e5e681161a5074613f6daf64c.lua"))()
