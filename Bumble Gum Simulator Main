@@ -1,7 +1,7 @@
 getgenv().Settings = {
     ["Egg Settings"] = {
-        OpenEggs = false,
-        Egg = "Throwback Egg",
+        OpenEggs = true,
+        Egg = "Best",
 
         ["Notifications"] = {
             Webhook = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
@@ -11,7 +11,7 @@ getgenv().Settings = {
         ["Rifts"] = {
             FindRifts = true,
             SortByMultiplier = false,
-            Targets = {"Aura Egg", "Throwback Egg"},
+            Targets = {""},
         },
     },
 
@@ -20,7 +20,7 @@ getgenv().Settings = {
 
         ["Require All Enchants"] = true,
         ["Enchants Needed"] = {
-            ["Team Up"] = {Tier = 3, HigherTiers = true},
+            ["Team Up"] = {Tier = 1, HigherTiers = true},
         },
     },
     ["Debug"] = {
