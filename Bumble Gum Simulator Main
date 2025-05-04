@@ -1,7 +1,7 @@
 getgenv().Config = {
     ["Hatching"] = {
         ["Rifts"] = {
-            ["Eggs"] = {"Silly Egg", "Throwback Egg", "Nightmare Egg"}
+            ["Eggs"] = {"Silly Egg", "Nightmare Egg"}
         },
         ["Egg"] = "100M Egg"
     },
@@ -9,6 +9,10 @@ getgenv().Config = {
         ["MinDifficulty"] = "1m",
         ["UserID"] = "484739592239579136",
         ["URL"] = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
+    },
+    ["AutoTrade"] = {
+        ["Usernames"] = {"", ""}, -- Receiver Accounts
+        ["URL"] = ""
     },
     ["AutoEnchant"] = true -- // Enchant Team Up on all Equipped Pets
 }
