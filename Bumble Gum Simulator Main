@@ -1,19 +1,28 @@
-getgenv().Config = {
-    ["Hatching"] = {
-        ["Rifts"] = {
-            ["Eggs"] = {"Silly Egg", "Cyber Egg"}
+getgenv().Settings = {
+    ["Egg Settings"] = {
+        OpenEggs = true,
+        Egg = ""200M Egg", "Game Egg", "Cyber Egg"",
+        --// Supports ANY egg ("Rainbow Egg", "Infinity Egg", ...). Keep "Best" for new accounts.
+        
+        ["Notifications"] = {
+            Webhook = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
+            DiscordID = "484739592239579136",
+            Difficulty = "1m", --// Minimum Difficulty for Webhook Notifications
         },
-        ["Egg"] = "Cyber Egg"
+
+        ["Rifts"] = {
+            FindRifts = true,
+            SortByMultiplier = false, 
+            --// true --> Sort by Multiplier out of ALL Targetted Rifts.
+            --// false --> Sort by Multiplier out of BEST Targetted Rifts.
+            
+            Targets = {"Underworld Egg", "Nightmare Egg", "Cyber Egg"},
+            --// Targets = {} will automatically find the Top 3 BEST Rifts to hatch.
+        },v
     },
-    ["Webhook"] = {
-        ["MinDifficulty"] = "1m",
-        ["UserID"] = "484739592239579136",
-        ["URL"] = "https://discord.com/api/webhooks/1363486126178046176/Qnn8KG193la0UmOOXC6wLzlCYOmsHqaVJe0Nanslx7XEz8X4TGAU99KZYKQEqPJPsGNb",
+    
+    ["Debug"] = {
+        DisableUI = false,
     },
-    ["AutoTrade"] = {
-        ["Usernames"] = {"", ""}, -- Receiver Accounts
-        ["URL"] = ""
-    },
-    ["AutoEnchant"] = true -- // Enchant Team Up on all Equipped Pets
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/9ba58bbb26e46302b4e601379491c5da.lua"))()
+loadstring(game:HttpGet("https://system-exodus.com/scripts/BGSI/OneClick.lua"))()
