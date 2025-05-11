@@ -1,9 +1,9 @@
 getgenv().Config = {
     ["Hatching"] = {
         ["Rifts"] = {
-            ["Eggs"] = {"Silly Egg", "Nightmare Egg"}
+            ["Eggs"] = {"Silly Egg", "Cyber Egg"}
         },
-        ["Egg"] = "100M Egg"
+        ["Egg"] = "Cyber Egg"
     },
     ["Webhook"] = {
         ["MinDifficulty"] = "1m",
@@ -16,4 +16,4 @@ getgenv().Config = {
     },
     ["AutoEnchant"] = true -- // Enchant Team Up on all Equipped Pets
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/6a28683e5e681161a5074613f6daf64c.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/9ba58bbb26e46302b4e601379491c5da.lua"))()
