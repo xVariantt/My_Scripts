@@ -1,20 +1,17 @@
-getgenv().Config = {
-    ["EquipEnchants"] = {"Coins", "Diamonds", "Treasure Hunter", "Strong Pets", "Tap Power"},
-    ["KickWhenReachGoal"] = {
-        ["Rank"] = 30,
-        ["Rebirth"] = 9,
-        ["Area"] = 234
-    },
-    ["StopAt"] = {
-        ["Rank"] = 15, 
-        ["Area"] = 234
-    },
-    
-    ["AutoOpen"] = true,
-    ["AutoBalloon"] = true, -- WANT A BAN? REPORT A BUG IN THIS SCRIPT.
-
-    ["FPSBooster"] = true, -- REPORT NO SCRIPT BUGS.
-    ["UltraFPS"] = true, -- I WILL BAN YOU IF YOU REPORT ANY SCRIPT BUGS.
-    ["Webhook"] = "https://discord.com/api/webhooks/1254544485724065833/TIklOf1UXvqPKiCpu80A8_BEwj42wj8B6xHP1Sk_bLD7fLo7i2fGX8j1CFeV2W8VS5q6", -- DO NOT REPORT ANY SCRIPT BUGS. WE KNOW ITS BUGGED.
-}
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/177d65e916988f4b84dd21ed33a2aa91.lua"))()
+script_key = "your-key-here";
+getgenv().GPROGRESS_MODE = "Hybrid"
+getgenv().GGFX_MODE = 2  --1 = REMOVE_TEXTURES : more stable! but no visuals
+getgenv().GRANK_TO = 15
+getgenv().GZONE_TO = 999 -- PLEASE READ FAQ about this property!!! it's important to understand. 99 means last zone W1 only!! 999: go to final zone of game
+getgenv().GMAX_EGG_SLOTS = 99
+getgenv().GMAX_EQUIP_SLOTS = 99
+getgenv().GHOLD_GIFTS = false
+getgenv().GHOLD_BUNDLES = false
+getgenv().GMAX_ZONE_UPGRADE_COST = 1000000
+getgenv().GPOTIONS = {"Coins","Damage","Treasure Hunter","Lucky","Diamonds"}
+getgenv().GPOTIONS_MAX_TIER = 99
+getgenv().GENCHANTS = {"Coins", "Coins", "Coins", "Strong Pets", "Criticals", "Criticals"}
+getgenv().GWEBHOOK_USERID = "484739592239579136" -- your discord userID, not your name. numerical id.
+getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1254544485724065833/TIklOf1UXvqPKiCpu80A8_BEwj42wj8B6xHP1Sk_bLD7fLo7i2fGX8j1CFeV2W8VS5q6"
+getgenv().GMAIL_RECEIVERS = {"comer_item"}
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
