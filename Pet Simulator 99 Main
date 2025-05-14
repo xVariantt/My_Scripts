@@ -1,4 +1,4 @@
-script_key = "your-key-here";
+script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
 getgenv().GPROGRESS_MODE = "Hybrid"
 getgenv().GGFX_MODE = 2  --1 = REMOVE_TEXTURES : more stable! but no visuals
 getgenv().GRANK_TO = 15
