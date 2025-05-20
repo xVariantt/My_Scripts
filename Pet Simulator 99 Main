@@ -1,17 +1,20 @@
-script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
-getgenv().GPROGRESS_MODE = "Hybrid"
+script_key = "your-key-here";
+getgenv().GZONE_TO = 99 -- to enter event from W1 put 99, from W2 put 199, from W3 999
+getgenv().GDO_FARMING_WORLD = true
 getgenv().GGFX_MODE = 2  --1 = REMOVE_TEXTURES : more stable! but no visuals
-getgenv().GRANK_TO = 15
-getgenv().GZONE_TO = 999 -- PLEASE READ FAQ about this property!!! it's important to understand. 99 means last zone W1 only!! 999: go to final zone of game
-getgenv().GMAX_EGG_SLOTS = 99
-getgenv().GMAX_EQUIP_SLOTS = 99
-getgenv().GHOLD_GIFTS = false
-getgenv().GHOLD_BUNDLES = false
-getgenv().GMAX_ZONE_UPGRADE_COST = 1000000
-getgenv().GPOTIONS = {"Coins","Damage","Treasure Hunter","Lucky","Diamonds"}
-getgenv().GPOTIONS_MAX_TIER = 99
-getgenv().GENCHANTS = {"Coins", "Coins", "Coins", "Strong Pets", "Criticals", "Criticals"}
 getgenv().GWEBHOOK_USERID = "484739592239579136" -- your discord userID, not your name. numerical id.
-getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1254544485724065833/TIklOf1UXvqPKiCpu80A8_BEwj42wj8B6xHP1Sk_bLD7fLo7i2fGX8j1CFeV2W8VS5q6"
-getgenv().GMAIL_RECEIVERS = {"comer_item"}
+getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1356416554509537321/HWZed9PtO8ro9lH9vioL42n50K3qGLkB4WyZ5GXvGY5crtTWi4kCThVFxlVFVgvEIHOj" -- a webhook URL from your private discord channel.
+getgenv().GHUGE_COUNT = 0 -- amount of huges to keep/not mail
+getgenv().GCOMBINE_KEYS = true
+getgenv().GUSE_SPINNY_WHEEL = true
+getgenv().GFARMING_WORLD_MAX_AUTO_CRAFT_RECIPE = 2 --2: make untill RB Gems
+getgenv().GMAIL_RECEIVERS = {"comer_item"} -- for Huges and mailrules.
+getgenv().GMAIL_ITEMS = {
+["Pixel Rainbow Shard"] = {Class = "Misc", Id = "Pixel Rainbow Shard", MinAmount = 9999}, --uncomment & change MinAmount to mail
+["Pixel Rainbow Gem"] = {Class = "Misc", Id = "Pixel Rainbow Gem", MinAmount = 9999}, --uncomment & change MinAmount to mail
+["Pixel Rainbow Dust"] = {Class = "Misc", Id = "Pixel Rainbow Dust", MinAmount = 9999}, --uncomment & change MinAmount to mail
+["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "50m"}, -- mail diamonds, to enable lower MinAmount..
+["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 10},
+}
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
