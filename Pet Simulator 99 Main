@@ -8,13 +8,12 @@ getgenv().GHUGE_COUNT = 0 -- amount of huges to keep/not mail
 getgenv().GCOMBINE_KEYS = true
 getgenv().GUSE_SPINNY_WHEEL = true
 getgenv().GFARMING_WORLD_MAX_AUTO_CRAFT_RECIPE = 2 --2: make untill RB Gems
+getgenv().GDO_NOT_USE_PIXEL_ANGELUS = true
 getgenv().GMAIL_RECEIVERS = {"comer_item"} -- for Huges and mailrules.
 getgenv().GMAIL_ITEMS = {
-["Pixel Rainbow Shard"] = {Class = "Misc", Id = "Pixel Rainbow Shard", MinAmount = 9999}, --uncomment & change MinAmount to mail
-["Pixel Rainbow Gem"] = {Class = "Misc", Id = "Pixel Rainbow Gem", MinAmount = 9999}, --uncomment & change MinAmount to mail
-["Pixel Rainbow Dust"] = {Class = "Misc", Id = "Pixel Rainbow Dust", MinAmount = 9999}, --uncomment & change MinAmount to mail
+["Pixel Rainbow Gem"] = {Class = "Misc", Id = "Pixel Rainbow Gem", MinAmount = 10}, --uncomment & change MinAmount to mail
 ["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "50m"}, -- mail diamonds, to enable lower MinAmount..
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "50m"}, -- mail diamonds, to enable lsssssssssssssssower MinAmount..
 ["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 10},
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
