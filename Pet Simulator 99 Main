@@ -1,4 +1,4 @@
-script_key = "your-key-here";
+script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
 getgenv().GZONE_TO = 99 -- to enter event from W1 put 99, from W2 put 199, from W3 999
 getgenv().GDO_FARMING_WORLD = true
 getgenv().GGFX_MODE = 2  --1 = REMOVE_TEXTURES : more stable! but no visuals
