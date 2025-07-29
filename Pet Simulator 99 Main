@@ -1,19 +1,10 @@
-script_key = "YKVkDsixwGYAODbiTQprBlrEhaqKIoPC";
-getgenv().GZONE_TO = 99 -- to enter event from W1 put 99, from W2 put 199, from W3 999
-getgenv().GDO_FARMING_WORLD = true
-getgenv().GGFX_MODE = 2  --1 = REMOVE_TEXTURES : more stable! but no visuals
-getgenv().GWEBHOOK_USERID = "484739592239579136" -- your discord userID, not your name. numerical id.
-getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1356416554509537321/HWZed9PtO8ro9lH9vioL42n50K3qGLkB4WyZ5GXvGY5crtTWi4kCThVFxlVFVgvEIHOj" -- a webhook URL from your private discord channel.
-getgenv().GHUGE_COUNT = 0 -- amount of huges to keep/not mail
-getgenv().GCOMBINE_KEYS = true
-getgenv().GUSE_SPINNY_WHEEL = true
-getgenv().GFARMING_WORLD_MAX_AUTO_CRAFT_RECIPE = 2 --2: make untill RB Gems
-getgenv().GDO_NOT_USE_PIXEL_ANGELUS = true
-getgenv().GMAIL_RECEIVERS = {"comer_item"} -- for Huges and mailrules.
-getgenv().GMAIL_ITEMS = {
-["Pixel Rainbow Gem"] = {Class = "Misc", Id = "Pixel Rainbow Gem", MinAmount = 10}, --uncomment & change MinAmount to mail
-["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "50m"}, -- mail diamonds, to enable lsssssssssssssssower MinAmount..
-["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 10},
+getgenv().Config = {
+    ["Notifications"] = {
+        ["UserID"] = "484739592239579136",
+        ["Webhook"] = "https://discord.com/api/webhooks/1374877345814675526/rY6P_S6D-Xx3crjjNNB7GX5ofjYMPD55kvYtuxe6faPUmrqPJUWA8oC69VVgoHLJu63m"
+    },
+    ["AutoRebirthUntil"] = {
+        ["MinEggMultiplier"] = 25
+    }
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/cb673f2e73af86f1499a09a6a0003415.lua"))()
