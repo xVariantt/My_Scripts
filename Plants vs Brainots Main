@@ -1,0 +1,29 @@
+getgenv().Key = "wUayjuiRQsNlyDXARvPwYZqDPDKsryqD"
+getgenv().Config = {
+    ["Max Rebirth"] = 5,
+    ["Keep Brainrot"] = {
+        ["Money Per Second"] = "20k",
+        ["Rarity"] = {
+            "Secret",
+        },
+    },
+    ["Keep Plant"] = {
+        ["Mr Carrot"] = "0",
+        ["Tomatrio"] = "0",
+        ["Shroombino"] = "0",
+        ["Mango"] = "0",
+    },
+    ["Plant Seed on Event"] = {
+        "Mr Carrot",
+        "Tomatrio",
+        "Shroombino",
+        "Mango",
+    },
+    ["Webhook"] = {
+        ["URL"] = "https://discord.com/api/webhooks/1425629686473428993/y_gWvnz5f6SvByD71lU11cz3xlsi_rk68gHHTUkvCqbzzFbsLB-DZnWWRgKVxiCXAAfd",
+        ["Notify Brainrot Money Per Second"] = "20K",
+        ["Notify Plant Damage Per Second"] = "1K",
+    },
+    ["Black Screen"] = false,
+}
+repeat wait()spawn(function()loadstring(game:HttpGet("https://nousigi.com/loader.lua"))()end)wait(20)until getgenv().Joebiden
