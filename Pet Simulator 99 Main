@@ -1,5 +1,3 @@
-repeat wait() until game:IsLoaded()
-task.spawn(function()
 setfpscap(10)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GGFX_MODE = 1 -- or 2 to if you want to see what happens
@@ -34,14 +32,3 @@ getgenv().GMAIL_ITEMS = {
 }
 getgenv().GMAX_MAIL_COST = "5m" -- this can limit how many mails sent/day
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))())
-end)
-
-task.spawn(function()
-    task.wait(5)
-local StarterGui = game:GetService('StarterGui')
-StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
-
-game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-
-game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
-end)
