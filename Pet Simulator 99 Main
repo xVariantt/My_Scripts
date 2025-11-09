@@ -30,5 +30,5 @@ getgenv().GMAIL_ITEMS = {
 ["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
 ["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
 }
-getgenv().GMAX_MAIL_COST = "2m"
+getgenv().GMAX_MAIL_COST = "5m"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
