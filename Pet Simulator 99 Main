@@ -1,4 +1,4 @@
-setfpscap(10)
+setfpscap(5)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GGFX_MODE = 1 
 getgenv().GDO_HALLOWEEN_WORLD = true
