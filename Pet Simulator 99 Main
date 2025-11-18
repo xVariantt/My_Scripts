@@ -1,42 +1,6 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(10)
-_G.ZapSettings = { 
-	["PetSimulator99 - AutoPlaceHalloweenEggsToggle"] = true, 
-	["PetSimulator99 - AutoPlaceHalloweenPetsToggle"] = true, 
-	["PetSimulator99 - AutoClaimPillarPayoutsToggle"] = true, 
-	["PetSimulator99 - AutoBuyHalloweenEggsEggsMultiDropdown"] = {"House 1", "House 2", "House 3"},
-	["PetSimulator99 - AutoBuyHalloweenEggsToggle"] = true, 
-	["PetSimulator99 - AutoBuyHalloweenHousesToggle"] = false, 
-	["PetSimulator99 - AutoBuyHalloweenUpgradesUpgradesMultiDropdown"] = {"Candy Multiplier", "Egg Luck", "Trick Or Treat Luck", "More Diamonds", "More Witch Hats", "Huge Luck", "Titanic Luck"},
-	["PetSimulator99 - AutoBuyHalloweenUpgradesToggle"] = true, 
-	["PetSimulator99 - AutoCraftHalloweenPetsPetsMultiDropdown"] = {"Tier 4", "Tier 5", "Tier 6"},
-	["PetSimulator99 - AutoCraftHalloweenPetsToggle"] = true, 
-	["PetSimulator99 - AutoClaimHalloweenPetsToggle"] = true, 
-	["PetSimulator99 - AutoSellUnusedHalloweenPetsToggle"] = false, 
-	["PetSimulator99 - AutoSellHalloweenEggsEggsMultiDropdown"] = {"Pumpkin Egg", "Grave Egg", "Bat Egg", "Ghost Egg", "Cauldron Egg"},
-	["PetSimulator99 - AutoSellHalloweenEggsToggle"] = true,
-	["PetSimulator99 - NewGargantuanPetsWebhookInput"] = "https://discord.com/api/webhooks/1374877345814675526/rY6P_S6D-Xx3crjjNNB7GX5ofjYMPD55kvYtuxe6faPUmrqPJUWA8oC69VVgoHLJu63m", 
-	["PetSimulator99 - NewGargantuanPetsToggle"] = true, 
-	["PetSimulator99 - NewTitanicPetsWebhookInput"] = "https://discord.com/api/webhooks/1374877345814675526/rY6P_S6D-Xx3crjjNNB7GX5ofjYMPD55kvYtuxe6faPUmrqPJUWA8oC69VVgoHLJu63m", 
-	["PetSimulator99 - NewTitanicPetsToggle"] = true, 
-	["PetSimulator99 - NewHugePetsWebhookInput"] = "https://discord.com/api/webhooks/1374877345814675526/rY6P_S6D-Xx3crjjNNB7GX5ofjYMPD55kvYtuxe6faPUmrqPJUWA8oC69VVgoHLJu63m", 
-	["PetSimulator99 - NewHugePetsToggle"] = true, , 
-	["PetSimulator99 - DisableBreakablesModelsToggle"] = true, 
-	["PetSimulator99 - DisablePetsRenderingToggle"] = true, 
-	["PetSimulator99 - DisableEffectsRenderingToggle"] = true, 
-	["PetSimulator99 - DisableConfettiRenderingToggle"] = true, 
-	["PetSimulator99 - DeleteUnnecessaryPartsToggle"] = true,  
-	["PetSimulator99 - AutoCollectToggle"] = true,   
-	["PetSimulator99 - DisableEggAnimationToggle"] = true, 
-	["PetSimulator99 - AutoClaimMailboxToggle"] = true, 
-	["PetSimulator99 - AutoMailPetsAccountUsernameInput"] = false, 
-	["PetSimulator99 - AutoMailPetsAccountTypeDropdown"] = "All", -- Options = {"All", "New Pets"}
-	["PetSimulator99 - AutoMailHugePetsToggle"] = false, 
-	["PetSimulator99 - AutoClaimFreeGiftsToggle"] = true, 
-	["PetSimulator99 - WhiteScreenToggle"] = true, 
-	["PetSimulator99 - ServerHopTypeDropdown"] = "Random", -- Options = {"Random", "Best Ping", "Most Players", "Least Players"}
-}
 loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()
 end)
 
