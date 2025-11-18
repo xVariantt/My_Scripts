@@ -1,12 +1,7 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(10)
-_G.ZapSettings = {
-	["PetSimulator99 - AutoTeleportToBestEventEggAreaToggle"] = false, 
-	["PetSimulator99 - AutoBuyNextEventAreaToggle"] = false, 
-	["PetSimulator99 - AutoBuyNearestEventEggAmountSlider"] = 5, -- Range = {1, 5}
-	["PetSimulator99 - AutoBuyNearestEventEggToggle"] = false, 
-	["PetSimulator99 - AutoCompleteEventGateQuestToggle"] = false, 
+_G.ZapSettings = { 
 	["PetSimulator99 - AutoPlaceHalloweenEggsToggle"] = true, 
 	["PetSimulator99 - AutoPlaceHalloweenPetsToggle"] = true, 
 	["PetSimulator99 - AutoClaimPillarPayoutsToggle"] = true, 
