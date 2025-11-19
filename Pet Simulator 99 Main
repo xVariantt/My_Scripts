@@ -1,4 +1,4 @@
-setfpscap(10)
+setfpscap(5)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GGFX_MODE = 1 
 getgenv().GDO_HALLOWEEN_WORLD = true
@@ -7,9 +7,8 @@ getgenv().GHALLOWEEN_WORLD_BUY_FROM_SPECIFIC_HOUSE = {1,2,3}
 getgenv().GHOP_ON_STAFF = true
 getgenv().GHALLOWEEN_WORLD_RECIPES_TO_DO = {1,2,3,4,5}
 getgenv().GHALLOWEEN_WORLD_HATCH_SPOTS = 1
-getgenv().GHALLOWEEN_WORLD_ALLOW_WORSE_EGG_PLACEMENT = true
+getgenv().GHALLOWEEN_WORLD_ALLOW_WORSE_EGG_PLACEMENT = false
 getgenv().GHALLOWEEN_WORLD_USE_BOOSTS = true
-getgenv().GRANK_FIRST = false 
 getgenv().GZONE_TO = 99 
 getgenv().GEVENT_UPGRADES = {
   "HalloweenCandyMultiplier",
