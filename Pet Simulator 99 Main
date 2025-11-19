@@ -1,3 +1,5 @@
+repeat wait() until game:IsLoaded()
+task.spawn(function()
 setfpscap(5)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GGFX_MODE = 1 
@@ -9,6 +11,9 @@ getgenv().GHALLOWEEN_WORLD_RECIPES_TO_DO = {1,2,3,4,5}
 getgenv().GHALLOWEEN_WORLD_HATCH_SPOTS = 1
 getgenv().GHALLOWEEN_WORLD_ALLOW_WORSE_EGG_PLACEMENT = false
 getgenv().GHALLOWEEN_WORLD_USE_BOOSTS = true
+getgenv().GRANK_FIRST = true
+getgenv().GREBIRTH_TO = 4
+getgenv().GRANK_TO = 7
 getgenv().GZONE_TO = 99 
 getgenv().GEVENT_UPGRADES = {
   "HalloweenCandyMultiplier",
@@ -31,3 +36,14 @@ getgenv().GMAIL_ITEMS = {
 }
 getgenv().GMAX_MAIL_COST = "5m"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
+end)
+
+task.spawn(function()
+    task.wait(5)
+local StarterGui = game:GetService('StarterGui')
+StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+
+game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+
+game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+end)
