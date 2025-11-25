@@ -13,7 +13,7 @@ getgenv().GHALLOWEEN_WORLD_ALLOW_WORSE_EGG_PLACEMENT = true
 getgenv().GHALLOWEEN_WORLD_USE_BOOSTS = true
 getgenv().GRANK_FIRST = true
 getgenv().GREBIRTH_TO = 4
-getgenv().GRANK_TO = 7
+getgenv().GRANK_TO = 5
 getgenv().GZONE_TO = 99 
 getgenv().GEVENT_UPGRADES = {
   "HalloweenCandyMultiplier",
