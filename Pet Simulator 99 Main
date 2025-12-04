@@ -4,7 +4,7 @@ setfpscap(3)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GGFX_MODE = 1 
 getgenv().GDO_HALLOWEEN_WORLD = true
-getgenv().GHALLOWEEN_JOIN_LOCAL = false
+getgenv().GHALLOWEEN_JOIN_LOCAL = true
 getgenv().GHALLOWEEN_WORLD_BUY_FROM_SPECIFIC_HOUSE = {1,4}
 getgenv().GHOP_ON_STAFF = true
 getgenv().GHALLOWEEN_WORLD_RECIPES_TO_DO = {4,5}
