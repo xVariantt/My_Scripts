@@ -7,12 +7,14 @@ getgenv().GDO_HALLOWEEN_WORLD = true
 getgenv().GHALLOWEEN_JOIN_LOCAL = true
 getgenv().GHALLOWEEN_WORLD_BUY_FROM_SPECIFIC_HOUSE = {1,4}
 getgenv().GHOP_ON_STAFF = true
-getgenv().GHALLOWEEN_WORLD_RECIPES_TO_DO = {4,5}
+getgenv().GHALLOWEEN_WORLD_RECIPES_TO_DO = {1,2,3,4,5}
 getgenv().GHALLOWEEN_WORLD_HATCH_SPOTS = 2
 getgenv().GHALLOWEEN_WORLD_ALLOW_WORSE_EGG_PLACEMENT = true
 getgenv().GHALLOWEEN_WORLD_USE_BOOSTS = true
-getgenv().GRANK_FIRST = false
-getgenv().GZONE_TO = 1
+getgenv().GRANK_FIRST = true
+getgenv().GREBIRTH_TO = 4
+getgenv().GRANK_TO = 5
+getgenv().GZONE_TO = 99 
 getgenv().GEVENT_UPGRADES = {
   "HalloweenCandyMultiplier",
   "HalloweenEggLuck",
