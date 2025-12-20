@@ -1,6 +1,40 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-setfpscap(3)
+script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
+getgenv().GGFX_MODE = 1
+getgenv().GDO_XMAS_WORLD = true
+getgenv().GHOP_ON_STAFF = true
+getgenv().GEVENT_UPGRADES = {
+"MegaPresentGrowFaster",
+"MegaPresentMoreLoot",
+"MegaPresentEggLuckBoost",
+--"MegaPresentHigherHugeChance",
+"MegaPresentHigherTitanicChance",
+"MegaPresentHigherGargantuanChance"
+}
+getgenv().GRANK_FIRST = true
+getgenv().GZONE_TO = 99
+getgenv().GREBIRTH_TO = 4
+getgenv().GRANK_TO = 7
+getgenv().GUSE_ULTIMATES = {"Tornado","Hidden Treasure","Pet Surge","Tsunami","Black Hole","UFO","Nightmare","Lightning Storm","TNT Shower","Chest Spell","Ground Pound"}
+getgenv().GPOTIONS = {"Coins","Lucky","Treasure Hunter","Walkspeed","Diamonds","Damage"}
+getgenv().GENCHANTS = {"Tap Power", "Coins", "Treasure Hunter", "Strong Pets", "Criticals", "Diamonds"}
+getgenv().GPOTIONS_MAX_TIER = 99
+getgenv().GWEBHOOK_USERID = "484739592239579136"
+getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1374877345814675526/rY6P_S6D-Xx3crjjNNB7GX5ofjYMPD55kvYtuxe6faPUmrqPJUWA8oC69VVgoHLJu63m"
+getgenv().GHUGE_COUNT = 0 
+getgenv().GMAIL_RECEIVERS = {"trcomoloko"}
+getgenv().GMAIL_ITEMS = {
+["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
+["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "50m"},
+["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
+["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
+["CandyCane Gift"] = {Class = "Lootbox", Id = "CandyCane Gift", MinAmount = 100},
+["Santa Gift"] = {Class = "Lootbox", Id = "Santa Gift", MinAmount = 100},
+}
+getgenv().GMAX_MAIL_COST = "2m"
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
 end)
 
 task.spawn(function()
