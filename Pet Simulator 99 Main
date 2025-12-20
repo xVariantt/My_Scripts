@@ -3,27 +3,10 @@ task.spawn(function()
 setfpscap(5)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GGFX_MODE = 1 
-getgenv().GDO_HALLOWEEN_WORLD = true
-getgenv().GHALLOWEEN_JOIN_LOCAL = true
-getgenv().GHALLOWEEN_WORLD_BUY_FROM_SPECIFIC_HOUSE = {1,4}
-getgenv().GHOP_ON_STAFF = false
-getgenv().GHALLOWEEN_WORLD_RECIPES_TO_DO = {1,2,3,4,5}
-getgenv().GHALLOWEEN_WORLD_HATCH_SPOTS = 2
-getgenv().GHALLOWEEN_WORLD_ALLOW_WORSE_EGG_PLACEMENT = true
-getgenv().GHALLOWEEN_WORLD_USE_BOOSTS = true
 getgenv().GRANK_FIRST = true
 getgenv().GREBIRTH_TO = 4
 getgenv().GRANK_TO = 7
 getgenv().GZONE_TO = 99 
-getgenv().GEVENT_UPGRADES = {
-  "HalloweenCandyMultiplier",
-  "HalloweenEggLuck",
-  "HalloweenTrickOrTreatLuck",
-  "HalloweenMoreDiamonds",
-  "HalloweenMoreWitchHats",
-  "HalloweenHugeLuck",
-  "HalloweenTitanicLuck"
-}
 getgenv().GWEBHOOK_USERID = "484739592239579136"
 getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1374877345814675526/rY6P_S6D-Xx3crjjNNB7GX5ofjYMPD55kvYtuxe6faPUmrqPJUWA8oC69VVgoHLJu63m"
 getgenv().GHUGE_COUNT = 0 
