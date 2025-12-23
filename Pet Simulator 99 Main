@@ -24,7 +24,7 @@ getgenv().GPOTIONS_MAX_TIER = 99
 getgenv().GWEBHOOK_USERID = "484739592239579136"
 getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1374877345814675526/rY6P_S6D-Xx3crjjNNB7GX5ofjYMPD55kvYtuxe6faPUmrqPJUWA8oC69VVgoHLJu63m"
 getgenv().GHUGE_COUNT = 0 
-getgenv().GMAIL_RECEIVERS = {"trcomoloko"}
+getgenv().GMAIL_RECEIVERS = {"comer_item"}
 getgenv().GMAIL_ITEMS = {
 ["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
 ["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
