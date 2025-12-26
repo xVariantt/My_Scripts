@@ -9,7 +9,7 @@ getgenv().GEVENT_UPGRADES = {
 "MegaPresentGrowFaster",
 "MegaPresentMoreLoot",
 "MegaPresentEggLuckBoost",
-"MegaPresentHigherHugeChance",
+--"MegaPresentHigherHugeChance",
 "MegaPresentHigherTitanicChance",
 "MegaPresentHigherGargantuanChance"
 }
@@ -18,6 +18,9 @@ getgenv().GXMAS_WORLD_MIN_HATCH_REQUESTS_PER_CYCLE = 25
 getgenv().GXMAS_WORLD_MIN_FARM_TIME_SECONDS = 300
 getgenv().GXMAS_WORLD_CRAFT_SANTA_GIFTS = false -- if you put to true it cannot buy the upgrades as they also use santa hats
 getgenv().GDO_LOCKPICKING = false
+getgenv().GXMAS_WORLD_DO_MEGA_PRESENT = false
+getgenv().GXMAS_WORLD_OPEN_MEGA_PRESENT_IF_LUCK_REACH = 8000
+--getgenv().GXMAS_WORLD_PETS_EXCLUDED_FROM_SENDING = {"Elf Golem", "Candycane Kitsune"}
 getgenv().GRANK_FIRST = true
 getgenv().GZONE_TO = 99
 getgenv().GREBIRTH_TO = 4
@@ -32,10 +35,9 @@ getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1374877345814675526/
 getgenv().GHUGE_COUNT = 0
 getgenv().GMAIL_RECEIVERS = {"comer_item"}
 getgenv().GMAIL_ITEMS = {
-["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
 ["Brainrot egg"] = {Class = "Egg", Id = "Exclusive Egg 56", MinAmount = 1},
 ["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "50m"},
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "10m", MinAmount = "50m"},
 ["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
 ["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
 ["CandyCane Gift"] = {Class = "Lootbox", Id = "CandyCane Gift", MinAmount = 100},
