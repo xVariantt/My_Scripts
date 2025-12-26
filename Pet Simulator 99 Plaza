@@ -1,3 +1,6 @@
+repeat wait() until game:IsLoaded()
+task.spawn(function()
+setfpscap(19)
 script_key="KEY HERE";
 getgenv().Settings = {
     Seller = {
@@ -18,3 +21,14 @@ getgenv().Settings = {
 
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxntt/open-source/refs/heads/main/Pet-Simulator-99/PlazaPlus.lua"))()
+end)
+
+task.spawn(function()
+    task.wait(5)
+local StarterGui = game:GetService('StarterGui')
+StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+
+game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+
+game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+end)
