@@ -1,0 +1,20 @@
+script_key="KEY HERE";
+getgenv().Settings = {
+    Seller = {
+        Active = true,
+        ["Items"] = {
+            ["All Huges"] = {Price = "20m", AllTypes = true},
+        },
+        ["Switch Servers"] = {Active = true, MinuteDelay = 15, OnlyPRO = true},
+        ["Webhook"] = {Active = true, URL = "https://discord.com/api/webhooks/1453549408443437180/lTpzlbPcgw0qB6ISFwG1IZt5KGNDRxJe0rz4_fPGdv_2jmiuPV4xuwjU0eXjLDsOLEtY"},
+        ["Kill Switch"] = {
+            ["Booth Runout"] = false,
+            ["Diamonds Hit: 1b"] = false,
+            ["60 Minutes Timer"] = false,
+            ["^^^ Switch To Sniping"] = false,
+        },
+        ["Diamonds Sendout"] = {Active = true, Username = "comer_item", Amount = "2b"},
+    },
+
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxntt/open-source/refs/heads/main/Pet-Simulator-99/PlazaPlus.lua"))()
