@@ -1,6 +1,6 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-setfpscap(19)
+setfpscap(15)
 script_key="KEY HERE";
 getgenv().Settings = {
     Seller = {
