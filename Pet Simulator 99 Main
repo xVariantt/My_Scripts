@@ -1,26 +1,28 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-setfpscap(3)
+setfpscap(5)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
-getgenv().GGFX_MODE = 1
+getgenv().GGFX_MODE = 1 
 getgenv().GDO_XMAS_WORLD = true
 getgenv().GHOP_ON_STAFF = true
 getgenv().GEVENT_UPGRADES = {
-"MegaPresentGrowFaster",
-"MegaPresentMoreLoot",
-"MegaPresentEggLuckBoost",
+--"MegaPresentGrowFaster",
+--"MegaPresentMoreLoot",
+--"MegaPresentEggLuckBoost",
 --"MegaPresentHigherHugeChance",
-"MegaPresentHigherTitanicChance",
-"MegaPresentHigherGargantuanChance"
+--"MegaPresentHigherTitanicChance",
+--"MegaPresentHigherGargantuanChance"
 }
 getgenv().GXMAS_WORLD_DO_ICE_BLOCKS = true
 getgenv().GXMAS_WORLD_MIN_HATCH_REQUESTS_PER_CYCLE = 25
 getgenv().GXMAS_WORLD_MIN_FARM_TIME_SECONDS = 300
 getgenv().GXMAS_WORLD_CRAFT_SANTA_GIFTS = false -- if you put to true it cannot buy the upgrades as they also use santa hats
-getgenv().GDO_LOCKPICKING = false
+getgenv().GDO_LOCKPICKING = false 
 getgenv().GXMAS_WORLD_DO_MEGA_PRESENT = false
 getgenv().GXMAS_WORLD_OPEN_MEGA_PRESENT_IF_LUCK_REACH = 8000
---getgenv().GXMAS_WORLD_PETS_EXCLUDED_FROM_SENDING = {"Elf Golem", "Candycane Kitsune"}
+getgenv().GXMAS_WORLD_AUTO_CRAFT = true
+GXMAS_WORLD_FOCUS_EGGS_FOR_AUTO_CRAFT_PETS = true
+getgenv().GXMAS_WORLD_PETS_EXCLUDED_FROM_SENDING = {"Elf Golem","Candycane Kitsune", "Hippomint", "Krampus"} -- this is to exclude these from the present, if you want to sell them or use them in the autocraft..
 getgenv().GRANK_FIRST = true
 getgenv().GZONE_TO = 99
 getgenv().GREBIRTH_TO = 4
@@ -37,6 +39,7 @@ getgenv().GMAIL_RECEIVERS = {"comer_item"}
 getgenv().GMAIL_ITEMS = {
 ["Brainrot egg"] = {Class = "Egg", Id = "Exclusive Egg 56", MinAmount = 1},
 ["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
+["Ice Cube egg"] = {Class = "Egg", Id = "Exclusive Egg 58", MinAmount = 1},
 ["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "10m", MinAmount = "50m"},
 ["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
 ["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
@@ -45,6 +48,7 @@ getgenv().GMAIL_ITEMS = {
 ["Cove Lockpick"] = {Class = "Misc", Id = "Lockpick A", MinAmount = 20},
 ["Gold Lockpick"] = {Class = "Misc", Id = "Lockpick B", MinAmount = 5},
 ["Diamond Lockpick"] = {Class = "Misc", Id = "Lockpick C", MinAmount = 2},
+["All my Elf Golem"] = {Class = "Pet", Id = "Lit Cat", MinAmount = 999, AllVariants = true},
 }
 getgenv().GMAX_MAIL_COST = "2m"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
