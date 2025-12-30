@@ -20,10 +20,11 @@ getgenv().GXMAS_WORLD_CRAFT_SANTA_GIFTS = false
 getgenv().GDO_LOCKPICKING = false 
 getgenv().GXMAS_WORLD_DO_MEGA_PRESENT = false
 getgenv().GXMAS_WORLD_OPEN_MEGA_PRESENT_IF_LUCK_REACH = 8000
+getgenv().GDO_ADVENT_CALENDAR = true
 getgenv().GXMAS_WORLD_AUTO_CRAFT = true
 getgenv().GXMAS_WORLD_FOCUS_EGGS_FOR_AUTO_CRAFT_PETS = true
-getgenv().GXMAS_WORLD_PETS_EXCLUDED_FROM_SENDING = {"Elf Golem","Candycane Kitsune", "Hippomint", "Krampus"} -- this is to exclude these from the present, if you want to sell them or use them in the autocraft..
-getgenv().GDO_ADVENT_CALENDAR = true
+getgenv().GXMAS_WORLD_DO_GINGERBREAD_CHEST = true
+getgenv().GXMAS_WORLD_DO_SNOWMAN_BOSS_CHEST = true
 getgenv().GRANK_FIRST = true
 getgenv().GZONE_TO = 99
 getgenv().GREBIRTH_TO = 4
@@ -44,8 +45,8 @@ getgenv().GMAIL_ITEMS = {
 ["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "10m", MinAmount = "50m"},
 ["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
 ["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
-["Candycane Gift"] = {Class = "Lootbox", Id = "Candycane Gift", MinAmount = 400},
-["Santa Gift"] = {Class = "Lootbox", Id = "Santa Gift", MinAmount = 200},
+["CandyCane Gift"] = {Class = "Lootbox", Id = "CandyCane Gift", MinAmount = 100},
+["Santa Gift"] = {Class = "Lootbox", Id = "Santa Gift", MinAmount = 100},
 ["Cove Lockpick"] = {Class = "Misc", Id = "Lockpick A", MinAmount = 20},
 ["Gold Lockpick"] = {Class = "Misc", Id = "Lockpick B", MinAmount = 5},
 ["Diamond Lockpick"] = {Class = "Misc", Id = "Lockpick C", MinAmount = 2},
