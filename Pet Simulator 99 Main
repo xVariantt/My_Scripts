@@ -50,7 +50,6 @@ getgenv().GMAIL_ITEMS = {
 ["Cove Lockpick"] = {Class = "Misc", Id = "Lockpick A", MinAmount = 20},
 ["Gold Lockpick"] = {Class = "Misc", Id = "Lockpick B", MinAmount = 5},
 ["Diamond Lockpick"] = {Class = "Misc", Id = "Lockpick C", MinAmount = 2},
-["All my Elf Golem"] = {Class = "Pet", Id = "Lit Cat", MinAmount = 999, AllVariants = true},
 }
 getgenv().GMAX_MAIL_COST = "2m"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
