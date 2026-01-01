@@ -1,10 +1,57 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-setfpscap(3)
+setfpscap(5)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
-getgenv().GGFX_MODE = 1
-getgenv().GENTER_PLAZA = true
-getgenv().GPROGRESS_MODE = "Castle"
+getgenv().GGFX_MODE = 1 
+getgenv().GDO_XMAS_WORLD = true
+getgenv().GHOP_ON_STAFF = true
+getgenv().GEVENT_UPGRADES = {
+--"MegaPresentGrowFaster",
+--"MegaPresentMoreLoot",
+--"MegaPresentEggLuckBoost",
+--"MegaPresentHigherHugeChance",
+--"MegaPresentHigherTitanicChance",
+--"MegaPresentHigherGargantuanChance"
+}
+getgenv().GXMAS_WORLD_DO_ICE_BLOCKS = true
+getgenv().GXMAS_WORLD_DO_GINGERBREAD_CHEST = true
+getgenv().GXMAS_WORLD_DO_SNOWMAN_BOSS_CHEST = true
+getgenv().GXMAS_WORLD_MIN_HATCH_REQUESTS_PER_CYCLE = 25
+getgenv().GXMAS_WORLD_MIN_FARM_TIME_SECONDS = 300
+getgenv().GXMAS_WORLD_CRAFT_SANTA_GIFTS = false
+getgenv().GDO_LOCKPICKING = false
+getgenv().GXMAS_WORLD_DO_MEGA_PRESENT = false
+getgenv().GXMAS_WORLD_OPEN_MEGA_PRESENT_IF_LUCK_REACH = 8000
+getgenv().GDO_ADVENT_CALENDAR = true
+getgenv().GXMAS_WORLD_AUTO_CRAFT = true
+getgenv().GXMAS_WORLD_FOCUS_EGGS_FOR_AUTO_CRAFT_PETS = true
+getgenv().GXMAS_WORLD_ENTER_RAFFLE = false
+getgenv().GRANK_FIRST = true
+getgenv().GZONE_TO = 99
+getgenv().GREBIRTH_TO = 4
+getgenv().GRANK_TO = 8
+getgenv().GUSE_ULTIMATES = {"Tornado","Hidden Treasure","Pet Surge","Tsunami","Black Hole","UFO","Nightmare","Lightning Storm","TNT Shower","Chest Spell","Ground Pound"}
+getgenv().GPOTIONS = {"Coins","Lucky","Treasure Hunter","Walkspeed","Diamonds","Damage"}
+getgenv().GENCHANTS = {"Tap Power", "Coins", "Treasure Hunter", "Strong Pets", "Criticals", "Diamonds"}
+getgenv().GPOTIONS_MAX_TIER = 99
+getgenv().GWEBHOOK_USERID = "484739592239579136"
+getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1455707936050643067/LlmbFFbhzxUrdGHT6-WOpeYuFyFNKJHTP4A47SbGQ30sGs54GkDKOnWDEiPnmYLbOA6V"
+getgenv().GHUGE_COUNT = 0 
+getgenv().GMAIL_RECEIVERS = {"comer_item"}
+getgenv().GMAIL_ITEMS = {
+["Brainrot egg"] = {Class = "Egg", Id = "Exclusive Egg 56", MinAmount = 1},
+["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
+["Ice Cube egg"] = {Class = "Egg", Id = "Exclusive Egg 58", MinAmount = 1},
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "10m", MinAmount = "50m"},
+["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
+["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
+["CandyCane Gift"] = {Class = "Lootbox", Id = "CandyCane Gift", MinAmount = 400},
+["Santa Gift"] = {Class = "Lootbox", Id = "Santa Gift", MinAmount = 150},
+["Cove Lockpick"] = {Class = "Misc", Id = "Lockpick A", MinAmount = 20},
+["Gold Lockpick"] = {Class = "Misc", Id = "Lockpick B", MinAmount = 5},
+["Diamond Lockpick"] = {Class = "Misc", Id = "Lockpick C", MinAmount = 2},
+}
+getgenv().GMAX_MAIL_COST = "2m"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
 end)
 
