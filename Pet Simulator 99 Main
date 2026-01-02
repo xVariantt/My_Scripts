@@ -36,8 +36,7 @@ getgenv().GPOTIONS = {"Coins","Lucky","Treasure Hunter","Walkspeed","Diamonds","
 getgenv().GENCHANTS = {"Tap Power", "Coins", "Treasure Hunter", "Strong Pets", "Criticals", "Diamonds"}
 getgenv().GPOTIONS_MAX_TIER = 99
 getgenv().GWEBHOOK_USERID = "484739592239579136"
-getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1455707936050643067/LlmbFFbhzxUrdGHT6-WOpeYuFyFNKJHTP4A47SbGQ30sGs54GkDKOnWDEiPnmYLbOA6V"
-getgenv().GHUGE_COUNT = 0 
+getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1455707936050643067/LlmbFFbhzxUrdGHT6-WOpeYuFyFNKJHTP4A47SbGQ30sGs54GkDKOnWDEiPnmYLbOA6V" 
 getgenv().GMAIL_RECEIVERS = {"comer_item"}
 getgenv().GMAIL_ITEMS = {
 ["Brainrot egg"] = {Class = "Egg", Id = "Exclusive Egg 56", MinAmount = 1},
