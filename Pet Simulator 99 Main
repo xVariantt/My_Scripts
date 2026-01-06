@@ -42,13 +42,13 @@ getgenv().GMAIL_ITEMS = {
 ["Brainrot egg"] = {Class = "Egg", Id = "Exclusive Egg 56", MinAmount = 1},
 ["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
 ["Ice Cube egg"] = {Class = "Egg", Id = "Exclusive Egg 58", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "10m", MinAmount = "50m"},
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "10m", MinAmount = "1b"},
 ["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
 ["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
-["CandyCane Gift"] = {Class = "Lootbox", Id = "CandyCane Gift", MinAmount = 400},
+["CandyCane Gift"] = {Class = "Lootbox", Id = "CandyCane Gift", MinAmount = 500},
 ["Santa Gift"] = {Class = "Lootbox", Id = "Santa Gift", MinAmount = 150},
-["Cove Lockpick"] = {Class = "Misc", Id = "Lockpick A", MinAmount = 50},
-["Gold Lockpick"] = {Class = "Misc", Id = "Lockpick B", MinAmount = 10},
+["Cove Lockpick"] = {Class = "Misc", Id = "Lockpick A", MinAmount = 100},
+["Gold Lockpick"] = {Class = "Misc", Id = "Lockpick B", MinAmount = 15},
 ["Diamond Lockpick"] = {Class = "Misc", Id = "Lockpick C", MinAmount = 3},
 }
 getgenv().GMAX_MAIL_COST = "2m"
