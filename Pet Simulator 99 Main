@@ -6,12 +6,12 @@ getgenv().GGFX_MODE = 1
 getgenv().GDO_XMAS_WORLD = true
 getgenv().GHOP_ON_STAFF = true
 getgenv().GEVENT_UPGRADES = {
---"MegaPresentGrowFaster",
---"MegaPresentMoreLoot",
---"MegaPresentEggLuckBoost",
---"MegaPresentHigherHugeChance",
---"MegaPresentHigherTitanicChance",
---"MegaPresentHigherGargantuanChance"
+"MegaPresentGrowFaster",
+"MegaPresentMoreLoot",
+"MegaPresentEggLuckBoost",
+"MegaPresentHigherHugeChance",
+"MegaPresentHigherTitanicChance",
+"MegaPresentHigherGargantuanChance"
 }
 getgenv().GXMAS_WORLD_DO_ICE_BLOCKS = true
 getgenv().GXMAS_WORLD_DO_GINGERBREAD_CHEST = true
@@ -26,6 +26,7 @@ getgenv().GDO_ADVENT_CALENDAR = true
 getgenv().GXMAS_WORLD_AUTO_CRAFT = false
 getgenv().GXMAS_WORLD_FOCUS_EGGS_FOR_AUTO_CRAFT_PETS = true
 getgenv().GXMAS_WORLD_ENTER_RAFFLE = false
+getgenv().GXMAS_WORLD_AUTO_FAVORITE_BEST_PETS = true
 getgenv().GRANK_FIRST = true
 getgenv().GZONE_TO = 99
 getgenv().GREBIRTH_TO = 4
