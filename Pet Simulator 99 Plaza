@@ -7,8 +7,8 @@ getgenv().Settings = {
         Active = true,
         ["Items"] = {
             ["All Huges"] = {Price = "22m", AllTypes = true},
-            ["Candycane Gift"] = {Price = "115k"},
-            ["Santa Gift"] = {Price = "180k"},
+            ["Candycane Gift"] = {Price = "110k"},
+            ["Santa Gift"] = {Price = "170k"},
         },
         ["Switch Servers"] = {Active = true, MinuteDelay = 20, OnlyPRO = true},
         ["Webhook"] = {Active = true, URL = "https://discord.com/api/webhooks/1453549408443437180/lTpzlbPcgw0qB6ISFwG1IZt5KGNDRxJe0rz4_fPGdv_2jmiuPV4xuwjU0eXjLDsOLEtY"},
