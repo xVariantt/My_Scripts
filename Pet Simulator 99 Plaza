@@ -7,7 +7,7 @@ getgenv().Settings = {
         Active = true,
         ["Items"] = {
             ["All Huges"] = {Price = "22m", AllTypes = true},
-            ["Candycane Gift"] = {Price = "110k"},
+            ["Candycane Gift"] = {Price = "100k"},
             ["Santa Gift"] = {Price = "170k"},
         },
         ["Switch Servers"] = {Active = true, MinuteDelay = 20, OnlyPRO = true},
