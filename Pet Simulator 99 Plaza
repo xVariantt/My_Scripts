@@ -6,7 +6,7 @@ getgenv().Settings = {
     Seller = {
         Active = true,
         ["Items"] = {
-            ["All Huges"] = {Price = "23m", AllTypes = true},
+            ["All Huges"] = {Price = "22.5m", AllTypes = true},
             ["Candycane Gift"] = {Price = "119k"},
             ["Santa Gift"] = {Price = "179k"},
         },
