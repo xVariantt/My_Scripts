@@ -5,8 +5,8 @@ getgenv().Settings = {
         ["Items"] = {
             ["Candycane Gift"] = {Price = "85k"},
             ["Santa Gift"] = {Price = "160k"},
-            ["Cove Lockpick"] = {Price = "79k"},
-            ["Golden Cove Lockpick"] = {Price = "949k"},
+            ["Cove Lockpick"] = {Price = "80k"},
+            ["Golden Cove Lockpick"] = {Price = "950k"},
             ["Diamond Cove Lockpick"] = {Price = "10m"},
         },
         ["Switch Servers"] = {Active = true, MinuteDelay = 20, OnlyPRO = true},
