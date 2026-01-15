@@ -49,7 +49,7 @@ getgenv().GMAIL_ITEMS = {
 ["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
 ["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
 ["Candycane Gift"] = {Class = "Lootbox", Id = "Candycane Gift", MinAmount = 500},
-["Santa Gift"] = {Class = "Lootbox", Id = "Santa Gift", MinAmount = 150},
+["Santa Gift"] = {Class = "Lootbox", Id = "Santa Gift", MinAmount = 250},
 ["Cove Lockpick"] = {Class = "Misc", Id = "Lockpick A", MinAmount = 100},
 ["Gold Lockpick"] = {Class = "Misc", Id = "Lockpick B", MinAmount = 15},
 ["Diamond Lockpick"] = {Class = "Misc", Id = "Lockpick C", MinAmount = 3},
