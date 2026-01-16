@@ -3,6 +3,7 @@ task.spawn(function()
 setfpscap(30)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GDO_XMAS_WORLD = true
+getgenv().GZONE_TO = 99
 getgenv().GHOP_ON_STAFF = true
 getgenv().GDO_LOCKPICKING = true
 getgenv().GWEBHOOK_USERID = "484739592239579136"
