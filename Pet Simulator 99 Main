@@ -4,13 +4,10 @@ setfpscap(30)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GDO_XMAS_WORLD = true
 getgenv().GZONE_TO = 1
-getgenv().GHOP_ON_STAFF = true
 getgenv().GDO_LOCKPICKING = true
 getgenv().GWEBHOOK_USERID = "484739592239579136"
 getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1455707936050643067/LlmbFFbhzxUrdGHT6-WOpeYuFyFNKJHTP4A47SbGQ30sGs54GkDKOnWDEiPnmYLbOA6V"
 getgenv().GHUGE_COUNT = 99
-getgenv().GMAIL_RECEIVERS = {"comer_item"}
-getgenv().GMAX_MAIL_COST = "2m"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
 end)
 
