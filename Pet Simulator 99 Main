@@ -4,42 +4,11 @@ setfpscap(30)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GDO_XMAS_WORLD = true
 getgenv().GHOP_ON_STAFF = true
-getgenv().GEVENT_UPGRADES = {
-"MegaPresentGrowFaster",
-"MegaPresentMoreLoot",
-"MegaPresentEggLuckBoost",
-"MegaPresentHigherHugeChance",
-"MegaPresentHigherTitanicChance",
-"MegaPresentHigherGargantuanChance"
-}
 getgenv().GDO_LOCKPICKING = true
-getgenv().GDO_ADVENT_CALENDAR = true
-getgenv().GRANK_FIRST = true
-getgenv().GZONE_TO = 99
-getgenv().GREBIRTH_TO = 4
-getgenv().GRANK_TO = 8
-getgenv().GMAX_EGG_SLOTS = 99
-getgenv().GUSE_ULTIMATES = {"Tornado","Hidden Treasure","Pet Surge","Tsunami","Black Hole","UFO","Nightmare","Lightning Storm","TNT Shower","Chest Spell","Ground Pound"}
-getgenv().GPOTIONS = {"Coins","Lucky","Treasure Hunter","Walkspeed","Diamonds","Damage"}
-getgenv().GENCHANTS = {"Tap Power", "Coins", "Treasure Hunter", "Strong Pets", "Criticals", "Diamonds"}
-getgenv().GPOTIONS_MAX_TIER = 99
 getgenv().GWEBHOOK_USERID = "484739592239579136"
 getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1455707936050643067/LlmbFFbhzxUrdGHT6-WOpeYuFyFNKJHTP4A47SbGQ30sGs54GkDKOnWDEiPnmYLbOA6V"
 getgenv().GHUGE_COUNT = 99
 getgenv().GMAIL_RECEIVERS = {"comer_item"}
-getgenv().GMAIL_ITEMS = {
-["Brainrot egg"] = {Class = "Egg", Id = "Exclusive Egg 56", MinAmount = 1},
-["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
-["Ice Cube egg"] = {Class = "Egg", Id = "Exclusive Egg 58", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "10m", MinAmount = "1b"},
-["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
-["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
-["Candycane Gift"] = {Class = "Lootbox", Id = "Candycane Gift", MinAmount = 500},
-["Santa Gift"] = {Class = "Lootbox", Id = "Santa Gift", MinAmount = 250},
-["Cove Lockpick"] = {Class = "Misc", Id = "Lockpick A", MinAmount = 100},
-["Gold Lockpick"] = {Class = "Misc", Id = "Lockpick B", MinAmount = 15},
-["Diamond Lockpick"] = {Class = "Misc", Id = "Lockpick C", MinAmount = 3},
-}
 getgenv().GMAX_MAIL_COST = "2m"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
 end)
