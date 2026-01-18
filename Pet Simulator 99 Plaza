@@ -8,7 +8,7 @@ getgenv().Settings = {
             ["Diamond Cove Lockpick"] = {Price = "8.9m"},
             ["Huge Reindeer Cat"] = {Price = "17m"},
             ["Huge Holiday Owl"] = {Price = "16m"},
-            ["Huge Hot Cocoa Cow"] = {Price = "14m"},
+            ["Huge Hot Cocoa Cow"] = {Price = "16m"},
             ["Huge Gingerbread Lion"] = {Price = "17m"},
         },
         ["Switch Servers"] = {Active = true, MinuteDelay = 20, OnlyPRO = true},
