@@ -26,7 +26,6 @@ getgenv().GDO_ADVENT_CALENDAR = true
 getgenv().GXMAS_WORLD_AUTO_CRAFT = false
 getgenv().GXMAS_WORLD_FOCUS_EGGS_FOR_AUTO_CRAFT_PETS = false
 getgenv().GXMAS_WORLD_ENTER_RAFFLE = true
-getgenv().GXMAS_WORLD_SPECIFIC_EGG_TO_HATCH = "Present Egg"
 getgenv().GXMAS_WORLD_AUTO_FAVORITE_BEST_PETS = true
 getgenv().GRANK_FIRST = true
 getgenv().GZONE_TO = 99
