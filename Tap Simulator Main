@@ -6,6 +6,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Estevansit0/KJJK/refs
 end)
 
 task.spawn(function()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/07d5a780a235a759854475853c1ced8f.lua"))()
+end)
+
+task.spawn(function()
     task.wait(5)
 local StarterGui = game:GetService('StarterGui')
 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
