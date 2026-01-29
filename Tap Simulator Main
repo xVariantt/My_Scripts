@@ -16,6 +16,6 @@ end)
 
 task.spawn(function()
     task.wait(60)
-script_key = "rqibWqtwODElAJbgoRWSEylZBhagdmGe"
+script_key = "NgWtiwAyIqjljOlrvBnBPSNyxpwzgeYp"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Estevansit0/KJJK/refs/heads/main/PusarX-loader.lua"))()
 end)
