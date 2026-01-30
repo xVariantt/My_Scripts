@@ -15,7 +15,7 @@ game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
 end)
 
 task.spawn(function()
-    task.wait(60)
+    task.wait(150)
 script_key = "NgWtiwAyIqjljOlrvBnBPSNyxpwzgeYp"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Estevansit0/KJJK/refs/heads/main/PusarX-loader.lua"))()
 end)
