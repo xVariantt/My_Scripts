@@ -1,8 +1,7 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(30)
-script_key = "NgWtiwAyIqjljOlrvBnBPSNyxpwzgeYp"
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Estevansit0/KJJK/refs/heads/main/PusarX-loader.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/07d5a780a235a759854475853c1ced8f.lua"))()
 end)
 
 task.spawn(function()
@@ -13,4 +12,10 @@ StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
 game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 
 game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+end)
+
+task.spawn(function()
+    task.wait(60)
+script_key = "NgWtiwAyIqjljOlrvBnBPSNyxpwzgeYp"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Estevansit0/KJJK/refs/heads/main/PusarX-loader.lua"))()
 end)
