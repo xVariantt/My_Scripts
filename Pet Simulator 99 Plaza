@@ -6,7 +6,7 @@ getgenv().Settings = {
             ["All Huges"] = {Price = "-2m", AllTypes = true},
         },
         ["Switch Servers"] = {Active = true, MinuteDelay = 20, OnlyPRO = true},
-        ["Webhook"] = {Active = true, URL = "https://discord.com/api/webhooks/1453549408443437180/lTpzlbPcgw0qB6ISFwG1IZt5KGNDRxJe0rz4_fPGdv_2jmiuPV4xuwjU0eXjLDsOLEtY"},
+        ["Webhook"] = {Active = true, URL = "https://discord.com/api/webhooks/1467966241980547121/Z_busfjmlVYoB4afeJ4WRzRoPMTXAXagY3ZwMPyzuTILpk6sRCGKSQNBBZ959vkREVw4"},
         ["Kill Switch"] = {
             ["Booth Runout"] = false,
             ["Diamonds Hit: 1b"] = false,
