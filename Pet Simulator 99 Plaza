@@ -3,13 +3,7 @@ getgenv().Settings = {
     Seller = {
         Active = true,
         ["Items"] = {
-            ["Candycane Gift"] = {Price = "80k"},
-            ["Santa Gift"] = {Price = "160k"},
-            ["Diamond Cove Lockpick"] = {Price = "7.9m"},
-            ["Huge Reindeer Cat"] = {Price = "16m"},
-            ["Huge Holiday Owl"] = {Price = "16m"},
-            ["Huge Hot Cocoa Cow"] = {Price = "14m"},
-            ["Huge Gingerbread Lion"] = {Price = "16m"},
+            ["All Huges"] = {Price = "-7%", AllTypes = true},
         },
         ["Switch Servers"] = {Active = true, MinuteDelay = 20, OnlyPRO = true},
         ["Webhook"] = {Active = true, URL = "https://discord.com/api/webhooks/1453549408443437180/lTpzlbPcgw0qB6ISFwG1IZt5KGNDRxJe0rz4_fPGdv_2jmiuPV4xuwjU0eXjLDsOLEtY"},
