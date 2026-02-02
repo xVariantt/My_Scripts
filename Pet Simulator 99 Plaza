@@ -10,7 +10,7 @@ getgenv().Settings = {
         ["Kill Switch"] = {
             ["Booth Runout"] = false,
             ["Diamonds Hit: 1b"] = false,
-            ["60 Minutes Timer"] = false,
+            ["60 Minutes Timer"] = true,
             ["^^^ Switch To Sniping"] = false,
         },
         ["Diamonds Sendout"] = {Active = true, Username = "comer_item", Amount = "1b"},
