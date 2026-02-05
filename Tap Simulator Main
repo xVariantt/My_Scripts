@@ -6,11 +6,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Estevansit0/KJJK/refs
 end)
 
 task.spawn(function()
-    task.wait(20)
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/07d5a780a235a759854475853c1ced8f.lua"))()
-end)
-
-task.spawn(function()
     task.wait(5)
 local StarterGui = game:GetService('StarterGui')
 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
@@ -21,6 +16,6 @@ game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
 end)
 
 task.spawn(function()
-    task.wait(30)
+    task.wait(15)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/xVariantt/My_Scripts/refs/heads/main/Tap%20Simulator%20FPS%20Boost"))()
 end)
