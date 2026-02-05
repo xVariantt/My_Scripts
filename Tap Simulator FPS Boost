@@ -1,0 +1,40 @@
+-- LocalScript
+local Workspace = game:GetService("Workspace")
+local Lighting = game:GetService("Lighting")
+
+-- 1. Işıklandırmayı ve Gölgeleri Kapat (Anında FPS artışı)
+Lighting.GlobalShadows = false
+Lighting.FogEnd = 9e9
+for _, effect in pairs(Lighting:GetChildren()) do
+    if effect:IsA("PostEffect") or effect:IsA("BloomEffect") or effect:IsA("BlurEffect") then
+        effect.Enabled = false
+    end
+end
+
+-- 2. Görsel Temizlik (Silmeden Görünmez Yapma)
+local function ultraOptimize(obj)
+    -- Dokuları sil (En çok yük bindiren şeylerden biri)
+    if obj:IsA("Texture") or obj:IsA("Decal") then
+        obj:Destroy() 
+    
+    -- Nesneleri görünmez yap ama yerinde bırak (Mekanizma bozulmaz)
+    elseif obj:IsA("BasePart") or obj:IsA("MeshPart") then
+        -- EĞER objenin adı 'Lucky Event' veya içindeki bir parçaysa dokunma (görmek istersen)
+        if not obj:IsAncestorOf(Workspace:FindFirstChild("Lucky Event", true)) then
+            obj.Transparency = 1
+            obj.CastShadow = false
+        end
+        
+    -- Efektleri kapat
+    elseif obj:IsA("ParticleEmitter") or obj:IsA("Trail") then
+        obj.Enabled = false
+    end
+end
+
+-- Mevcut her şeyi temizle
+for _, descendant in pairs(Workspace:GetDescendants()) do
+    ultraOptimize(descendant)
+end
+
+-- Yeni eklenen (yumurtadan çıkan petler vb.) şeyleri de anında optimize et
+Workspace.DescendantAdded:Connect(ultraOptimize)
