@@ -14,8 +14,3 @@ game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, fal
 
 game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
 end)
-
-task.spawn(function()
-    task.wait(15)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/xVariantt/My_Scripts/refs/heads/main/Tap%20Simulator%20FPS%20Boost"))()
-end)
