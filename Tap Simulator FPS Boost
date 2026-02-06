@@ -1,40 +1,81 @@
 -- LocalScript
 local Workspace = game:GetService("Workspace")
-local Lighting = game:GetService("Lighting")
-
--- 1. Işıklandırmayı ve Gölgeleri Kapat (Anında FPS artışı)
-Lighting.GlobalShadows = false
-Lighting.FogEnd = 9e9
-for _, effect in pairs(Lighting:GetChildren()) do
-    if effect:IsA("PostEffect") or effect:IsA("BloomEffect") or effect:IsA("BlurEffect") then
-        effect.Enabled = false
-    end
-end
-
--- 2. Görsel Temizlik (Silmeden Görünmez Yapma)
-local function ultraOptimize(obj)
-    -- Dokuları sil (En çok yük bindiren şeylerden biri)
-    if obj:IsA("Texture") or obj:IsA("Decal") then
-        obj:Destroy() 
-    
-    -- Nesneleri görünmez yap ama yerinde bırak (Mekanizma bozulmaz)
-    elseif obj:IsA("BasePart") or obj:IsA("MeshPart") then
-        -- EĞER objenin adı 'Lucky Event' veya içindeki bir parçaysa dokunma (görmek istersen)
-        if not obj:IsAncestorOf(Workspace:FindFirstChild("Lucky Event", true)) then
-            obj.Transparency = 1
-            obj.CastShadow = false
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+ 
+-- 1. Yumurtayı Bul (Yeri kaybolmasın diye referans alıyoruz)
+local eggsFolder = Workspace:FindFirstChild("Eggs")
+local luckyEgg = eggsFolder and eggsFolder:FindFirstChild("Lucky Event")
+ 
+-- 2. Dünyayı Temizle (Büyük Modelleri Yok Et)
+local function nukeWorld()
+    for _, obj in pairs(Workspace:GetChildren()) do
+        if obj.Name ~= lp.Name and 
+           obj.Name ~= "Camera" and 
+           obj.Name ~= "Eggs" and 
+           not obj:IsA("Terrain") then
+ 
+            obj:Destroy()
         end
-        
-    -- Efektleri kapat
-    elseif obj:IsA("ParticleEmitter") or obj:IsA("Trail") then
-        obj.Enabled = false
+    end
+ 
+    -- Diğer gereksiz yumurtaları sil
+    if eggsFolder then
+        for _, egg in pairs(eggsFolder:GetChildren()) do
+            if egg.Name ~= "Lucky Event" then
+                egg:Destroy()
+            end
+        end
+    end
+ 
+    Workspace.Terrain:Clear()
+end
+ 
+-- 3. Yumurtayı Görünmez Yap (Ama yerinde kalsın)
+local function hideEgg(eggModel)
+    if eggModel then
+        for _, part in pairs(eggModel:GetDescendants()) do
+            if part:IsA("BasePart") or part:IsA("MeshPart") then
+                part.Transparency = 1 -- Tamamen görünmez
+                part.CastShadow = false
+            elseif part:IsA("Decal") or part:IsA("Texture") then
+                part:Destroy()
+            elseif part:IsA("ParticleEmitter") or part:IsA("Trail") then
+                part.Enabled = false
+            end
+        end
     end
 end
-
--- Mevcut her şeyi temizle
-for _, descendant in pairs(Workspace:GetDescendants()) do
-    ultraOptimize(descendant)
+ 
+-- 4. Güvenli Zemin (Yumurtanın Altına)
+local function createFloorAtEgg(target)
+    local floor = Instance.new("Part")
+    floor.Name = "SafetyFloor"
+    floor.Size = Vector3.new(100, 2, 100)
+    floor.CFrame = target:GetPivot() * CFrame.new(0, -5, 0)
+    floor.Anchored = true
+    floor.Transparency = 0.5 -- İstersen bunu da 1 yapabilirsin
+    floor.BrickColor = BrickColor.new("Bright blue")
+    floor.Parent = Workspace
+    return floor
 end
-
--- Yeni eklenen (yumurtadan çıkan petler vb.) şeyleri de anında optimize et
-Workspace.DescendantAdded:Connect(ultraOptimize)
+ 
+-- SIRAYLA ÇALIŞTIR
+if luckyEgg then
+    nukeWorld()            -- Haritayı sil
+    createFloorAtEgg(luckyEgg) -- Altına zemin yap
+    hideEgg(luckyEgg)      -- Yumurtayı görünmez yap
+ 
+    -- Seni yumurtanın tam içine/yanına ışınla
+    task.wait(0.2)
+    if lp.Character then
+        lp.Character:PivotTo(luckyEgg:GetPivot() * CFrame.new(0, 0, 2))
+    end
+ 
+    print("Sistem Aktif: Yumurta görünmez ama tam önünde!")
+else
+    warn("Lucky Event bulunamadı!")
+end
+ 
+-- Işıklandırmayı kapat (Ekstra FPS)
+game:GetService("Lighting").GlobalShadows = false
