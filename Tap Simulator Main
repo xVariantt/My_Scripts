@@ -1,8 +1,13 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(30)
-script_key = "MugbnQYoCNDBQunFFXqvnkADyVCiAzmU"
+script_key = "imqfVlbYlpmJnXDyUWUxvfrnLFQZnczU"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Estevansit0/KJJK/refs/heads/main/PusarX-loader.lua"))()
+end)
+
+task.spawn(function()
+    task.wait(120)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xVariantt/My_Scripts/refs/heads/main/Tap%20Simulator%20Other"))()
 end)
 
 task.spawn(function()
