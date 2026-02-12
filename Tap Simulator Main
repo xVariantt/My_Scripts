@@ -1,6 +1,6 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-setfpscap(60)
+setfpscap(30)
 script_key = "MugbnQYoCNDBQunFFXqvnkADyVCiAzmU"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Estevansit0/KJJK/refs/heads/main/PusarX-loader.lua"))()
 end)
