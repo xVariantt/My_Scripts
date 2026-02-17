@@ -1,13 +1,8 @@
--- [[ AYARLAR ]] --
-local targetEggName = "Cyberpunk"  -- Açılacak yumurta adı (Güncellendi)
-local teleportZoneName = "Cyberpunk" -- Işınlanılacak ada/bölge adı
-local openAmount = 8 
-local hatchSpeed = 0 
-
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 local Lighting = game:GetService("Lighting")
+
 local lp = Players.LocalPlayer
 
 -- [[ 1. DİNAMİK REMOTE BULUCU ]] --
@@ -28,10 +23,10 @@ end
 local function nukeWorld()
     for _, obj in pairs(Workspace:GetChildren()) do
         if obj.Name ~= lp.Name and 
-           obj.Name ~= "Camera" and 
-           obj.Name ~= "Eggs" and 
-           obj.Name ~= "SafetyFloor" and -- Zemin koruması eklendi
-           not obj:IsA("Terrain") then
+        obj.Name ~= "Camera" and 
+        obj.Name ~= "Eggs" and 
+        not obj.Name:find("SafetyFloor") and 
+        not obj:IsA("Terrain") then
             pcall(function() obj:Destroy() end)
         end
     end
@@ -39,7 +34,8 @@ local function nukeWorld()
     local eggsFolder = Workspace:FindFirstChild("Eggs")
     if eggsFolder then
         for _, egg in pairs(eggsFolder:GetChildren()) do
-            if not egg.Name:find(targetEggName) then
+            -- Sadece hedef yumurtayı bırak, gerisini sil
+            if not egg.Name:find(_G.OPEN_EGG_NAME) then
                 pcall(function() egg:Destroy() end)
             end
         end
@@ -95,50 +91,74 @@ local function createFloorAtEgg(target)
     return floor
 end
 
+-- Belirlenen Kordinatlara 100x100 Emniyet Zemini Oluştur
+local function createFloorAtCoords()
+    local pos = Vector3.new(-176.55, 214.05, 233.41)
+    local floor = Instance.new("Part")
+    floor.Name = "SafetyFloor"
+    floor.Size = Vector3.new(100, 2, 100)
+    floor.Position = pos + Vector3.new(0, -6, 0)
+    floor.Anchored = true
+    floor.Transparency = 0.5
+    floor.BrickColor = BrickColor.new("Bright yellow")
+    floor.Material = Enum.Material.Neon
+    floor.Parent = Workspace
+    print("🏗️ Hedef kordinat için 100x100 zemin oluşturuldu.")
+    return floor
+end
+
 -- [[ ANA ÇALIŞTIRICI ]] --
 
 -- ADIM 1: Adaya Işınlan
 local tpRemote = getGameRemote("TeleportZone")
 if tpRemote then
-    print("🌐 " .. teleportZoneName .. " adasına ışınlanılıyor...")
-    tpRemote:InvokeServer(teleportZoneName)
-    task.wait(1) 
+    print("🌐 " .. _G.TELEPORT_ZONE .. " adasına ışınlanılıyor...")
+    tpRemote:InvokeServer(_G.TELEPORT_ZONE)
+    task.wait(8) -- Işınlanma sonrası yükleme için bekle
 else
     warn("⚠️ Teleport Remote bulunamadı!")
 end
 
--- ADIM 2: Yumurtayı Bul ve Dünyayı Hazırla
-local eggsFolder = Workspace:FindFirstChild("Eggs")
-local eggModel = eggsFolder and (eggsFolder:FindFirstChild(targetEggName) or eggsFolder:FindFirstChild(targetEggName .. " Egg"))
+-- ADIM 2: Dünyayı Temizle ve Hedef Kordinata Işınlan
+nukeWorld()
+cleanLighting()
+createFloorAtCoords() -- 100x100 zemin hedef kordinata kuruldu
 
-if eggModel then
-    nukeWorld()
-    cleanLighting()
-    createFloorAtEgg(eggModel)
-    hideEgg(eggModel)
-    
-    task.wait(0.2)
-    if lp.Character then
-        lp.Character:PivotTo(eggModel:GetPivot() * CFrame.new(0, 0, 2))
+task.wait(0.2)
+if lp.Character then
+    print("📍 Hedef kordinatlara ışınlanılıyor...")
+    lp.Character:PivotTo(CFrame.new(-176.55, 214.05, 233.41))
+end
+
+-- ADIM 3: Yumurtayı Bul ve Auto Hatch Başlat
+task.spawn(function()
+    print("🔍 " .. _G.OPEN_EGG_NAME .. " yumurtası aranıyor...")
+    local eggModel = nil
+    local attempts = 0
+    while not eggModel and attempts < 7 do
+        local eggsFolder = Workspace:FindFirstChild("Eggs")
+        eggModel = eggsFolder and (eggsFolder:FindFirstChild(_G.OPEN_EGG_NAME) or eggsFolder:FindFirstChild(_G.OPEN_EGG_NAME .. " Egg"))
+        if not eggModel then
+            attempts = attempts + 1
+            task.wait(1)
+        end
     end
-    
-    -- ADIM 3: Auto Hatch
-    _G.AutoHatch = false
-    print("🚀 Sistem Aktif: " .. targetEggName .. " açılıyor!")
 
-    task.spawn(function()
-        while _G.AutoHatch do
+    if eggModel then
+        hideEgg(eggModel)
+        print("🚀 Sistem Aktif: " .. _G.OPEN_EGG_NAME .. " açılıyor!")
+
+        while _G.AUTO_HATCH do
             local openRemote = getGameRemote("OpenEgg")
             if openRemote then
-                -- Cyberpunk veya Cyberpunk Egg ikisini de dener
-                local success = openRemote:InvokeServer(targetEggName, openAmount)
+                local success = openRemote:InvokeServer(_G.OPEN_EGG_NAME, _G.OPEN_EGG_AMOUNT)
                 if not success then
-                    openRemote:InvokeServer(targetEggName .. " Egg", openAmount)
+                    openRemote:InvokeServer(_G.OPEN_EGG_NAME .. " Egg", _G.OPEN_EGG_AMOUNT)
                 end
             end
-            task.wait(hatchSpeed)
+            task.wait(_G.HATCH_SPEED)
         end
-    end)
-else
-    warn("❌ Hedef yumurta (" .. targetEggName .. ") ışınlanılan adada bulunamadı!")
-end
+    else
+        warn("❌ " .. _G.OPEN_EGG_NAME .. " yumurtası 7 saniye boyunca bulunamadı!")
+    end
+end)
