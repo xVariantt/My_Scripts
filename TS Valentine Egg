@@ -5,42 +5,7 @@ local Lighting = game:GetService("Lighting")
 
 local lp = Players.LocalPlayer
 
--- [[ AUTO TAP SİSTEMİ ]] --
-local NetworkModule = nil
-local function initializeNetwork()
-    local ok, res = pcall(function()
-        local modulesFolder = ReplicatedStorage:WaitForChild("Modules", 5)
-        if not modulesFolder then return nil end
-        local network = modulesFolder:FindFirstChild("Network")
-        if not network then return nil end
-        return require(network)
-    end)
-    
-    if ok and res and type(res) == "table" then
-        NetworkModule = res
-    end
-end
-
-local function fireClickV2()
-    if not NetworkModule or type(NetworkModule.FireServer) ~= "function" then return end
-    pcall(function()
-        NetworkModule:FireServer("Tap", true)
-    end)
-end
-
-local function startAutoClicker()
-    task.spawn(function()
-        while true do
-            if _G.AutoTap then
-                fireClickV2()
-            end
-            task.wait() -- Maksimum hızda çalışır
-        end
-    end)
-end
-
 -- [[ 1. DİNAMİK REMOTE BULUCU ]] --
--- ReplicatedStorage içindeki rastgele isimli klasörü ve içindeki fonksiyonları bulur
 local function getGameRemote(remoteName)
     for _, obj in ipairs(ReplicatedStorage:GetChildren()) do
         local functions = obj:FindFirstChild("Functions")
@@ -155,8 +120,6 @@ else
 end
 
 -- ADIM 2: Dünyayı Temizle ve Hedef Kordinata Işınlan
-initializeNetwork()
-startAutoClicker()
 nukeWorld()
 cleanLighting()
 createFloorAtCoords() -- 100x100 zemin hedef kordinata kuruldu
