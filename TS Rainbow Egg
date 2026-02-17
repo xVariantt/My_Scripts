@@ -1,0 +1,255 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+
+local lp = Players.LocalPlayer
+
+-- [[ 1. DİNAMİK NETWORK VE REMOTE BULUCU ]] --
+local function GetNetwork()
+    -- Favori yöntem: Events ve Functions klasörlerini barındıran üst klasör
+    for _, v in pairs(ReplicatedStorage:GetChildren()) do
+        if v:IsA("Folder") and v:FindFirstChild("Events") and v:FindFirstChild("Functions") then
+            return v
+        end
+    end
+    -- UUID formatı taraması (32+ karakter ve tire içerir)
+    for _, v in pairs(ReplicatedStorage:GetChildren()) do
+        if v:IsA("Folder") and #v.Name > 30 and v.Name:find("-") then
+            return v
+        end
+    end
+    return nil
+end
+
+local Network = GetNetwork()
+if not Network then
+    warn("❌ Network klasörü bulunamadı! Remote'lar çalışmayabilir.")
+end
+
+local function getGameRemote(remoteName)
+    if not Network then Network = GetNetwork() end
+    if Network then
+        local f = Network:FindFirstChild("Functions")
+        local e = Network:FindFirstChild("Events")
+        local target = (f and f:FindFirstChild(remoteName)) or (e and e:FindFirstChild(remoteName))
+        if target then return target end
+    end
+    
+    -- Yedek: Tüm ReplicatedStorage'ı tara
+    for _, obj in ipairs(ReplicatedStorage:GetChildren()) do
+        if obj:IsA("Folder") or obj:IsA("Configuration") then
+            local f = obj:FindFirstChild("Functions")
+            local e = obj:FindFirstChild("Events")
+            local target = (f and f:FindFirstChild(remoteName)) or (e and e:FindFirstChild(remoteName))
+            if target then return target end
+            
+            -- Direkt altında olabilir mi?
+            local direct = obj:FindFirstChild(remoteName)
+            if direct then return direct end
+        end
+    end
+    
+    -- ReplicatedStorage kökünde olabilir (Nadir)
+    return ReplicatedStorage:FindFirstChild(remoteName)
+end
+
+-- [[ 2. AGRESİF FPS BOOST (DÜNYAYI TEMİZLE) ]] --
+local function nukeWorld()
+    for _, obj in pairs(Workspace:GetChildren()) do
+        -- 1. Island Klasörünün İçini Cerrahi Temizle
+        if obj.Name == "Island" then
+            for _, child in pairs(obj:GetChildren()) do
+                pcall(function() child:Destroy() end)
+            end
+        -- 2. Workspace'teki Diğer Gereksiz Şeyleri Sil (Karakter, Kamera, Yumurtalar ve Base hariç)
+        elseif obj.Name ~= lp.Name and 
+        obj.Name ~= "Camera" and 
+        obj.Name ~= "Eggs" and 
+        not obj.Name:find("SafetyFloor") and 
+        not obj:IsA("Terrain") then
+            pcall(function() obj:Destroy() end)
+        end
+    end
+
+    local eggsFolder = Workspace:FindFirstChild("Eggs")
+    if eggsFolder then
+        for _, egg in pairs(eggsFolder:GetChildren()) do
+            -- Sadece hedef yumurtayı bırak, gerisini sil
+            if not egg.Name:find(_G.OPEN_EGG_NAME) then
+                pcall(function() egg:Destroy() end)
+            end
+        end
+    end
+    Workspace.Terrain:Clear()
+end
+
+-- [[ 3. HAVA DURUMUNU VE EFEKTLERİ SIFIRLA ]] --
+local function cleanLighting()
+    Lighting.GlobalShadows = false
+    Lighting.FogEnd = 9e9
+    Lighting.Brightness = 1
+    Lighting.ClockTime = 12
+    Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+    
+    for _, effect in pairs(Lighting:GetChildren()) do
+        if effect:IsA("PostEffect") or effect:IsA("Sky") or effect:IsA("Clouds") or effect:IsA("Atmosphere") then
+            pcall(function() effect:Destroy() end)
+        end
+    end
+    
+    local sky = Instance.new("Sky", Lighting)
+    sky.SunTextureId = ""
+    sky.MoonTextureId = ""
+end
+
+-- [[ 4. SHOOTING STAR & EVENT ENGELLEYİCİ ]] --
+local function blockEvents()
+    -- 1. ShootingStar modüllerini ve mevcut efektleri sil
+    local ssModule = ReplicatedStorage:FindFirstChild("ShootingStars", true)
+    if ssModule then pcall(function() ssModule:Destroy() end) end
+
+    for _, v in pairs(Workspace:GetDescendants()) do
+        local name = v.Name:lower()
+        if name:find("star") or name:find("shooting") then
+            pcall(function() v:Destroy() end)
+        end
+    end
+
+    -- 2. Yeni gelen event nesnelerini (Electric, Void, Star, Crab vb.) anında engelle
+    Workspace.DescendantAdded:Connect(function(v)
+        local name = v.Name:lower()
+        if name:find("star") or name:find("shooting") or name:find("electric") or name:find("void") or name:find("crab") or name:find("taco") or name:find("event") or name == "model" then
+            task.wait()
+            pcall(function() v:Destroy() end)
+        end
+    end)
+    print("🚫 Event engelleyici ve ShootingStar temizleyici aktif!")
+end
+
+-- [[ 5. PARÇACIK VE GÖRSEL OPTİMİZASYON ]] --
+local function optimizeVisuals()
+    for _, v in pairs(Workspace:GetDescendants()) do
+        if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Smoke") or v:IsA("Sparkles") then
+            v.Enabled = false
+        end
+    end
+    print("✨ Görsel efektler optimize edildi.")
+end
+
+-- [[ 4. YUMURTAYI GİZLE ]] --
+local function hideEgg(eggModel)
+    if eggModel then
+        for _, part in pairs(eggModel:GetDescendants()) do
+            if part:IsA("BasePart") or part:IsA("MeshPart") then
+                part.Transparency = 1 
+                part.CastShadow = false
+            elseif part:IsA("Decal") or part:IsA("Texture") then
+                part:Destroy()
+            elseif part:IsA("ParticleEmitter") or part:IsA("Trail") then
+                part.Enabled = false
+            end
+        end
+    end
+end
+
+-- [[ 5. GÜVENLİ ZEMİN ]] --
+local function createFloorAtEgg(target)
+    local floor = Instance.new("Part")
+    floor.Name = "SafetyFloor"
+    floor.Size = Vector3.new(50, 2, 50)
+    floor.CFrame = target:GetPivot() * CFrame.new(0, -5, 0)
+    floor.Anchored = true
+    floor.Transparency = 0.5 
+    floor.BrickColor = BrickColor.new("Bright blue")
+    floor.Parent = Workspace
+    return floor
+end
+
+-- Gold Machine için 100x100 Emniyet Zemini
+local function createFloorAtMachine()
+    local pos = Vector3.new(1415.5, 658.18, -13447.73)
+    local floor = Instance.new("Part")
+    floor.Name = "SafetyFloor"
+    floor.Size = Vector3.new(50, 2, 50)
+    floor.Position = pos + Vector3.new(0, -6, 0)
+    floor.Anchored = true
+    floor.Transparency = 0.5
+    floor.BrickColor = BrickColor.new("Bright yellow")
+    floor.Material = Enum.Material.Neon
+    floor.Parent = Workspace
+    print("🏗️ Gold Machine için 100x100 zemin oluşturuldu.")
+    return floor
+end
+
+-- Rainbow Machine için 50x50 Emniyet Zemini
+local function createFloorAtRainbowMachine()
+    local pos = Vector3.new(1220.16, 664.95, -13373.58)
+    local floor = Instance.new("Part")
+    floor.Name = "SafetyFloor"
+    floor.Size = Vector3.new(50, 2, 50)
+    floor.Position = pos + Vector3.new(0, -6, 0)
+    floor.Anchored = true
+    floor.Transparency = 0.5
+    floor.BrickColor = BrickColor.new("Carnation pink")
+    floor.Material = Enum.Material.Neon
+    floor.Parent = Workspace
+    print("🏗️ Rainbow Machine için 50x50 zemin oluşturuldu.")
+    return floor
+end
+
+-- [[ ANA ÇALIŞTIRICI ]] --
+
+-- ADIM 0: Oyunun ve Network'ün yüklenmesini bekle
+if not game:IsLoaded() then game.Loaded:Wait() end
+task.wait(6) -- Başlangıç için ekstra güvenlik beklemesi
+
+-- ADIM 1: Adaya Işınlan
+local tpRemote = getGameRemote("TeleportZone")
+if tpRemote then
+    print("🌐 " .. _G.TELEPORT_ZONE .. " adasına ışınlanılıyor...")
+    tpRemote:InvokeServer(_G.TELEPORT_ZONE)
+    task.wait(6) 
+else
+    warn("⚠️ Teleport Remote bulunamadı!")
+end
+
+-- ADIM 2: Yumurtayı Bul ve Dünyayı Hazırla
+local eggsFolder = Workspace:FindFirstChild("Eggs")
+local eggModel = eggsFolder and (eggsFolder:FindFirstChild(_G.OPEN_EGG_NAME) or eggsFolder:FindFirstChild(_G.OPEN_EGG_NAME .. " Egg"))
+
+if eggModel then
+    print("🧱 Dünya temizleniyor ve FPS boost uygulanıyor...")
+    nukeWorld()
+    cleanLighting()
+    blockEvents()
+    optimizeVisuals()
+    createFloorAtEgg(eggModel)
+    createFloorAtMachine() 
+    createFloorAtRainbowMachine()
+    hideEgg(eggModel)
+    
+    task.wait(0.5)
+    if lp.Character then
+        lp.Character:PivotTo(eggModel:GetPivot() * CFrame.new(0, 0, 2))
+    end
+    
+    -- ADIM 3: Auto Hatch
+    print("🚀 Sistem Aktif: " .. _G.OPEN_EGG_NAME .. " açılıyor!")
+
+    task.spawn(function()
+        while _G.AUTO_HATCH do
+            local openRemote = getGameRemote("OpenEgg")
+            if openRemote then
+                -- Snowman veya Snowman Egg ikisini de dener
+                local success = openRemote:InvokeServer(_G.OPEN_EGG_NAME, _G.OPEN_EGG_AMOUNT)
+                if not success then
+                    openRemote:InvokeServer(_G.OPEN_EGG_NAME .. " Egg", _G.OPEN_EGG_AMOUNT)
+                end
+            end
+            task.wait(_G.HATCH_SPEED)
+        end
+    end)
+else 
+    warn("❌ Hedef yumurta (" .. _G.OPEN_EGG_NAME .. ") ışınlanılan adada bulunamadı!")
+end
