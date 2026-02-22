@@ -144,6 +144,10 @@ end
 
 -- [[ ANA ÇALIŞTIRICI ]] --
 
+-- ADIM 0: Oyunun ve Network'ün yüklenmesini bekle
+if not game:IsLoaded() then game.Loaded:Wait() end
+task.wait(10) -- Başlangıç için ekstra güvenlik beklemesi
+
 -- ADIM 1: Adaya Işınlan
 local tpRemote = getGameRemote("TeleportZone")
 if tpRemote then
