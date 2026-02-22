@@ -238,14 +238,14 @@ end
 if not game:IsLoaded() then game.Loaded:Wait() end
 initializeNetwork()
 startAutoClicker()
-task.wait(6) -- Başlangıç için ekstra güvenlik beklemesi
+task.wait(10) -- Başlangıç için ekstra güvenlik beklemesi
 
 -- ADIM 1: Adaya Işınlan
 local tpRemote = getGameRemote("TeleportZone")
 if tpRemote then
     print("🌐 " .. _G.TELEPORT_ZONE .. " adasına ışınlanılıyor...")
     tpRemote:InvokeServer(_G.TELEPORT_ZONE)
-    task.wait(6) 
+    task.wait(8) 
 else
     warn("⚠️ Teleport Remote bulunamadı!")
 end
