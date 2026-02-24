@@ -1,7 +1,6 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(30)
-print(hello)
 end)
 
 task.spawn(function()
