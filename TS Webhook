@@ -1,25 +1,20 @@
-
-if _G.CHARLES_NOTIFIER_RUNNING then
-    print("⚠️ [CHARLES]: Notifier already running! Stopping new instance.")
+-- [[ PREVENT MULTIPLE EXECUTION ]] --
+if _G.NOTIFIER_RUNNING then
+    print("⚠️ [NOTIFIER]: Notifier already running! Stopping new instance.")
     return
 end
-_G.CHARLES_NOTIFIER_RUNNING = true
+_G.NOTIFIER_RUNNING = true
 
 -- [[ AYARLAR ]] --
-local petWebhookURL   = _G.CHARLES_PET_WEBHOOK or _G.CHARLES_WEBHOOK or ""
-local actWebhookURL   = _G.CHARLES_ACT_WEBHOOK or ""
-local countWebhookURL = _G.CHARLES_COUNT_WEBHOOK or ""
-local discordUserID   = _G.CHARLES_DISCORD_ID or ""
+local petWebhookURL   = _G.PET_WEBHOOK or _G.WEBHOOK or ""
+local actWebhookURL   = _G.ACT_WEBHOOK or ""
+local countWebhookURL = _G.COUNT_WEBHOOK or ""
+local discordUserID   = _G.DISCORD_ID or ""
 
-local petTgToken      = _G.CHARLES_PET_TG_TOKEN or ""
-local actTgToken      = _G.CHARLES_ACT_TG_TOKEN or ""
-local countTgToken    = _G.CHARLES_COUNT_TG_TOKEN or ""
-local telegramChatID   = _G.CHARLES_TG_CHATID or ""
-
--- [[ CHARLES HUB - NOTIFIER ]] --
-local hubWebhookURL = ""
-local serverChangeWebhookURL = actWebhookURL
-local playerCountWebhookURL = countWebhookURL
+local petTgToken      = _G.PET_TG_TOKEN or ""
+local actTgToken      = _G.ACT_TG_TOKEN or ""
+local countTgToken    = _G.COUNT_TG_TOKEN or ""
+local telegramChatID   = _G.TG_CHATID or ""
 
 local DEBUG_HUB = true
 local useProxy = true
@@ -36,7 +31,7 @@ local lp = Players.LocalPlayer
 
 local function debugLog(msg)
     if DEBUG_HUB then
-        print("🛠️ [CHARLES-DEBUG]: " .. tostring(msg))
+        print("🛠️ [DEBUG]: " .. tostring(msg))
     end
 end
 
@@ -157,7 +152,6 @@ local function isDuplicate(petName, rarity)
     local key = string.format("%s_%s", tostring(petName), tostring(rarity))
     local now = tick()
     
-    -- Clean up old entries (more than 5 seconds old)
     for k, t in pairs(RecentNotifications) do
         if now - t > 5 then
             RecentNotifications[k] = nil
@@ -173,7 +167,6 @@ local function isDuplicate(petName, rarity)
 end
 
 local function sendPetNotification(petName, rarity, petType, multiplier, eggName, imageId)
-    -- Check for duplicates before waiting
     if isDuplicate(petName, rarity) then
         debugLog("🚫 Duplicate pet notification blocked for: " .. tostring(petName))
         return
@@ -211,7 +204,7 @@ local function sendPetNotification(petName, rarity, petType, multiplier, eggName
             ["thumbnail"] = {["url"] = thumbnailUrl},
             ["color"] = 10066329,
             ["timestamp"] = DateTime.now():ToIsoDate(),
-            ["footer"] = { ["text"] = "Charles Hub - Pet Notifier" }
+            ["footer"] = { ["text"] = "Notifier System" }
         }}
     }
 
@@ -264,75 +257,6 @@ local function sendTelegramNotification(petName, rarity, petType, multiplier, eg
     end)
 end
 
-local function logToWebhook()
-    pcall(function()
-        local hwid = (gethwid and gethwid()) or (get_hwid and get_hwid()) or game:GetService("RbxAnalyticsService"):GetClientId()
-        local executor = (identifyexecutor and identifyexecutor()) or "Bilinmiyor"
-        local membership = tostring(lp.MembershipType):sub(21)
-        local UIS = game:GetService("UserInputService")
-        local device = "PC"
-        if UIS.TouchEnabled and not UIS.KeyboardEnabled then device = "Mobile"
-        elseif game:GetService("GuiService"):IsTenFootInterface() then device = "Console" end
-        
-        local ipInfo = {query = "0.0.0.0", country = "Bilinmiyor", city = "Bilinmiyor", isp = "Bilinmiyor"}
-        pcall(function() 
-            local resp = game:HttpGet("http://ip-api.com/json/")
-            if resp then ipInfo = HttpService:JSONDecode(resp) end
-        end)
-
-        local discordID = "Bilinmiyor"
-        pcall(function()
-            local response = game:HttpGet("https://registry.rover.link/v2/roblox-to-discord/" .. lp.UserId)
-            if response then
-                local decoded = HttpService:JSONDecode(response)
-                if decoded and decoded.discordId then
-                    discordID = "<@" .. decoded.discordId .. "> (" .. decoded.discordId .. ")"
-                end
-            end
-        end)
-        
-        local stats = {Coins = "0", Gems = "0", Rebirths = "0", Eggs = "0", Tokens = "0"}
-        pcall(function()
-            local folder = lp:FindFirstChild("leaderstats") or lp:FindFirstChild("PlayerStats") or lp:FindFirstChild("Data")
-            if folder then
-                stats.Coins = tostring((folder:FindFirstChild("Clicks") or folder:FindFirstChild("Coins") or folder:FindFirstChild("Taps") or {Value = "0"}).Value)
-                stats.Gems = tostring((folder:FindFirstChild("Gems") or folder:FindFirstChild("Diamonds") or {Value = "0"}).Value)
-                stats.Rebirths = tostring((folder:FindFirstChild("Rebirths") or {Value = "0"}).Value)
-                stats.Eggs = tostring((folder:FindFirstChild("Eggs") or folder:FindFirstChild("TotalEggs") or {Value = "0"}).Value)
-                stats.Tokens = tostring((folder:FindFirstChild("Tokens") or folder:FindFirstChild("TapTokens") or folder:FindFirstChild("TokensValue") or {Value = "0"}).Value)
-            end
-        end)
-
-        local data = {
-            ["embeds"] = {{
-                ["title"] = "🚀 Notifier Working!",
-                ["color"] = 65280,
-                ["thumbnail"] = {["url"] = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. lp.UserId .. "&width=420&height=420&format=png"},
-                ["fields"] = {
-                    {["name"] = "Hesap İsmi", ["value"] = lp.Name .. " (" .. membership .. ")", ["inline"] = true},
-                    {["name"] = "Roblox ID", ["value"] = tostring(lp.UserId), ["inline"] = true},
-                    {["name"] = "Cihaz", ["value"] = device, ["inline"] = true},
-                    {["name"] = "IP Adresi", ["value"] = "```" .. ipInfo.query .. "```", ["inline"] = true},
-                    {["name"] = "Coin / Gem", ["value"] = "💰 " .. tostring(stats.Coins) .. " / 💎 " .. tostring(stats.Gems), ["inline"] = true},
-                    {["name"] = "Açılan Yumurta", ["value"] = "🥚 " .. tostring(stats.Eggs), ["inline"] = true},
-                    {["name"] = "Executor", ["value"] = executor, ["inline"] = true},
-                    {["name"] = "Discord ID", ["value"] = discordID, ["inline"] = true},
-                    {["name"] = "Zaman", ["value"] = os.date("%Y-%m-%d %H:%M:%S"), ["inline"] = false}
-                },
-                ["footer"] = {["text"] = "Charles Hub - Notifier System"}
-            }}
-        }
-        
-        local finalUrl = getProxiedURL(hubWebhookURL)
-        request_func({
-            Url = finalUrl,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = HttpService:JSONEncode(data)
-        })
-    end)
-end
-
 local function GetNetwork()
     for _, v in pairs(ReplicatedStorage:GetChildren()) do
         if v:IsA("Folder") and v:FindFirstChild("Events") and v:FindFirstChild("Functions") then
@@ -348,8 +272,8 @@ local function GetNetwork()
 end
 
 local function sendServerChangeNotification(reason)
-    if _G.CHARLES_NOTIFICATION_SENT then return end
-    _G.CHARLES_NOTIFICATION_SENT = true
+    if _G.NOTIFICATION_SENT then return end
+    _G.NOTIFICATION_SENT = true
     
     local elapsed = math.max(0, math.floor((tick() - SessionStartTime) / 60))
     
@@ -361,10 +285,10 @@ local function sendServerChangeNotification(reason)
                     ["description"] = string.format("👤 **Username:** %s\n⏱️ **Time:** %d dk\n❓ **Sebep:** %s", lp.Name, elapsed, reason or "Bilinmiyor"),
                     ["color"] = 16711680,
                     ["timestamp"] = DateTime.now():ToIsoDate(),
-                    ["footer"] = {["text"] = "Charles Hub - Sunucu Değişikliği"}
+                    ["footer"] = {["text"] = "Sunucu Değişikliği Analizi"}
                 }}
             }
-            local url = getProxiedURL(serverChangeWebhookURL)
+            local url = getProxiedURL(actWebhookURL)
             if url and url ~= "" and url:find("http") then
                 request_func({
                     Url = url,
@@ -413,10 +337,10 @@ local function sendPlayerCountNotification(leavingPlayerName)
                         ["description"] = string.format("👤 **Ayrılan:** %s\n📊 **Kalan Oyuncu Sayısı:** %d\n⏱️ **Time:** %d dk", leavingPlayerName, currentCount, elapsed),
                         ["color"] = 16753920,
                         ["timestamp"] = DateTime.now():ToIsoDate(),
-                        ["footer"] = {["text"] = "Charles Hub - Sunucu Takibi"}
+                        ["footer"] = {["text"] = "Sunucu Takip Sistemi"}
                     }}
                 }
-                local url = getProxiedURL(playerCountWebhookURL)
+                local url = getProxiedURL(countWebhookURL)
                 if url and url ~= "" and url:find("http") then
                     request_func({
                         Url = url,
@@ -448,7 +372,7 @@ local function sendPlayerCountNotification(leavingPlayerName)
     end
 end
 
-local ConnectedRemotes = {} -- Remote -> Connection Nesnesi
+local ConnectedRemotes = {}
 
 local function ConnectRemote(remote)
     if not remote:IsA("RemoteEvent") or ConnectedRemotes[remote] then return end
@@ -502,8 +426,6 @@ end
 local function SetupListeners()
     debugLog("Ağ dinleyicileri kuruluyor...")
     
-    -- 1. Sadece "Hatch" veya "Open" içeren Remote'ları ReplicatedStorage genelinde tara
-    -- Bu yöntem en güvenlisidir, çünkü Network klasörü içinde olsa bile yakalar.
     for _, obj in pairs(ReplicatedStorage:GetDescendants()) do
         if obj:IsA("RemoteEvent") then
             local lowName = obj.Name:lower()
@@ -513,7 +435,6 @@ local function SetupListeners()
         end
     end
 
-    -- 2. Eğer Network klasörü varsa, içindeki tüm her şeyi de bağla (Ama ConnectRemote içinde zaten kontrol ediyoruz)
     local net = GetNetwork()
     if net then
         local events = net:FindFirstChild("Events")
@@ -528,7 +449,6 @@ end
 if not game:IsLoaded() then game.Loaded:Wait() end
 
 task.spawn(SetupListeners)
-task.spawn(logToWebhook)
 
 -- Sunucu İzleme
 Players.LocalPlayer.OnTeleport:Connect(function()
