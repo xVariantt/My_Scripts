@@ -5,40 +5,6 @@ local Lighting = game:GetService("Lighting")
 
 local lp = Players.LocalPlayer
 
--- [[ AUTO TAP SİSTEMİ ]] --
-local NetworkModule = nil
-local function initializeNetwork()
-    local ok, res = pcall(function()
-        local modulesFolder = ReplicatedStorage:WaitForChild("Modules", 5)
-        if not modulesFolder then return nil end
-        local network = modulesFolder:FindFirstChild("Network")
-        if not network then return nil end
-        return require(network)
-    end)
-    
-    if ok and res and type(res) == "table" then
-        NetworkModule = res
-    end
-end
-
-local function fireClickV2()
-    if not NetworkModule or type(NetworkModule.FireServer) ~= "function" then return end
-    pcall(function()
-        NetworkModule:FireServer("Tap", true)
-    end)
-end
-
-local function startAutoClicker()
-    task.spawn(function()
-        while true do
-            if _G.AutoTap then
-                fireClickV2()
-            end
-            task.wait() -- Maksimum hızda çalışır
-        end
-    end)
-end
-
 -- [[ 1. DİNAMİK NETWORK VE REMOTE BULUCU ]] --
 local function GetNetwork()
     -- Favori yöntem: Events ve Functions klasörlerini barındıran üst klasör
@@ -236,16 +202,14 @@ end
 
 -- ADIM 0: Oyunun ve Network'ün yüklenmesini bekle
 if not game:IsLoaded() then game.Loaded:Wait() end
-initializeNetwork()
-startAutoClicker()
-task.wait(10) -- Başlangıç için ekstra güvenlik beklemesi
+task.wait(6) -- Başlangıç için ekstra güvenlik beklemesi
 
 -- ADIM 1: Adaya Işınlan
 local tpRemote = getGameRemote("TeleportZone")
 if tpRemote then
     print("🌐 " .. _G.TELEPORT_ZONE .. " adasına ışınlanılıyor...")
     tpRemote:InvokeServer(_G.TELEPORT_ZONE)
-    task.wait(8) 
+    task.wait(6) 
 else
     warn("⚠️ Teleport Remote bulunamadı!")
 end
