@@ -1,20 +1,13 @@
 -- [[ PREVENT MULTIPLE EXECUTION ]] --
 if _G.NOTIFIER_RUNNING then
-    print("⚠️ [NOTIFIER]: Notifier already running! Stopping new instance.")
+    print("\226\154\160\239\184\143 [NOTIFIER]: Notifier already running! Stopping new instance.")
     return
 end
 _G.NOTIFIER_RUNNING = true
 
 -- [[ AYARLAR ]] --
-local petWebhookURL   = _G.PET_WEBHOOK or _G.WEBHOOK or ""
-local actWebhookURL   = _G.ACT_WEBHOOK or ""
-local countWebhookURL = _G.COUNT_WEBHOOK or ""
+local petWebhookURL   = _G.PET_WEBHOOK or ""
 local discordUserID   = _G.DISCORD_ID or ""
-
-local petTgToken      = _G.PET_TG_TOKEN or ""
-local actTgToken      = _G.ACT_TG_TOKEN or ""
-local countTgToken    = _G.COUNT_TG_TOKEN or ""
-local telegramChatID   = _G.TG_CHATID or ""
 
 local DEBUG_HUB = true
 local useProxy = true
@@ -31,7 +24,7 @@ local lp = Players.LocalPlayer
 
 local function debugLog(msg)
     if DEBUG_HUB then
-        print("🛠️ [DEBUG]: " .. tostring(msg))
+        print("\240\159\155\160\239\184\143 [DEBUG]: " .. tostring(msg))
     end
 end
 
@@ -46,9 +39,7 @@ local function formatNumber(v)
     return intPart
 end
 
-local SessionStartTime = tick()
-
--- [[ PET NADİRLİK KONTROL SİSTEMİ ]] --
+-- [[ PET NAD\196\176RL\196\176K KONTROL S\196\177STEM\196\176 ]] --
 local FinalTargets = {
     ["Legendary"] = false,
     ["Mythical"] = false,
@@ -146,7 +137,7 @@ local function getInventoryPetCount(targetPetName)
 end
 
 -- [[ DUPLICATE PREVENTION LOGIC ]] --
-local RecentNotifications = {} -- { [PetName_Rarity_Time] = true }
+local RecentNotifications = {} 
 
 local function isDuplicate(petName, rarity)
     local key = string.format("%s_%s", tostring(petName), tostring(rarity))
@@ -168,7 +159,7 @@ end
 
 local function sendPetNotification(petName, rarity, petType, multiplier, eggName, imageId)
     if isDuplicate(petName, rarity) then
-        debugLog("🚫 Duplicate pet notification blocked for: " .. tostring(petName))
+        debugLog("\240\159\154\171 Duplicate pet notification blocked for: " .. tostring(petName))
         return
     end
 
@@ -195,8 +186,8 @@ local function sendPetNotification(petName, rarity, petType, multiplier, eggName
     local data = {
         ["content"] = discordUserID ~= "" and "<@" .. discordUserID .. ">" or "",
         ["embeds"] = {{
-            ["title"] = string.format("🐶 %s (%s) | New Pet", petName, petType or "Normal"),
-            ["description"] = string.format("**__Username__:** %s\n**Name:** %s\n**Rarity:** %s\n**Type:** %s\n\n**Multiplier:** x%s\n**IsFrom:** %s\n\n📊 **Stats:**\n**Total Hatched:** %s🥚\n**Pet in Inventory:** %sx", 
+            ["title"] = string.format("\240\159\144\182 %s (%s) | New Pet", petName, petType or "Normal"),
+            ["description"] = string.format("**__Username__:** %s\n**Name:** %s\n**Rarity:** %s\n**Type:** %s\n\n**Multiplier:** x%s\n**IsFrom:** %s\n\n\240\159\147\138 **Stats:**\n**Total Hatched:** %s\240\159\165\154\n**Pet in Inventory:** %sx", 
             lp.Name, petName, rarity, petType or "Normal", 
             formatNumber(multiplier or "0"), 
             tostring(eggName or "Unknown Egg"),
@@ -219,7 +210,7 @@ local function sendPetNotification(petName, rarity, petType, multiplier, eggName
         data.embeds[1].color = 16711680
     end
 
-    debugLog("Pet bildirimi gönderiliyor: " .. tostring(petName))
+    debugLog("Pet bildirimi g\195\182nderiliyor: " .. tostring(petName))
     
     pcall(function()
         local finalUrl = getProxiedURL(petWebhookURL)
@@ -228,31 +219,6 @@ local function sendPetNotification(petName, rarity, petType, multiplier, eggName
             Method = "POST",
             Headers = {["Content-Type"] = "application/json"},
             Body = HttpService:JSONEncode(data)
-        })
-    end)
-end
-
-local function sendTelegramNotification(petName, rarity, petType, multiplier, eggName)
-    if petTgToken == "" or telegramChatID == "" then return end
-    local message = string.format(
-        "🐶 *%s (%s)* | New Pet!\n" ..
-        "👤 *User:* %s\n" ..
-        "💎 *Rarity:* %s\n" ..
-        "✨ *Type:* %s\n" ..
-        "📈 *Multiplier:* x%s\n" ..
-        "🥚 *Egg:* %s",
-        petName, petType or "Normal", lp.Name, rarity, petType or "Normal", formatNumber(multiplier or 0), eggName or "Unknown"
-    )
-    pcall(function()
-        request_func({
-            Url = string.format("https://api.telegram.org/bot%s/sendMessage", petTgToken),
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = HttpService:JSONEncode({
-                chat_id = telegramChatID,
-                text = message,
-                parse_mode = "Markdown"
-            })
         })
     end)
 end
@@ -271,107 +237,6 @@ local function GetNetwork()
     return nil
 end
 
-local function sendServerChangeNotification(reason)
-    if _G.NOTIFICATION_SENT then return end
-    _G.NOTIFICATION_SENT = true
-    
-    local elapsed = math.max(0, math.floor((tick() - SessionStartTime) / 60))
-    
-    task.spawn(function()
-        pcall(function()
-            local data = {
-                ["embeds"] = {{
-                    ["title"] = "🔄 Sunucu Değişti — " .. lp.Name,
-                    ["description"] = string.format("👤 **Username:** %s\n⏱️ **Time:** %d dk\n❓ **Sebep:** %s", lp.Name, elapsed, reason or "Bilinmiyor"),
-                    ["color"] = 16711680,
-                    ["timestamp"] = DateTime.now():ToIsoDate(),
-                    ["footer"] = {["text"] = "Sunucu Değişikliği Analizi"}
-                }}
-            }
-            local url = getProxiedURL(actWebhookURL)
-            if url and url ~= "" and url:find("http") then
-                request_func({
-                    Url = url,
-                    Method = "POST",
-                    Headers = {["Content-Type"] = "application/json"},
-                    Body = HttpService:JSONEncode(data)
-                })
-            end
-        end)
-    end)
-
-    if actTgToken ~= "" and telegramChatID ~= "" then
-        task.spawn(function()
-            pcall(function()
-                local msg = string.format("🔄 *Sunucu Değişti!*\n👤 *Kullanıcı:* %s\n⏱️ *Süre:* %d dk\n❓ *Sebep:* %s", lp.Name:gsub("_", "\\_"), elapsed, reason or "Bilinmiyor")
-                request_func({
-                    Url = "https://api.telegram.org/bot" .. actTgToken .. "/sendMessage",
-                    Method = "POST",
-                    Headers = {["Content-Type"] = "application/json"},
-                    Body = HttpService:JSONEncode({
-                        chat_id = telegramChatID,
-                        text = msg,
-                        parse_mode = "Markdown"
-                    })
-                })
-            end)
-        end)
-    end
-end
-
-local function sendPlayerCountNotification(leavingPlayerName)
-    local allPlayers = Players:GetPlayers()
-    local playerNames = {}
-    for _, p in pairs(allPlayers) do table.insert(playerNames, p.Name) end
-    table.sort(playerNames)
-
-    if playerNames[1] == lp.Name then
-        local currentCount = #allPlayers
-        local elapsed = math.max(0, math.floor((tick() - SessionStartTime) / 60))
-        
-        task.spawn(function()
-            pcall(function()
-                local data = {
-                    ["embeds"] = {{
-                        ["title"] = "👥 Player Left — " .. lp.Name,
-                        ["description"] = string.format("👤 **Ayrılan:** %s\n📊 **Kalan Oyuncu Sayısı:** %d\n⏱️ **Time:** %d dk", leavingPlayerName, currentCount, elapsed),
-                        ["color"] = 16753920,
-                        ["timestamp"] = DateTime.now():ToIsoDate(),
-                        ["footer"] = {["text"] = "Sunucu Takip Sistemi"}
-                    }}
-                }
-                local url = getProxiedURL(countWebhookURL)
-                if url and url ~= "" and url:find("http") then
-                    request_func({
-                        Url = url,
-                        Method = "POST",
-                        Headers = {["Content-Type"] = "application/json"},
-                        Body = HttpService:JSONEncode(data)
-                    })
-                end
-            end)
-        end)
-
-        if countTgToken ~= "" and telegramChatID ~= "" then
-            task.spawn(function()
-                pcall(function()
-                    local msg = string.format("👥 *Oyuncu Ayrıldı!*\n👤 *Ayrılan:* %s\n📊 *Kalan:* %d\n⏱️ *Süre:* %d dk", leavingPlayerName:gsub("_", "\\_"), currentCount, elapsed)
-                    request_func({
-                        Url = "https://api.telegram.org/bot" .. countTgToken .. "/sendMessage",
-                        Method = "POST",
-                        Headers = {["Content-Type"] = "application/json"},
-                        Body = HttpService:JSONEncode({
-                            chat_id = telegramChatID,
-                            text = msg,
-                            parse_mode = "Markdown"
-                        })
-                    })
-                end)
-            end)
-        end
-    end
-end
-
 local ConnectedRemotes = {}
 
 local function ConnectRemote(remote)
@@ -382,7 +247,7 @@ local function ConnectRemote(remote)
         return
     end
 
-    debugLog("📡 Remote Bağlandı: " .. remote.Name)
+    debugLog("\240\159\147\161 Remote Ba\196\159land\196\177: " .. remote.Name)
     ConnectedRemotes[remote] = remote.OnClientEvent:Connect(function(...)
         local args = {...}
         for _, arg in pairs(args) do
@@ -413,9 +278,6 @@ local function ConnectRemote(remote)
                         task.spawn(function()
                             sendPetNotification(nameStr, actualRarity, petType, multiplier, eggName, imageId)
                         end)
-                        task.spawn(function()
-                            sendTelegramNotification(nameStr, actualRarity, petType, multiplier, eggName)
-                        end)
                     end
                 end
             end
@@ -424,7 +286,7 @@ local function ConnectRemote(remote)
 end
 
 local function SetupListeners()
-    debugLog("Ağ dinleyicileri kuruluyor...")
+    debugLog("A\196\159 dinleyicileri kuruluyor...")
     
     for _, obj in pairs(ReplicatedStorage:GetDescendants()) do
         if obj:IsA("RemoteEvent") then
@@ -445,24 +307,9 @@ local function SetupListeners()
     end
 end
 
--- [[ ÇALIŞTIRMA ]] --
+-- [[ \195\135ALl\195\150\195\142TIRMA ]] --
 if not game:IsLoaded() then game.Loaded:Wait() end
 
 task.spawn(SetupListeners)
-
--- Sunucu İzleme
-Players.LocalPlayer.OnTeleport:Connect(function()
-    sendServerChangeNotification("Teleport / Sunucu Atlama")
-end)
-
-Players.PlayerRemoving:Connect(function(p)
-    if p == lp then
-        sendServerChangeNotification("Oyundan Çıkış")
-    else
-        task.delay(2, function()
-            sendPlayerCountNotification(p.Name)
-        end)
-    end
-end)
 
 debugLog("Notifier sistemi aktif!")
