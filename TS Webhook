@@ -40,85 +40,169 @@ local function formatNumber(v)
 end
 
 -- [[ PET NADİRİK KONTROL SİSTEMİ ]] --
--- [[ GENİŞLETİLMİŞ NADİRİK LİSTESİ ]] --
 local FinalTargets = {
     ["Legendary"] = true,
     ["Mythical"] = true,
     ["Secret I"] = true,
     ["Secret II"] = true,
-    ["Secret III"] = true, 
+    ["Secret III"] = true,
     ["Secret X"] = true
 }
 
-local function isMe(val)
-    if not val then return false end
-    return val == lp or tostring(val) == tostring(lp.UserId) or tostring(val) == lp.Name
+local PetData = {}
+local function LoadPetStats()
+    pcall(function() 
+        PetData = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("PetStats"):WaitForChild("Pets")) 
+    end)
 end
+task.spawn(LoadPetStats)
+
+local request_func = (request or syn and syn.request or http and http.request)
+
+local function getInventoryPetCount(targetPetName)
+    if not targetPetName then return 0 end
+    local count = 0
+    local targetLower = tostring(targetPetName):lower()
+    
+    local targetIDs = {}
+    pcall(function()
+        for id, data in pairs(PetData) do
+            if (data.Name and data.Name:lower():find(targetLower)) or tostring(id):lower() == targetLower then
+                targetIDs[tostring(id):lower()] = true
+                if data.Name then targetIDs[data.Name:lower()] = true end
+            end
+        end
+    end)
+    targetIDs[targetLower] = true
+
+    pcall(function()
+        local searchPaths = {lp, ReplicatedStorage:FindFirstChild("PlayerData"), workspace:FindFirstChild("PlayerPets")}
+        for _, area in pairs(searchPaths) do
+            if area then
+                local currentArea = area:FindFirstChild(lp.Name) or area:FindFirstChild(tostring(lp.UserId)) or (area == lp and lp)
+                if currentArea then
+                    for _, obj in pairs(currentArea:GetDescendants()) do
+                        local isMatch = false
+                        local oName = obj.Name:lower()
+                        for tID, _ in pairs(targetIDs) do if oName:find(tID) then isMatch = true break end end
+                        if isMatch then count = count + 1 end
+                    end
+                end
+            end
+        end
+    end)
+    return count
+end
+
+-- [[ DUPLICATE PREVENTION LOGIC ]] --
+local RecentNotifications = {} 
+
+local function isDuplicate(petName, rarity)
+    local key = string.format("%s_%s", tostring(petName), tostring(rarity))
+    local now = tick()
+    for k, t in pairs(RecentNotifications) do if now - t > 5 then RecentNotifications[k] = nil end end
+    if RecentNotifications[key] and now - RecentNotifications[key] < 3 then return true end
+    RecentNotifications[key] = now
+    return false
+end
+
+local function sendPetNotification(petName, rarity, petType, multiplier, eggName, imageId)
+    if isDuplicate(petName, rarity) then return end
+    task.wait(2) 
+
+    local totalEggs = 0
+    pcall(function()
+        local folder = lp:FindFirstChild("leaderstats") or lp:FindFirstChild("PlayerStats")
+        if folder then
+            local eggObj = folder:FindFirstChild("Eggs") or folder:FindFirstChild("TotalEggs")
+            if eggObj then totalEggs = eggObj.Value end
+        end
+    end)
+
+    local invCount = getInventoryPetCount(petName)
+    local thumbnailUrl = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. lp.UserId .. "&width=420&height=420&format=png"
+    local cleanImageId = tostring(imageId or ""):gsub("%D", "")
+    if cleanImageId ~= "" and cleanImageId ~= "0" then
+        thumbnailUrl = string.format("https://www.roblox.com/asset-thumbnail/image?assetId=%s&width=420&height=420&format=png", cleanImageId)
+    end
+
+    local data = {
+        ["content"] = discordUserID ~= "" and "<@" .. discordUserID .. ">" or "",
+        ["embeds"] = {{
+            ["title"] = string.format("🐶 %s (%s) | Sadece Senin Hesabın", petName, petType or "Normal"),
+            ["description"] = string.format("**__Hesap__:** %s\n**Pet:** %s\n**Nadirik:** %s\n\n**Çarpan:** x%s\n**Yumurta:** %s\n\n📊 **İstatistik:**\n**Toplam Açılan:** %s 🥚\n**Envanterinde:** %sx", 
+            lp.Name, petName, rarity, formatNumber(multiplier or "0"), tostring(eggName or "Bilinmiyor"), formatNumber(totalEggs), formatNumber(invCount)),
+            ["thumbnail"] = {["url"] = thumbnailUrl},
+            ["color"] = 10066329,
+            ["timestamp"] = DateTime.now():ToIsoDate(),
+            ["footer"] = { ["text"] = "Gelişmiş Filtreleme Sistemi" }
+        }}
+    }
+
+    pcall(function()
+        request_func({
+            Url = getProxiedURL(petWebhookURL),
+            Method = "POST",
+            Headers = {["Content-Type"] = "application/json"},
+            Body = HttpService:JSONEncode(data)
+        })
+    end)
+end
+
+local function GetNetwork()
+    for _, v in pairs(ReplicatedStorage:GetChildren()) do
+        if v:IsA("Folder") and (v:FindFirstChild("Events") or v.Name:find("-")) then return v end
+    end
+    return nil
+end
+
+local ConnectedRemotes = {}
 
 local function ConnectRemote(remote)
     if not remote:IsA("RemoteEvent") or ConnectedRemotes[remote] then return end
     
     local rName = remote.Name:lower()
     
-    -- [[ KRİTİK FİLTRE: Sadece gerçekten gereksizleri engelle ]] --
-    local blockedWords = {"equipbest", "best", "trade", "unequip", "wear", "select", "use", "delete", "trace", "save", "load", "friend"}
-    for _, word in pairs(blockedWords) do
-        if rName:find(word) then return end
+    -- [[ FİLTRELEME ]] --
+    -- "Best", "Equip", "Trade" gibi buton işlemlerini tamamen engelle
+    if rName:find("best") or rName:find("equip") or rName:find("trade") or rName:find("unequip") then
+        return
     end
 
     ConnectedRemotes[remote] = remote.OnClientEvent:Connect(function(...)
         local args = {...}
         
+        -- ÖNEMLİ: Sadece bu hesaba ait verileri işle
         local isActuallyMe = false
-        local foundOtherPlayer = false
-        
-        -- 1. ADIM: Sahiplik ve Diğer Oyuncu Kontrolü
         for _, arg in pairs(args) do
-            if isMe(arg) then
+            if arg == lp or (type(arg) == "table" and (arg.OwnerId == lp.UserId or arg.UserId == lp.UserId or arg.Player == lp or arg.Owner == lp)) then
                 isActuallyMe = true
-            elseif typeof(arg) == "Instance" and arg:IsA("Player") and arg ~= lp then
-                foundOtherPlayer = true
+                break
             end
-            
+        end
+
+        -- Eğer gelen veri bu oyuncuya ait değilse veya başka bir oyuncunun ID'si varsa atla
+        for _, arg in pairs(args) do
             if type(arg) == "table" then
-                for k, v in pairs(arg) do
-                    if isMe(v) or isMe(k) then isActuallyMe = true end
-                    -- Eğer tabloda başka birinin UserID'si veya ismi net varsa, bu bizim değildir
-                    if (k == "OwnerId" or k == "UserId" or k == "player_id") and tostring(v) ~= tostring(lp.UserId) then
-                        foundOtherPlayer = true
-                    end
+                if (arg.OwnerId and arg.OwnerId ~= lp.UserId) or (arg.UserId and arg.UserId ~= lp.UserId) then
+                    isActuallyMe = false
                 end
             end
         end
 
-        -- Eğer kesinlikle başka bir oyuncuya aitse (foundOtherPlayer true) ve bizim olduğumuza dair kanıt yoksa atla
-        if foundOtherPlayer and not isActuallyMe then return end
+        if not isActuallyMe then return end
 
-        -- 2. ADIM: Pet Verisi Arama
         for _, arg in pairs(args) do
             if type(arg) == "table" then
-                -- Olası pet isim anahtarları
-                local rawName = arg.PetName or arg.Name or arg.id or arg.pet_id or arg.Pet
-                local rawRarity = arg.Rarity or arg.Tier or arg.rarity or arg.tier
-                
-                if rawName then
-                    local nameStr = tostring(rawName)
-                    local baseData = PetData[nameStr] or {}
-                    local rarity = tostring(rawRarity or baseData.Rarity or baseData.Tier or "Unknown")
+                local name = arg.PetName or arg.Name or arg.id
+                if name then
+                    local nameStr = tostring(name)
+                    local baseData = PetData[nameStr]
+                    local rarity = baseData and (baseData.Rarity or baseData.Tier) or arg.Rarity or arg.Tier or "Unknown"
                     
-                    -- Nadirlik eşleşmesi (Kısmi kontrol: "Secret" içermesi yeterli)
-                    local isTarget = false
-                    for target, _ in pairs(FinalTargets) do
-                        if rarity:find(target) or nameStr:find(target) then
-                            isTarget = true
-                            break
-                        end
-                    end
-                    
-                    if isTarget then
-                        debugLog("✅ BİLDİRİM: " .. nameStr .. " [" .. rarity .. "]")
+                    if FinalTargets[tostring(rarity)] or FinalTargets[tostring(arg.Tier)] then
                         task.spawn(function()
-                            sendPetNotification(nameStr, rarity, arg.Tier or "Normal", baseData.Multiplier, "Hatched/Obtained", baseData.Image)
+                            sendPetNotification(nameStr, rarity, arg.Tier or "Normal", baseData and baseData.Multiplier, "Hatched Egg", baseData and baseData.Image)
                         end)
                     end
                 end
@@ -128,18 +212,17 @@ local function ConnectRemote(remote)
 end
 
 local function SetupListeners()
-    -- ReplicatedStorage altındaki HER ŞEYİ tara
+    -- ReplicatedStorage içindeki hatch/open/get içeren temel eventlere bağlan
     for _, obj in pairs(ReplicatedStorage:GetDescendants()) do
         if obj:IsA("RemoteEvent") then
-            ConnectRemote(obj)
+            local lowName = obj.Name:lower()
+            if lowName:find("hatch") or lowName:find("open") or lowName:find("get") then
+                ConnectRemote(obj)
+            end
         end
     end
     
-    -- Dinamik olarak eklenenleri yakala
-    ReplicatedStorage.DescendantAdded:Connect(function(obj)
-        if obj:IsA("RemoteEvent") then ConnectRemote(obj) end
-    end)
-
+    -- Network klasörü taraması
     local net = GetNetwork()
     if net then
         local events = net:FindFirstChild("Events")
