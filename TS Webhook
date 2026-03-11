@@ -41,8 +41,8 @@ end
 
 -- [[ PET NADİRİK KONTROL SİSTEMİ ]] --
 local FinalTargets = {
-    ["Legendary"] = false,
-    ["Mythical"] = false,
+    ["Legendary"] = true,
+    ["Mythical"] = true,
     ["Secret I"] = true,
     ["Secret II"] = true,
     ["Secret III"] = true,
@@ -163,48 +163,62 @@ local function ConnectRemote(remote)
     
     local rName = remote.Name:lower()
     
-    -- [[ AGRESİF FİLTRELEME ]] --
-    -- Kuşanma (Equip), En İyi Pet (Best), Trade ve diğer gereksiz işlemleri engelle
+    -- [[ GEREKSİZLERİ FİLTRELE ]] --
     local excluded = {"equip", "best", "trade", "unequip", "wear", "select", "use", "delete", "trace", "save", "load"}
     for _, word in pairs(excluded) do
-        if rName:find(word) then return end
+        if rName:find(word) then 
+            debugLog("Atlanan Remote (Filtre): " .. rName)
+            return 
+        end
     end
-
-    -- Sadece Yumurta Açma (Hatch/Open) işlemlerine odaklan
-    if not (rName:find("hatch") or rName:find("open")) then return end
 
     ConnectedRemotes[remote] = remote.OnClientEvent:Connect(function(...)
         local args = {...}
         
-        -- ÖNEMLİ: Gelen verinin bu hesaba (LocalPlayer) ait olup olmadığını kontrol et
+        -- Sahiplik tespiti
         local isActuallyMe = false
+        local foundOwnerId = nil
+        
         for _, arg in pairs(args) do
-            if arg == lp or (type(arg) == "table" and (arg.Player == lp or arg.Owner == lp or arg.UserId == lp.UserId or arg.OwnerId == lp.UserId)) then
+            if arg == lp then
                 isActuallyMe = true
-                break
+            elseif type(arg) == "table" then
+                -- Tablo içindeki olası sahiplik anahtarları
+                local rawId = arg.OwnerId or arg.UserId or arg.player_id or arg.owner
+                if rawId then
+                    if tostring(rawId) == tostring(lp.UserId) or rawId == lp then
+                        isActuallyMe = true
+                    end
+                    foundOwnerId = rawId
+                end
             end
         end
 
         for _, arg in pairs(args) do
             if type(arg) == "table" then
-                local name = arg.PetName or arg.Name or arg.id
+                local name = arg.PetName or arg.Name or arg.id or arg.pet_id
                 if name then
-                    -- Sahiplik Kontrolünü Doğrula (Tablo içindeki ID'ye veya argümanlardaki oyuncuya göre)
-                    local argOwnerId = arg.OwnerId or arg.UserId
-                    local finalIsMe = isActuallyMe or (argOwnerId == lp.UserId)
-
-                    -- Eğer veri kesinlikle başka bir ID'ye aitse veya bize ait olduğu kanıtlanamadıysa atla
-                    if argOwnerId and argOwnerId ~= lp.UserId then continue end
-                    if not finalIsMe then continue end
-
+                    -- Eğer veri varsa ama bize ait değilse (başka bir ID varsa) atla
+                    if foundOwnerId and tostring(foundOwnerId) ~= tostring(lp.UserId) and foundOwnerId ~= lp then
+                        continue
+                    end
+                    
+                    -- Eğer bu bir broadcast ise ve sahipliği doğrulayamıyorsak, isActuallyMe hala false ise 
+                    -- (Bazı oyunlarda sadece şanslı kişiye event gider, o durumda isActuallyMe true olmayabilir)
+                    -- Bu yüzden eğer başka birinin ID'si kesin olarak yoksa, kabul edebiliriz
+                    
                     local nameStr = tostring(name)
                     local baseData = PetData[nameStr]
                     local actualRarity = baseData and (baseData.Rarity or baseData.Tier) or "Unknown"
                     
+                    -- Nadirlik kontrolü
                     if FinalTargets[actualRarity] then
+                        debugLog("Bildirim gönderiliyor: " .. nameStr .. " (" .. actualRarity .. ")")
                         task.spawn(function()
                             sendPetNotification(nameStr, actualRarity, arg.Tier or "Normal", baseData and baseData.Multiplier, "Hatched Egg", baseData and baseData.Image)
                         end)
+                    else
+                        -- debugLog("Düşük nadirlik atlandı: " .. actualRarity)
                     end
                 end
             end
@@ -213,14 +227,17 @@ local function ConnectRemote(remote)
 end
 
 local function SetupListeners()
+    -- ReplicatedStorage içindeki tüm eventleri tara
     for _, obj in pairs(ReplicatedStorage:GetDescendants()) do
         if obj:IsA("RemoteEvent") then
             local lowName = obj.Name:lower()
-            if lowName:find("hatch") or lowName:find("open") then
+            -- Sadece muhtemel hatch/get/pet eventlerine bağlanmayı dene (Performans için)
+            if lowName:find("hatch") or lowName:find("open") or lowName:find("get") or lowName:find("egg") or lowName:find("pet") then
                 ConnectRemote(obj)
             end
         end
     end
+    -- Network klasörünü tara
     local net = GetNetwork()
     if net then
         local events = net:FindFirstChild("Events")
