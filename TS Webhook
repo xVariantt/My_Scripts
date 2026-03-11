@@ -162,53 +162,41 @@ local function ConnectRemote(remote)
     if not remote:IsA("RemoteEvent") or ConnectedRemotes[remote] then return end
     
     local rName = remote.Name:lower()
-    
-    -- [[ FİLTRELEME ]] --
-    -- "Best", "Equip", "Trade", "Trace" gibi buton veya gereksiz işlemleri engelle
-    local excluded = {"equip", "best", "trade", "unequip", "wear", "select", "use", "delete", "trace", "save", "load"}
-    for _, word in pairs(excluded) do
-        if rName:find(word) then return end
+    -- Agresif filtreleme: Kuşanma, kullanma, trade gibi işlemleri yoksay
+    if rName:find("equip") or rName:find("best") or rName:find("trade") or rName:find("unequip") or rName:find("wear") or rName:find("select") or rName:find("use") or rName:find("delete") or rName:find("trace") then
+        return
     end
 
     ConnectedRemotes[remote] = remote.OnClientEvent:Connect(function(...)
         local args = {...}
         
-        -- SADECE BU HESAP KONTROLÜ
+        -- ÖNEMLİ: Gelen verinin bu hesaba (LocalPlayer) ait olup olmadığını kontrol et
         local isActuallyMe = false
-        local foundOtherPlayer = false
-
         for _, arg in pairs(args) do
-            if arg == lp then
+            if arg == lp or (type(arg) == "table" and (arg.Player == lp or arg.Owner == lp or arg.UserId == lp.UserId or arg.OwnerId == lp.UserId)) then
                 isActuallyMe = true
-            elseif typeof(arg) == "Instance" and arg:IsA("Player") and arg ~= lp then
-                foundOtherPlayer = true
-            elseif type(arg) == "table" then
-                local oid = arg.OwnerId or arg.UserId or arg.player_id or arg.Owner
-                if oid then
-                    if tostring(oid) == tostring(lp.UserId) or tostring(oid) == lp.Name or oid == lp then
-                        isActuallyMe = true
-                    else
-                        foundOtherPlayer = true
-                    end
-                end
+                break
             end
         end
 
-        -- Eğer kesinlikle başka bir oyuncuya aitse atla
-        if foundOtherPlayer and not isActuallyMe then return end
+        -- HATA DÜZELTME: Eğer bu bize ait değilse, fonksiyondan çık ve bildirim gönderme
+        if not isActuallyMe then return end
 
         for _, arg in pairs(args) do
             if type(arg) == "table" then
                 local name = arg.PetName or arg.Name or arg.id
                 if name then
-                    local nameStr = tostring(name)
-                    local baseData = PetData[nameStr]
-                    local actualRarity = baseData and (baseData.Rarity or baseData.Tier) or "Unknown"
-                    
-                    if FinalTargets[tostring(actualRarity)] then
-                        task.spawn(function()
-                            sendPetNotification(nameStr, actualRarity, arg.Tier or "Normal", baseData and baseData.Multiplier, "Obtained", baseData and baseData.Image)
-                        end)
+                    -- Eğer Remote "hatch" veya "open" veya "get" içeriyorsa devam et
+                    if (rName:find("hatch") or rName:find("open") or rName:find("get")) then
+                        local nameStr = tostring(name)
+                        local baseData = PetData[nameStr]
+                        local actualRarity = baseData and (baseData.Rarity or baseData.Tier) or "Unknown"
+                        
+                        if FinalTargets[actualRarity] then
+                            task.spawn(function()
+                                sendPetNotification(nameStr, actualRarity, arg.Tier or "Normal", baseData and baseData.Multiplier, "Hatched Egg", baseData and baseData.Image)
+                            end)
+                        end
                     end
                 end
             end
