@@ -5,9 +5,6 @@ if _G.NOTIFIER_RUNNING then
 end
 _G.NOTIFIER_RUNNING = true
 
-_G.DISCORD_ID   = "484739592239579136"
-_G.PET_WEBHOOK  = "https://discord.com/api/webhooks/1465700335183200529/v2HlfC9Gzdap6zDRRo8MLHy_QA4W-5xHN8JxaYrY5gStto9KpIU-XSCxR1Vxj_AiEP3F"
-
 -- [[ AYARLAR ]] --
 local petWebhookURL   = _G.PET_WEBHOOK or ""
 local discordUserID   = _G.DISCORD_ID or ""
