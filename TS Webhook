@@ -39,10 +39,10 @@ local function formatNumber(v)
     return intPart
 end
 
--- [[ PET NAD\196\176RL\196\176K KONTROL S\196\177STEM\196\176 ]] --
+-- [[ PET NADİRLİK KONTROL SİSTEMİ ]] --
 local FinalTargets = {
-    ["Legendary"] = true,
-    ["Mythical"] = true,
+    ["Legendary"] = false,
+    ["Mythical"] = false,
     ["Secret I"] = true,
     ["Secret II"] = true,
     ["Secret III"] = true,
