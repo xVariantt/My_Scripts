@@ -164,33 +164,38 @@ local function ConnectRemote(remote)
     local rName = remote.Name:lower()
     
     -- [[ FİLTRELEME ]] --
-    -- "Best", "Equip", "Trade" gibi buton işlemlerini tamamen engelle
-    if rName:find("best") or rName:find("equip") or rName:find("trade") or rName:find("unequip") then
-        return
+    -- "Best", "Equip", "Trade", "Trace" gibi buton veya gereksiz işlemleri engelle
+    local excluded = {"equip", "best", "trade", "unequip", "wear", "select", "use", "delete", "trace", "save", "load"}
+    for _, word in pairs(excluded) do
+        if rName:find(word) then return end
     end
 
     ConnectedRemotes[remote] = remote.OnClientEvent:Connect(function(...)
         local args = {...}
         
-        -- ÖNEMLİ: Sadece bu hesaba ait verileri işle
+        -- SADECE BU HESAP KONTROLÜ
         local isActuallyMe = false
-        for _, arg in pairs(args) do
-            if arg == lp or (type(arg) == "table" and (arg.OwnerId == lp.UserId or arg.UserId == lp.UserId or arg.Player == lp or arg.Owner == lp)) then
-                isActuallyMe = true
-                break
-            end
-        end
+        local foundOtherPlayer = false
 
-        -- Eğer gelen veri bu oyuncuya ait değilse veya başka bir oyuncunun ID'si varsa atla
         for _, arg in pairs(args) do
-            if type(arg) == "table" then
-                if (arg.OwnerId and arg.OwnerId ~= lp.UserId) or (arg.UserId and arg.UserId ~= lp.UserId) then
-                    isActuallyMe = false
+            if arg == lp then
+                isActuallyMe = true
+            elseif typeof(arg) == "Instance" and arg:IsA("Player") and arg ~= lp then
+                foundOtherPlayer = true
+            elseif type(arg) == "table" then
+                local oid = arg.OwnerId or arg.UserId or arg.player_id or arg.Owner
+                if oid then
+                    if tostring(oid) == tostring(lp.UserId) or tostring(oid) == lp.Name or oid == lp then
+                        isActuallyMe = true
+                    else
+                        foundOtherPlayer = true
+                    end
                 end
             end
         end
 
-        if not isActuallyMe then return end
+        -- Eğer kesinlikle başka bir oyuncuya aitse atla
+        if foundOtherPlayer and not isActuallyMe then return end
 
         for _, arg in pairs(args) do
             if type(arg) == "table" then
@@ -198,11 +203,11 @@ local function ConnectRemote(remote)
                 if name then
                     local nameStr = tostring(name)
                     local baseData = PetData[nameStr]
-                    local rarity = baseData and (baseData.Rarity or baseData.Tier) or arg.Rarity or arg.Tier or "Unknown"
+                    local actualRarity = baseData and (baseData.Rarity or baseData.Tier) or "Unknown"
                     
-                    if FinalTargets[tostring(rarity)] or FinalTargets[tostring(arg.Tier)] then
+                    if FinalTargets[tostring(actualRarity)] then
                         task.spawn(function()
-                            sendPetNotification(nameStr, rarity, arg.Tier or "Normal", baseData and baseData.Multiplier, "Hatched Egg", baseData and baseData.Image)
+                            sendPetNotification(nameStr, actualRarity, arg.Tier or "Normal", baseData and baseData.Multiplier, "Obtained", baseData and baseData.Image)
                         end)
                     end
                 end
@@ -212,7 +217,6 @@ local function ConnectRemote(remote)
 end
 
 local function SetupListeners()
-    -- ReplicatedStorage içindeki hatch/open/get içeren temel eventlere bağlan
     for _, obj in pairs(ReplicatedStorage:GetDescendants()) do
         if obj:IsA("RemoteEvent") then
             local lowName = obj.Name:lower()
@@ -221,8 +225,6 @@ local function SetupListeners()
             end
         end
     end
-    
-    -- Network klasörü taraması
     local net = GetNetwork()
     if net then
         local events = net:FindFirstChild("Events")
