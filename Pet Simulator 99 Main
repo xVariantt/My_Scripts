@@ -3,7 +3,7 @@ task.spawn(function()
 setfpscap(15)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GGFX_MODE = 1
-getgenv().GRANK_FIRST = 8
+getgenv().GRANK_FIRST = true
 getgenv().GZONE_TO = 99
 getgenv().GREBIRTH_TO = 4
 getgenv().GRANK_TO = 8
