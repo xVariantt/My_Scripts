@@ -22,6 +22,9 @@ getgenv().GRAID_TIMEOUT_MINUTES = 15
 getgenv().GAUTO_RAID = true
 getgenv().GHATCH_LOBBY = false
 getgenv().GUSE_LEPRECHAUN_KEYS = false
+getgenv().GMAX_RAID_LEVEL = 20000
+getgenv().GMIN_MULTIPLIER = 500
+getgenv().GRAID_MAX_HATCH_MINUTES = 5 
 getgenv().GRESET_UPGRADES = false
 getgenv().GEVENT_UPGRADES = {
     { Id = "LuckyRaidDamage", MaxTier = 20 },
