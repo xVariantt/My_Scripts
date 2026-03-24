@@ -1,7 +1,62 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-setfpscap(20)
-loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()
+setfpscap(15)
+script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
+getgenv().GGFX_MODE = 1
+getgenv().GRANK_FIRST =
+getgenv().GZONE_TO = 99
+getgenv().GREBIRTH_TO = 4
+getgenv().GRANK_TO = 8
+getgenv().GDO_LUCKY_WORLD_EVENT = true
+getgenv().GMAKE_HORSESHOE_GIFTS = true
+getgenv().GLIMIT_HORSESHOE_GIFTS = 99999
+getgenv().GDO_BOSSES = {1,2}
+getgenv().GHEROIC_BOSSES  = {1,2}
+getgenv().GSKIP_RAID_EGG = true
+getgenv().GMINUTE_HATCH_RAID_EGG = false
+getgenv().GAUTO_UPGRADE_PETS = true
+getgenv().GDISABLE_MINUTE_HATCH = true
+getgenv().GEVENT_FPS  = 15
+getgenv().GUSE_BOOSTS = true
+getgenv().GRAID_TIMEOUT_MINUTES = 15
+getgenv().GAUTO_RAID = true
+getgenv().GHATCH_LOBBY = false
+getgenv().GUSE_LEPRECHAUN_KEYS = false
+getgenv().GRESET_UPGRADES = false
+getgenv().GEVENT_UPGRADES = {
+    { Id = "LuckyRaidDamage", MaxTier = 20 },
+    { Id = "LuckyRaidAttackSpeed", MaxTier = 10 },
+    { Id = "LuckyRaidPets", MaxTier = 15 },
+    { Id = "LuckyRaidEggCost", MaxTier = 0 },
+    { Id = "LuckyRaidMoreCurrency", MaxTier = 0 },
+    { Id = "LuckyRaidBetterLoot", MaxTier = 100 },
+    { Id = "LuckyRaidTitanicChest", MaxTier = 100 },
+    { Id = "LuckyRaidHugeChest", MaxTier = 100 },
+    { Id = "LuckyRaidXP", MaxTier = 0 },
+    { Id = "LuckyRaidPetSpeed", MaxTier = 0 },
+    { Id = "LuckyRaidKeyDrops", MaxTier = 0 },
+    { Id = "LuckyRaidBossHugeChances", MaxTier = 0 },
+    { Id = "LuckyRaidBossTitanicChances", MaxTier = 0 },
+}
+--getgenv().GLOOTBOXES = {"Locked Hype Egg","Horseshoe Gift"}
+getgenv().GHOP_ON_STAFF = true
+getgenv().GCLEAR_FAVORITE_PETS = true
+--getgenv().GENCHANTS = {"Strong Pets","Criticals","Strong Pets","Strong Pets","Coins","Treasure Hunter","Tap Power"}
+--getgenv().GMAX_POWER_FOR_PET_MASTERY_VIA_FUSING = "240t"
+getgenv().GPOTIONS_MAX_TIER = 99
+getgenv().GWEBHOOK_USERID = "484739592239579136"
+getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2"
+getgenv().GHUGE_COUNT = 999 
+getgenv().GMAIL_RECEIVERS = {"trcomoloko"}
+getgenv().GMAIL_ITEMS = {
+["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
+["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "20m", MinAmount = "1b"},
+["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
+["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
+["Horseshoe Gift"] = {Class = "Lootbox", Id = "Horseshoe Gift", MinAmount = 100},
+}
+getgenv().GMAX_MAIL_COST = "2m"
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
 end)
 
 task.spawn(function()
