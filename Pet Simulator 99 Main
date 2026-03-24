@@ -1,66 +1,47 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(15)
-script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
-getgenv().GGFX_MODE = 1
-getgenv().GRANK_FIRST = true --if you use this you have to define GREBIRTH_TO and GRANK_TO
-getgenv().GZONE_TO = 274
-getgenv().GREBIRTH_TO = 9
-getgenv().GRANK_TO = 8
-getgenv().GDO_LUCKY_WORLD_EVENT = true
-getgenv().GMAKE_HORSESHOE_GIFTS = true
-getgenv().GLIMIT_HORSESHOE_GIFTS = 99999 -- choose yourself, don't set it lower than your MinAmount in your Horseshoe Gift mailrule!
-getgenv().GDO_BOSSES = {1,2}
-getgenv().GHEROIC_BOSSES  = {1}
-getgenv().GSKIP_RAID_EGG = false
-getgenv().GMINUTE_HATCH_RAID_EGG = true
-getgenv().GAUTO_UPGRADE_PETS = true
-getgenv().GDISABLE_MINUTE_HATCH = false
-getgenv().GEVENT_FPS  = 15
-getgenv().GUSE_BOOSTS = true
-getgenv().GRAID_TIMEOUT_MINUTES = 15
---getgenv().GRAID_MAX_BREAKABLE_HEALTH = "10t" -- watch out only use when really needed
-getgenv().GAUTO_RAID = true
-getgenv().GHATCH_LOBBY = true
-getgenv().GUSE_LEPRECHAUN_KEYS = false
-getgenv().GMAX_RAID_LEVEL = 15000
-getgenv().GMIN_MULTIPLIER = 200 -- min required multiplier of raid egg to hatch
-getgenv().GRAID_MAX_HATCH_MINUTES = 5 -- abort hatching after 5 min
-getgenv().GRESET_UPGRADES = false -- only do true when you actually need a reset
-getgenv().GEVENT_UPGRADES = {
-    { Id = "LuckyRaidDamage", MaxTier = 20 },
-    { Id = "LuckyRaidAttackSpeed", MaxTier = 10 },
-    { Id = "LuckyRaidPets", MaxTier = 15 },
-    { Id = "LuckyRaidEggCost", MaxTier = 0 },
-    { Id = "LuckyRaidMoreCurrency", MaxTier = 0 },
-    { Id = "LuckyRaidBetterLoot", MaxTier = 100 },
-    { Id = "LuckyRaidTitanicChest", MaxTier = 100 },
-    { Id = "LuckyRaidHugeChest", MaxTier = 100 },
-    { Id = "LuckyRaidXP", MaxTier = 0 },
-    { Id = "LuckyRaidPetSpeed", MaxTier = 0 },
-    { Id = "LuckyRaidKeyDrops", MaxTier = 0 },
-    { Id = "LuckyRaidBossHugeChances", MaxTier = 0 },
-    { Id = "LuckyRaidBossTitanicChances", MaxTier = 0 },
+script_key = "vMsYsXLAmLlVwENWzQUtmEsLyIywQFeH";
+getgenv().Settings = {
+    ["Raid Settings"] = {
+        Enabled = true,
+        Difficulty = "Max",
+        ["Heroic"] = {1,2},
+        ["Open Rooms"] = {1,2,3},
+        ["Use Boosts"] = true,
+    },
+
+    ["Webhook"] = {
+        ["url"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
+        ["Discord Id to ping"] = {"484739592239579136"},
+        ["Send Normal Huges"] = true
+    }, 
+
+    ["Mail Settings"] = {
+        ["User"] = "",
+        ["Only_New_Huges"] = false,
+        ["Min_Gems"] = 5000000,
+        ["MAX_MAIL_COST"] = 1000000,
+        ["Mailing"] = {}, 
+    },
+
+    ["Auto Upgrade"] = true,
+    ["UpgradeSettings"] = {
+        LuckyRaidDamage = 20,
+        LuckyRaidAttackSpeed = 10,
+        LuckyRaidPets = 15,
+        LuckyRaidTitanicChest = 99,
+        LuckyRaidHugeChest = 99,
+        LuckyRaidXP = 0,
+        LuckyRaidBetterLoot = 99,
+        LuckyRaidPetSpeed = 0,
+        LuckyRaidMoreCurrency = 0,
+        LuckyRaidEggCost = 0,
+        LuckyRaidKeyDrops = 0,
+    },
 }
---getgenv().GLOOTBOXES = {"Locked Hype Egg","Horseshoe Gift"}
-getgenv().GHOP_ON_STAFF = true
-getgenv().GCLEAR_FAVORITE_PETS = true
---getgenv().GENCHANTS = {"Strong Pets","Criticals","Strong Pets","Strong Pets","Coins","Treasure Hunter","Tap Power"}
---getgenv().GMAX_POWER_FOR_PET_MASTERY_VIA_FUSING = "240t"
-getgenv().GPOTIONS_MAX_TIER = 99
-getgenv().GWEBHOOK_USERID = "484739592239579136"
-getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2"
-getgenv().GHUGE_COUNT = 999 
-getgenv().GMAIL_RECEIVERS = {"trcomoloko"}
-getgenv().GMAIL_ITEMS = {
-["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
-["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "20m", MinAmount = "1b"},
-["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
-["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
-["Horseshoe Gift"] = {Class = "Lootbox", Id = "Horseshoe Gift", MinAmount = 100},
-}
-getgenv().GMAX_MAIL_COST = "2m"
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/34915da4ad87a5028e1fd64efbe3543f.lua"))()
+
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/22ace2b755b00994068ef6503cff5ba2.lua"))()
 end)
 
 task.spawn(function()
