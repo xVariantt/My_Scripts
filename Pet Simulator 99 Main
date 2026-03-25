@@ -9,7 +9,6 @@ getgenv().Settings = {
         ["Heroic"] = {1,2},
         ["Open Rooms"] = {1,2,3},
         ["Use Boosts"] = true,
-        ["Wait In Spawn"] = true,
         ["Wait In Spawn"] = 10,
     },
 
