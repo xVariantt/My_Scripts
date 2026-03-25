@@ -9,8 +9,8 @@ getgenv().Settings = {
         ["Heroic"] = {1,2},
         ["Open Rooms"] = {1,2,3},
         ["Use Boosts"] = true,
-        Raid["Wait In Spawn"] = true,
-        Raid["Wait In Spawn"] = 10,
+        ["Wait In Spawn"] = true,
+        ["Wait In Spawn"] = 10,
     },
 
     ["Webhook"] = {
