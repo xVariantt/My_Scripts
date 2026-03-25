@@ -41,7 +41,7 @@ getgenv().Settings = {
     },
 }
 
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/22ace2b755b00994068ef6503cff5ba2.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/ef29fe3d31b73ea7cb6e2d891cf3100f.lua"))()
 end)
 
 task.spawn(function()
