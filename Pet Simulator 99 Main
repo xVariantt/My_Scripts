@@ -1,40 +1,50 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(15)
-script_key = "vMsYsXLAmLlVwENWzQUtmEsLyIywQFeH";
+script_key="vMsYsXLAmLlVwENWzQUtmEsLyIywQFeH"; 
+
 getgenv().Settings = {
     ["Raid Settings"] = {
         Enabled = true,
-        Difficulty = "Max",
-        ["Heroic"] = {1,2},
-        ["Open Rooms"] = {1,2,3},
-        ["Use Boosts"] = true,
-        ["Wait In Spawn"] = 10,
-    },
+        Difficulty = "Max", 
+        OpenLeprechaunChest = false,
 
+        ["Egg Settings"] = {
+            Enabled = true,
+            MinimumEggMulti = 1500, 
+            MinimumLuckyCoins = 25000000, 
+            MaxOpenTime = 240000, 
+        },
+        ["Heroic"] = {1, 2, 3},
+        ["Open Rooms"] = {1, 2, 3},
+        ["Use Boosts"] = true,
+    },
     ["Webhook"] = {
-        ["url"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
-        ["Discord Id to ping"] = {""},
-        ["Send Normal Huges"] = true
-    }, 
+        url = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2", 
+        ["Discord Id to ping"] = {""}, 
+        ["Send Normal Huges"] = true,
+    },
 
     ["Mail Settings"] = {
         ["User"] = "trcomoloko",
         ["Only_New_Huges"] = true,
         ["Min_Gems"] = 1000000000,
-        ["MAX_MAIL_COST"] = 1000000,
+        ["MAX_MAIL_COST"] = 10000000,
         ["Mailing"] = {}, 
     },
 
-    ["Auto Upgrade"] = true,
+    ["Hatch Starter Pets"] = true,
+    ["CPU Saver"] = true,
+
+    ["Auto Upgrade"] = true, 
     ["UpgradeSettings"] = {
         LuckyRaidDamage = 85,
         LuckyRaidAttackSpeed = 75,
         LuckyRaidPets = 26,
-        LuckyRaidTitanicChest = 99,
-        LuckyRaidHugeChest = 99,
-        LuckyRaidXP = 30,
-        LuckyRaidBetterLoot = 99,
+        LuckyRaidTitanicChest = 50,
+        LuckyRaidHugeChest = 30,
+        LuckyRaidXP = 40,
+        LuckyRaidBetterLoot = 30,
         LuckyRaidPetSpeed = 1,
         LuckyRaidMoreCurrency = 1,
         LuckyRaidEggCost = 1,
