@@ -2,6 +2,7 @@ repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(10)
 script_key="vMsYsXLAmLlVwENWzQUtmEsLyIywQFeH"; 
+
 getgenv().Settings = {
     ["Raid Settings"] = {
         Enabled = true,
@@ -14,13 +15,14 @@ getgenv().Settings = {
             MinimumLuckyCoins = 25000000, 
             MaxOpenTime = 240000, 
         },
-        ["Heroic"] = {1, 2, 3},
+        ["Heroic"] = {1, 2},
         ["Open Rooms"] = {1, 2, 3},
         ["Use Boosts"] = true,
+        ["Wait In Spawn"] = 10,
     },
     ["Webhook"] = {
         url = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2", 
-        ["Discord Id to ping"] = {""}, 
+        ["Discord Id to ping"] = {"484739592239579136"}, 
         ["Send Normal Huges"] = true,
     },
 
@@ -32,26 +34,23 @@ getgenv().Settings = {
         ["Mailing"] = {}, 
     },
 
-    ["Hatch Starter Pets"] = true,
+    ["Hatch Starter Pets"] = false,
     ["CPU Saver"] = true,
 
     ["Auto Upgrade"] = true, 
     ["UpgradeSettings"] = {
         LuckyRaidDamage = 85,
         LuckyRaidAttackSpeed = 75,
-        LuckyRaidPets = 26,
+        LuckyRaidPets = 25,
         LuckyRaidTitanicChest = 50,
         LuckyRaidHugeChest = 30,
         LuckyRaidXP = 40,
-        LuckyRaidBetterLoot = 30,
+        LuckyRaidBetterLoot = 20,
         LuckyRaidPetSpeed = 1,
-        LuckyRaidMoreCurrency = 1,
-        LuckyRaidEggCost = 1,
         LuckyRaidKeyDrops = 1,
     },
 }
-
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/22ace2b755b00994068ef6503cff5ba2.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/22ace2b755b00994068ef6503cff5ba2.lua"))() 
 end)
 
 task.spawn(function()
