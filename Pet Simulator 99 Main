@@ -26,6 +26,8 @@ getgenv().Settings = {
         ["Mailing"] = {}, 
     },
 
+    ["CPU Saver"] = true,
+
     ["Auto Upgrade"] = true,
     ["UpgradeSettings"] = {
         LuckyRaidDamage = 30,
