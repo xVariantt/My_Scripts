@@ -5,7 +5,7 @@ script_key = "vMsYsXLAmLlVwENWzQUtmEsLyIywQFeH";
 getgenv().Settings = {
     ["Raid Settings"] = {
         Enabled = true,
-        Difficulty = "20000",
+        Difficulty = "Max",
         ["Heroic"] = {1,2},
         ["Open Rooms"] = {1,2,3},
         ["Use Boosts"] = true,
@@ -22,7 +22,7 @@ getgenv().Settings = {
         ["User"] = "trcomoloko",
         ["Only_New_Huges"] = true,
         ["Min_Gems"] = 1000000000,
-        ["MAX_MAIL_COST"] = 1000000,
+        ["MAX_MAIL_COST"] = 10000000,
         ["Mailing"] = {}, 
     },
 
@@ -30,9 +30,9 @@ getgenv().Settings = {
 
     ["Auto Upgrade"] = true,
     ["UpgradeSettings"] = {
-        LuckyRaidDamage = 30,
-        LuckyRaidAttackSpeed = 25,
-        LuckyRaidPets = 26,
+        LuckyRaidDamage = 25,
+        LuckyRaidAttackSpeed = 15,
+        LuckyRaidPets = 21,
         LuckyRaidTitanicChest = 99,
         LuckyRaidHugeChest = 99,
         LuckyRaidXP = 1,
