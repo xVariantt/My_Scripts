@@ -31,17 +31,11 @@ getgenv().Settings = {
 
     ["Auto Upgrade"] = true,
     ["UpgradeSettings"] = {
-        LuckyRaidDamage = 25,
-        LuckyRaidAttackSpeed = 10,
         LuckyRaidPets = 21,
-        LuckyRaidTitanicChest = 15,
-        LuckyRaidHugeChest = 15,
-        LuckyRaidXP = 5,
-        LuckyRaidBetterLoot = 15,
-        LuckyRaidPetSpeed = 0,
-        LuckyRaidMoreCurrency = 0,
-        LuckyRaidEggCost = 0,
-        LuckyRaidKeyDrops = 0,
+        LuckyRaidDamage = 99,
+        LuckyRaidAttackSpeed = 99,
+        LuckyRaidXP = 99,
+        LuckyRaidBetterLoot = 99,
     },
 }
 
