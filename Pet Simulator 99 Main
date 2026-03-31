@@ -10,12 +10,12 @@ getgenv().Settings = {
         ["Heroic"] = {1,2},
         ["Open Rooms"] = {1,2,3},
         ["Use Boosts"] = true,
-        ["Wait In Spawn"] = 10,
+        ["Wait In Spawn"] = 5,
     },
 
     ["Webhook"] = {
         ["url"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
-        ["Discord Id to ping"] = {""},
+        ["Discord Id to ping"] = {"484739592239579136"},
         ["Send Normal Huges"] = true
     }, 
 
