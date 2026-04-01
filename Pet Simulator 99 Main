@@ -27,21 +27,8 @@ getgenv().Settings = {
     },
 
     ["CPU Saver"] = true,
+    ["Auto Upgrade"] = false,
 
-    ["Auto Upgrade"] = true,
-    ["UpgradeSettings"] = {
-        LuckyRaidDamage = 99,
-        LuckyRaidAttackSpeed = 99,
-        LuckyRaidPets = 21,
-        LuckyRaidTitanicChest = 0,
-        LuckyRaidHugeChest = 0,
-        LuckyRaidXP = 99,
-        LuckyRaidBetterLoot = 0,
-        LuckyRaidPetSpeed = 0,
-        LuckyRaidMoreCurrency = 0,
-        LuckyRaidEggCost = 0,
-        LuckyRaidKeyDrops = 0,
-    },
 }
 
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/22ace2b755b00994068ef6503cff5ba2.lua"))()
