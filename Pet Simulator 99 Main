@@ -34,7 +34,6 @@ getgenv().Settings = {
         LuckyRaidDamage = 99,
         LuckyRaidAttackSpeed = 99,
         LuckyRaidXP = 99,
-        LuckyRaidBetterLoot = 99,
     },
 }
 
