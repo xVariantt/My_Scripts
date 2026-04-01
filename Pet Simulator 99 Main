@@ -21,7 +21,7 @@ getgenv().Settings = {
     ["Mail Settings"] = {
         ["User"] = "trcomoloko",
         ["Only_New_Huges"] = true,
-        ["Min_Gems"] = 1000000000,
+        ["Min_Gems"] = 500000000,
         ["MAX_MAIL_COST"] = 10000000,
         ["Mailing"] = {}, 
     },
