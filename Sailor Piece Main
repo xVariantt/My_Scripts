@@ -43,7 +43,6 @@ getgenv().sailorPieceConfig = {
 }   
 
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/1c7ac2a2f86ecf894218a424a1be7667.lua"))()
-
 end)
 
 task.spawn(function()
