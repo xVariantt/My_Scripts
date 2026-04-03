@@ -1,0 +1,229 @@
+--[[
+    [Tap Simulator Auto Booth & Auto Sell Pet v7 - Çoklu Pet Desteği]
+]]
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- =======================================
+-- AYARLAR
+-- =======================================
+local SETTINGS = {
+    AutoClaimBooth = true,
+    LoopInterval = 3, -- Kaç saniyede bir yeni pet denesin
+    
+    -- Satılacak Petlerin Listesi
+    -- Alt alta istediğin kadar pet ekleyebilirsin, sadece satır sonuna virgül (,) koymayı unutma!
+    PetsToSell = {
+        {Name = "Easter Basket", Price = 6000},
+        {Name = "Sun Guardian", Price = 99999},
+        {Name = "Başka Bir Pet", Price = 500},
+        -- Yeni eklemek istersen aynen bu şekilde aşağı doğru uzat:
+        -- {Name = "Pet İsmi", Price = 100},
+    }
+}
+-- =======================================
+
+local ListedPets = {} 
+
+local networkFolder = nil
+for _, folder in ipairs(ReplicatedStorage:GetChildren()) do
+    if folder:IsA("Folder") and string.match(folder.Name, "^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$") then
+        local functions = folder:FindFirstChild("Functions")
+        if functions and functions:FindFirstChild("ClaimBooth") and functions:FindFirstChild("ListItem") then
+            networkFolder = folder
+            break
+        end
+    end
+end
+
+if not networkFolder then
+    warn("Network klasörü bulunamadı!")
+    return
+end
+
+local ClaimBoothRemote = networkFolder.Functions.ClaimBooth
+local ListItemRemote = networkFolder.Functions.ListItem
+
+-- 1. ADIM: Otomatik Booth Claim
+local function ClaimAndTeleportToBooth()
+    local boothsFolder = workspace:FindFirstChild("Booths") or 
+                         (workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Booths")) or
+                         workspace:FindFirstChild("TradingPlazaBooths")
+                         
+    local allBooths = {}
+    if boothsFolder then
+        for _, b in ipairs(boothsFolder:GetChildren()) do
+            if b:IsA("Model") then table.insert(allBooths, b) end
+        end
+    else
+        for _, b in ipairs(workspace:GetDescendants()) do
+            if b:IsA("Model") then
+                local bName = string.lower(b.Name)
+                if (string.match(bName, "booth") or string.match(bName, "stand")) and not string.match(bName, "egg") then
+                    table.insert(allBooths, b)
+                end
+            end
+        end
+    end
+
+    if #allBooths == 0 then return false end
+
+    for _, booth in ipairs(allBooths) do
+        local part = booth.PrimaryPart or booth:FindFirstChildWhichIsA("BasePart", true)
+        
+        if part and part.Position.Y > -100 then
+            local isTaken = false
+            
+            local ownerAttr = booth:GetAttribute("Owner") or booth:GetAttribute("OwnerId") or booth:GetAttribute("PlayerId")
+            if ownerAttr and ownerAttr ~= 0 and ownerAttr ~= "" then isTaken = true end
+            
+            local ownerVal = booth:FindFirstChild("Owner") or booth:FindFirstChild("Player") or booth:FindFirstChild("OwnerId")
+            if ownerVal then
+                if ownerVal:IsA("ObjectValue") and ownerVal.Value ~= nil then isTaken = true end
+                if (ownerVal:IsA("StringValue") or ownerVal:IsA("IntValue")) and ownerVal.Value ~= "" and ownerVal.Value ~= 0 then isTaken = true end
+            end
+            
+            for _, desc in ipairs(booth:GetDescendants()) do
+                if desc:IsA("TextLabel") or desc:IsA("TextButton") then
+                    local textLower = string.lower(desc.Text)
+                    if string.match(textLower, "'s booth") or string.match(textLower, "raised") then
+                        isTaken = true
+                    end
+                end
+            end
+            
+            if not isTaken then
+                local char = LocalPlayer.Character
+                local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                
+                if hrp then
+                    hrp.CFrame = part.CFrame * CFrame.new(0, 3, -4)
+                    task.wait(0.5)
+                end
+                
+                local success, result = pcall(function() return ClaimBoothRemote:InvokeServer(booth) end)
+                task.wait(0.3)
+                pcall(function() ClaimBoothRemote:InvokeServer(unpack({booth})) end)
+                task.wait(0.5)
+                
+                local checkOwnerAttr = booth:GetAttribute("Owner") or booth:GetAttribute("OwnerId")
+                local checkOwnerObj = (booth:FindFirstChild("Owner") and booth.Owner.Value)
+                local checkOwnerString = tostring(checkOwnerAttr) .. tostring(checkOwnerObj)
+                
+                if string.find(checkOwnerString, LocalPlayer.Name) or string.find(checkOwnerString, tostring(LocalPlayer.UserId)) then
+                    print("[BAŞARILI] Booth rezerve edildi!")
+                    return booth
+                end
+                
+                if success and result == true then
+                    return booth
+                end
+            end
+        end
+    end
+    return nil
+end
+
+-- 2. ADIM: Gelişmiş Pet Arama
+local function findPetIdByName(petName)
+    local searchName = string.lower(tostring(petName))
+    
+    for _, desc in ipairs(LocalPlayer:GetDescendants()) do
+        local foundTarget = false
+        
+        if desc:IsA("TextLabel") or desc:IsA("TextBox") or desc:IsA("TextButton") then
+            if string.find(string.lower(desc.Text), searchName) then foundTarget = true end
+        end
+        if desc:IsA("StringValue") then
+            if string.find(string.lower(desc.Value), searchName) then foundTarget = true end
+        end
+        if string.find(string.lower(desc.Name), searchName) then
+            foundTarget = true
+        end
+        for _, attrVal in pairs(desc:GetAttributes()) do
+            if type(attrVal) == "string" and string.find(string.lower(attrVal), searchName) then
+                foundTarget = true
+            end
+        end
+        
+        if foundTarget then
+            local current = desc
+            local loops = 0
+            while current and current ~= game and loops < 8 do
+                
+                local function checkAndReturn(idStr)
+                    if string.match(idStr, "^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$") then
+                        if not ListedPets[idStr] then
+                            return idStr
+                        end
+                    end
+                    return nil
+                end
+                
+                local res = checkAndReturn(current.Name)
+                if res then return res end
+                
+                for _, val in pairs(current:GetAttributes()) do
+                    if type(val) == "string" then
+                        res = checkAndReturn(val)
+                        if res then return res end
+                    end
+                end
+                
+                local idVal = current:FindFirstChild("PetID") or current:FindFirstChild("UID") or current:FindFirstChild("ID") or current:FindFirstChild("PetUid")
+                if idVal and idVal:IsA("StringValue") then
+                    res = checkAndReturn(idVal.Value)
+                    if res then return res end
+                end
+                
+                current = current.Parent
+                loops = loops + 1
+            end
+        end
+    end
+    
+    return nil
+end
+
+-- ================== TETİKLEYİCİLER ==================
+
+if SETTINGS.AutoClaimBooth then
+    ClaimAndTeleportToBooth()
+end
+
+print("Çoklu satış sistemi başlatıldı. Pet türleri sırayla taranıyor...")
+
+task.spawn(function()
+    while task.wait(SETTINGS.LoopInterval) do
+        local foundAnyAtLeastOne = false
+        
+        -- Ayarlarda girdiğin tüm petleri tek tek dolaşır
+        for _, petInfo in ipairs(SETTINGS.PetsToSell) do
+            local petId = findPetIdByName(petInfo.Name)
+            
+            if petId then
+                foundAnyAtLeastOne = true 
+                ListedPets[petId] = true 
+                
+                local args = { "Pet", petId, petInfo.Price }
+                local success, result = pcall(function() return ListItemRemote:InvokeServer(unpack(args)) end)
+                
+                if success then
+                    print("[SATIŞ BİLDİRİMİ] " .. petInfo.Name .. " ID(" .. string.sub(petId, 1, 8) .. "...) denendi. Kalanlar taranacak...")
+                    task.wait(1.5) 
+                else
+                    warn("[HATA] Satış gönderilemedi: ", tostring(result))
+                end
+            end
+        end
+        
+        -- Eğer listendeki HİÇBİR petten elinde satılmamış kalmamışsa veya booth tamamen tıklım tıklımsa
+        if not foundAnyAtLeastOne then
+            ListedPets = {}
+            print("[TUR BİTTİ] Listedeki tüm pet türleri tarandı veya sınır doldu. Yer açılması bekleniyor..")
+            task.wait(6)
+        end
+    end
+end)
