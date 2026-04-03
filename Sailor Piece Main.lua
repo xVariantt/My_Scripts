@@ -1,3 +1,5 @@
+repeat wait() until game:IsLoaded()
+task.spawn(function()
 script_key="ykAZfPVGpvfbggXrdGPfirlRzGHyKArO";
 setfpscap(10)
 
@@ -41,3 +43,15 @@ getgenv().sailorPieceConfig = {
 }   
 
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/1c7ac2a2f86ecf894218a424a1be7667.lua"))()
+
+end)
+
+task.spawn(function()
+    task.wait(5)
+local StarterGui = game:GetService('StarterGui')
+StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+
+game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+
+game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+end)
