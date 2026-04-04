@@ -4,7 +4,7 @@ script_key="ykAZfPVGpvfbggXrdGPfirlRzGHyKArO";
 setfpscap(10)
 
 getgenv().sailorPieceConfig = {  
-    AUTO_UPDATE_RESTART = true,
+    AUTO_UPDATE_RESTART = false,
     FARM_UNTIL_LEVEL = 13000,
 
     DO_REPEATABLE_QUEST = "QuestNPC19",
