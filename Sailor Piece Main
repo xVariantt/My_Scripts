@@ -39,7 +39,7 @@ getgenv().sailorPieceConfig = {
     WEBHOOK_URL = "https://discord.com/api/webhooks/1489703303863603443/lb1FhmTdue5CJsF65iWychMijB9JVKCysHLcCBClCyyOv6t-HM7SCi0r54yuDj7LDlII",
     DISCORD_ID = "484739592239579136",
     WEBHOOK_NOTE = "Anomaly",
-    SHOW_PUBLIC_DISCORD_ID = fals,
+    SHOW_PUBLIC_DISCORD_ID = false,
     SHOW_WEBHOOK_USERNAME = true,
     SHOW_WEBHOOK_JOBID = true,
 }   
