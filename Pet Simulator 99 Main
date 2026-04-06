@@ -5,7 +5,7 @@ getgenv().Settings = {
     ["Raid Settings"] = {
         Enabled = true,
         Difficulty = "Max",
-        ["Heroic"] = {1,2},
+        ["Heroic"] = {1,2,3},
         ["Open Rooms"] = {1,2,3},
         ["Use Boosts"] = true,
     },
