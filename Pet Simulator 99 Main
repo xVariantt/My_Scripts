@@ -36,8 +36,6 @@ getgenv().Settings = {
     ["CPU Saver"] = false,
 
     ["Auto Upgrade"] = false,
-
-    },
 }
 
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/ac744eeb76f8cd60a809ad60c80acd28.lua"))()
