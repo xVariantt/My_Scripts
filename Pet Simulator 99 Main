@@ -4,32 +4,43 @@ setfpscap(30)
 getgenv().Settings = {
     ["Raid Settings"] = {
         Enabled = true,
-        Difficulty = "Max",
+        Difficulty = "Max", 
+
+        OpenLeprechaunChest = false,
+
+        ["Egg Settings"] = {
+            Enabled = false,
+            MinimumEggMulti = 1000,
+            MinimumLuckyCoins = 1000000,
+            MaxOpenTime = 50000,
+        },
         ["Heroic"] = {1,2,3},
         ["Open Rooms"] = {1,2,3},
         ["Use Boosts"] = true,
     },
-
     ["Webhook"] = {
-        ["url"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
+        url = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
         ["Discord Id to ping"] = {"484739592239579136"},
-        ["Send Normal Huges"] = true
-    }, 
+        ["Send Normal Huges"] = true,
+    },
 
     ["Mail Settings"] = {
         ["User"] = "trcomoloko",
         ["Only_New_Huges"] = true,
         ["Min_Gems"] = 500000000,
-        ["MAX_MAIL_COST"] = 10000000,
+        ["MAX_MAIL_COST"] = 1000000,
         ["Mailing"] = {}, 
     },
 
-    ["CPU Saver"] = true,
+    ["Hatch Starter Pets"] = false,
+    ["CPU Saver"] = false,
 
     ["Auto Upgrade"] = false,
+
+    },
 }
 
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/ac744eeb76f8cd60a809ad60c80acd28.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/22ace2b755b00994068ef6503cff5ba2.lua"))()
 end)
 
 task.spawn(function()
