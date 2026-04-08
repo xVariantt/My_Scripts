@@ -33,7 +33,7 @@ getgenv().Settings = {
     },
 
     ["Hatch Starter Pets"] = false,
-    ["CPU Saver"] = false,
+    ["CPU Saver"] = true,
 
     ["Auto Upgrade"] = false,
 }
