@@ -1,32 +1,187 @@
---[[
-    [Tap Simulator Auto Booth & Auto Sell Pet v7 - Çoklu Pet Desteği]
-]]
+--- Tap Simulator Auto Booth & Auto Sell v10.6 - Final User Config
+
+if not game:IsLoaded() then game.Loaded:Wait() end
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
 local LocalPlayer = Players.LocalPlayer
 
+local SETTINGS = getgenv().SETTINGS
 -- =======================================
--- AYARLAR
--- =======================================
-local SETTINGS = {
-    AutoClaimBooth = true,
-    LoopInterval = 3, -- Kaç saniyede bir yeni pet denesin
+
+local lastSaleTime = 0
+
+-- SADECE BİRİ SATIN ALDIĞINDA ÇALIŞACAK WEBHOOK:
+local function SendWebhookSaleNotification(buyerName)
+    if tick() - lastSaleTime < 3 then return end 
+    lastSaleTime = tick()
     
-    -- Satılacak Petlerin Listesi
-    -- Alt alta istediğin kadar pet ekleyebilirsin, sadece satır sonuna virgül (,) koymayı unutma!
-    PetsToSell = {
-        {Name = "Easter Basket", Price = 6000},
-        {Name = "Sun Guardian", Price = 99999},
-        {Name = "Başka Bir Pet", Price = 500},
-        -- Yeni eklemek istersen aynen bu şekilde aşağı doğru uzat:
-        -- {Name = "Pet İsmi", Price = 100},
+    if not SETTINGS.EnableWebhook or not SETTINGS.DiscordWebhookUrl or SETTINGS.DiscordWebhookUrl == "" then return end
+    
+    local thumbnailUrl = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. LocalPlayer.UserId .. "&width=420&height=420&format=png"
+    
+    local pingContent = ""
+    if SETTINGS.PingDiscordUser and SETTINGS.PingDiscordUser ~= "" then
+        pingContent = "<@" .. SETTINGS.PingDiscordUser .. ">"
+    end
+    
+    local data = {
+        ["content"] = pingContent,
+        ["embeds"] = {{
+            ["title"] = "🛒 Pet Satıldı! (" .. LocalPlayer.Name .. ")",
+            ["description"] = string.format("Tebrikler! Standından bir pet başarıyla satın alındı.\n\n🛍️ **Alıcı:** `%s`", tostring(buyerName)),
+            ["thumbnail"] = {["url"] = thumbnailUrl},
+            ["color"] = 65280, -- Güzel, parlak bir yeşil renk (Başarılı İşlem)
+            ["timestamp"] = DateTime.now():ToIsoDate(),
+            ["footer"] = { ["text"] = "Tap Simulator Auto Booth" }
+        }}
     }
-}
--- =======================================
+    
+    local finalUrl = SETTINGS.DiscordWebhookUrl:gsub("https://discord.com/", "https://webhook.lewisakura.moe/")
+    
+    task.spawn(function()
+        pcall(function()
+            local request_func = (request or syn and syn.request or http and http.request)
+            if request_func then
+                request_func({
+                    Url = finalUrl,
+                    Method = "POST",
+                    Headers = {["Content-Type"] = "application/json"},
+                    Body = HttpService:JSONEncode(data)
+                })
+            end
+        end)
+    end)
+end
+
+-- EKRANDAKİ YAZILARI DİNLEYEN SİSTEM:
+local function SetupSaleTracker()
+    local function checkText(desc)
+        if not desc or not desc.Parent then return end
+        pcall(function()
+            local text = tostring(desc.Text)
+            
+            text = string.gsub(text, "<[^>]+>", "")
+            
+            local txtLower = string.lower(text)
+            if string.match(txtLower, "bought your item") then
+                local buyer = string.match(text, "%S+") or "Bilinmeyen_Oyuncu"
+                SendWebhookSaleNotification(buyer)
+            end
+        end)
+    end
+
+    local PlayerGui = LocalPlayer:WaitForChild("PlayerGui", 10)
+    if PlayerGui then
+        for _, desc in ipairs(PlayerGui:GetDescendants()) do
+            if desc:IsA("TextLabel") or desc:IsA("TextBox") then
+                checkText(desc)
+                desc:GetPropertyChangedSignal("Text"):Connect(function() checkText(desc) end)
+            end
+        end
+        PlayerGui.DescendantAdded:Connect(function(desc)
+            if desc:IsA("TextLabel") or desc:IsA("TextBox") then
+                task.delay(0.1, function() checkText(desc) end)
+                desc:GetPropertyChangedSignal("Text"):Connect(function() checkText(desc) end)
+            end
+        end)
+    end
+end
+task.spawn(SetupSaleTracker)
+
+
+if SETTINGS.AntiAFK then
+    pcall(function()
+        LocalPlayer.Idled:Connect(function()
+            local vu = game:GetService("VirtualUser")
+            vu:CaptureController()
+            vu:ClickButton2(Vector2.new())
+        end)
+    end)
+    
+    task.spawn(function()
+        while task.wait(30) do
+            pcall(function()
+                local char = LocalPlayer.Character
+                if char then
+                    local humanoid = char:FindFirstChildOfClass("Humanoid")
+                    if humanoid and humanoid.Health > 0 then
+                        if humanoid.UseJumpPower and humanoid.JumpPower == 0 then
+                            humanoid.JumpPower = 50 
+                        end
+                        humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    end
+                end
+            end)
+        end
+    end)
+    print("[SİSTEM] Gelişmiş Zıplama ve Anti-AFK başlatıldı! (Oyundan atılmayacaksınız.)")
+end
+
+
+local function ServerHop(targetPlaceIdOverride)
+    if not SETTINGS.HopIfNoBooth then return false end
+    
+    local placeId = targetPlaceIdOverride or game.PlaceId
+    print("[SİSTEM] Garanti girilebilecek kalabalık bir sunucu aranıyor... (PlaceID: " .. tostring(placeId) .. ")")
+    
+    local bestServer = nil
+    local highestPlayers = 0
+    
+    local url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true"
+    
+    for i = 1, 5 do 
+        local success, result = pcall(function() return game:HttpGet(url) end)
+        if not success or not result then break end
+        
+        local successDec, data = pcall(function() return HttpService:JSONDecode(result) end)
+        if not successDec or not data or not data.data then break end
+        
+        for _, server in ipairs(data.data) do
+            if type(server) == "table" and type(server.playing) == "number" and type(server.maxPlayers) == "number" then
+                if server.playing < (server.maxPlayers - 2) and server.id ~= game.JobId then
+                    if server.playing > highestPlayers then
+                        highestPlayers = server.playing
+                        bestServer = server.id
+                    end
+                end
+            end
+        end
+        
+        if bestServer then 
+            break 
+        end
+        
+        if data.nextPageCursor then
+            url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true&cursor=" .. data.nextPageCursor
+        else
+            break
+        end
+    end
+    
+    if bestServer then
+        print("[SİSTEM] Uygun kalabalıkta (" .. tostring(highestPlayers) .. " kişi) server bulundu! Uçuluyor...")
+        pcall(function()
+            TeleportService:TeleportToPlaceInstance(placeId, bestServer, LocalPlayer)
+        end)
+        return true
+    end
+    
+    warn("[HATA] Uygun bir server bulunamadı. Biraz bekledikten sonra baştan denenecek.")
+    return false
+end
+
+if SETTINGS.TargetPlaceId and SETTINGS.TargetPlaceId ~= 0 and game.PlaceId ~= SETTINGS.TargetPlaceId then
+    print("[SİSTEM] Normal dünyadasınız. Pro Plaza'ya geçiş yapılıyor...")
+    ServerHop(SETTINGS.TargetPlaceId)
+    task.wait(9e9) 
+    return
+end
+
 
 local ListedPets = {} 
-
 local networkFolder = nil
 for _, folder in ipairs(ReplicatedStorage:GetChildren()) do
     if folder:IsA("Folder") and string.match(folder.Name, "^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$") then
@@ -38,15 +193,10 @@ for _, folder in ipairs(ReplicatedStorage:GetChildren()) do
     end
 end
 
-if not networkFolder then
-    warn("Network klasörü bulunamadı!")
-    return
-end
-
+if not networkFolder then return end
 local ClaimBoothRemote = networkFolder.Functions.ClaimBooth
 local ListItemRemote = networkFolder.Functions.ListItem
 
--- 1. ADIM: Otomatik Booth Claim
 local function ClaimAndTeleportToBooth()
     local boothsFolder = workspace:FindFirstChild("Booths") or 
                          (workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Booths")) or
@@ -99,7 +249,8 @@ local function ClaimAndTeleportToBooth()
                 local hrp = char and char:FindFirstChild("HumanoidRootPart")
                 
                 if hrp then
-                    hrp.CFrame = part.CFrame * CFrame.new(0, 3, -4)
+                    local baseCFrame = part.CFrame * CFrame.new(0, -2.5, 8)
+                    hrp.CFrame = CFrame.lookAt(baseCFrame.Position, part.Position)
                     task.wait(0.5)
                 end
                 
@@ -126,7 +277,6 @@ local function ClaimAndTeleportToBooth()
     return nil
 end
 
--- 2. ADIM: Gelişmiş Pet Arama
 local function findPetIdByName(petName)
     local searchName = string.lower(tostring(petName))
     
@@ -190,39 +340,54 @@ end
 -- ================== TETİKLEYİCİLER ==================
 
 if SETTINGS.AutoClaimBooth then
-    ClaimAndTeleportToBooth()
+    local claimed = ClaimAndTeleportToBooth()
+    
+    if not claimed then
+        if SETTINGS.HopIfNoBooth then
+            warn("[SİSTEM] Bütün standlar DOLU! Kalabalık bir servera geçiş yapılıyor...")
+            ServerHop()
+            return 
+        end
+    end
 end
 
-print("Çoklu satış sistemi başlatıldı. Pet türleri sırayla taranıyor...")
+print("[BAŞARILI] Sistem devrede. Satış robotu çalışıyor...")
+
+if SETTINGS.HopEveryXMinutes and SETTINGS.HopEveryXMinutes > 0 then
+    task.spawn(function()
+        while task.wait(SETTINGS.HopEveryXMinutes * 60) do
+            print("[TUR ZAMANI] " .. SETTINGS.HopEveryXMinutes .. " dakika doldu! Pazar bayatlamış olabilir, taze kalabalık sunucuya geçiliyor...")
+            ServerHop()
+        end
+    end)
+end
 
 task.spawn(function()
-    while task.wait(SETTINGS.LoopInterval) do
+    local interval = tonumber(SETTINGS.LoopInterval) or 5
+    while task.wait(interval) do
         local foundAnyAtLeastOne = false
         
-        -- Ayarlarda girdiğin tüm petleri tek tek dolaşır
-        for _, petInfo in ipairs(SETTINGS.PetsToSell) do
-            local petId = findPetIdByName(petInfo.Name)
-            
-            if petId then
-                foundAnyAtLeastOne = true 
-                ListedPets[petId] = true 
+        if type(SETTINGS.PetsToSell) == "table" then
+            for _, petInfo in ipairs(SETTINGS.PetsToSell) do
+                local petId = findPetIdByName(petInfo.Name)
                 
-                local args = { "Pet", petId, petInfo.Price }
-                local success, result = pcall(function() return ListItemRemote:InvokeServer(unpack(args)) end)
-                
-                if success then
-                    print("[SATIŞ BİLDİRİMİ] " .. petInfo.Name .. " ID(" .. string.sub(petId, 1, 8) .. "...) denendi. Kalanlar taranacak...")
-                    task.wait(1.5) 
-                else
-                    warn("[HATA] Satış gönderilemedi: ", tostring(result))
+                if petId then
+                    foundAnyAtLeastOne = true 
+                    ListedPets[petId] = true 
+                    
+                    local args = { "Pet", petId, tonumber(petInfo.Price) or 0 }
+                    local success, result = pcall(function() return ListItemRemote:InvokeServer(unpack(args)) end)
+                    
+                    if success then
+                        print("[SATIŞ] " .. petInfo.Name .. " başarıyla pazarlandı!")
+                        task.wait(1.5) 
+                    end
                 end
             end
         end
         
-        -- Eğer listendeki HİÇBİR petten elinde satılmamış kalmamışsa veya booth tamamen tıklım tıklımsa
         if not foundAnyAtLeastOne then
             ListedPets = {}
-            print("[TUR BİTTİ] Listedeki tüm pet türleri tarandı veya sınır doldu. Yer açılması bekleniyor..")
             task.wait(6)
         end
     end
