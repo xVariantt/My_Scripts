@@ -381,3 +381,6 @@ task.spawn(function()
         end
     end
 end)
+
+SendWebhookSaleNotification("Demo_Mesaj")
+SendWebhookSaleNotification("Demo_Mesaj")
