@@ -4,12 +4,11 @@ getgenv().SETTINGS = {
     LoopInterval = 5, 
     
     HopIfNoBooth = true,      
-    HopEveryXMinutes = 20,    
+    HopEveryXMinutes = 15,    
     AntiAFK = true,           
     
     TargetPlaceId = 124342049154699,
     
-    -- WEBHOOK AYARLARI --
     EnableWebhook = true,
     DiscordWebhookUrl = "https://discord.com/api/webhooks/1492552292615061577/qZOjn3XWLqO7r_on2HSnMoyMT9iuMrp2_qC7jMitI9Ky9Xxf5_yzuE_22C2PEoSfgHXO",
     PingDiscordUser = "484739592239579136",
