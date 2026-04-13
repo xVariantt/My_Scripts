@@ -16,8 +16,8 @@ getgenv().SETTINGS = {
     
     PetsToSell = {
         {Name = "Nebula Cyborg", Price = 8500},
-        {Name = "Nebula Cyborg", Price = 9500},
-        {Name = "Nebula Cyborg", Price = 9500},
+        {Name = "Seraphyne", Price = 9500},
+        {Name = "2026 Star", Price = 9500},
         {Name = "Golden Charm", Price = 300},
         {Name = "Jormungandr", Price = 120},
     }
