@@ -3,8 +3,9 @@ task.spawn(function()
 setfpscap(30)
 script_key = "UdqIoOgKMzFovpGeHkuqVsWpNircpsXI";
 getgenv().GPROGRESS_MODE = "Hybrid"
-getgenv().GGFX_MODE = 3
+getgenv().GGFX_MODE = 1
 getgenv().GRANK_TO = 20
+getgenv().GFOCUS_RANK_TO = 11
 getgenv().GZONE_TO = 999
 getgenv().GMAX_EGG_SLOTS = 99
 getgenv().GMAX_EQUIP_SLOTS = 99
