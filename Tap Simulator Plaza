@@ -1,5 +1,6 @@
 --- Tap Simulator Auto Booth & Auto Sell v10.6 - Final User Config
 
+
 if not game:IsLoaded() then game.Loaded:Wait() end
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -125,39 +126,83 @@ local function ServerHop(targetPlaceIdOverride)
     if not SETTINGS.HopIfNoBooth then return false end
     
     local placeId = targetPlaceIdOverride or game.PlaceId
-    print("[SİSTEM] Garanti girilebilecek kalabalık bir sunucu aranıyor... (PlaceID: " .. tostring(placeId) .. ")")
+    print("[SİSTEM] Oyunun kendi teleport sistemi üzerinden kalabalık sunucu aranıyor... (PlaceID: " .. tostring(placeId) .. ")")
     
     local bestServer = nil
     local highestPlayers = 0
     
-    local url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true"
+    -- 1) Oyunun kendi GetServerList sistemini dene
+    local netFolder = nil
+    for _, folder in ipairs(ReplicatedStorage:GetChildren()) do
+        if folder:IsA("Folder") and string.match(folder.Name, "^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$") then
+            local functions = folder:FindFirstChild("Functions")
+            if functions and functions:FindFirstChild("GetServerList") then
+                netFolder = folder
+                break
+            end
+        end
+    end
     
-    for i = 1, 5 do 
-        local success, result = pcall(function() return game:HttpGet(url) end)
-        if not success or not result then break end
-        
-        local successDec, data = pcall(function() return HttpService:JSONDecode(result) end)
-        if not successDec or not data or not data.data then break end
-        
-        for _, server in ipairs(data.data) do
-            if type(server) == "table" and type(server.playing) == "number" and type(server.maxPlayers) == "number" then
-                if server.playing < (server.maxPlayers - 2) and server.id ~= game.JobId then
-                    if server.playing > highestPlayers then
-                        highestPlayers = server.playing
-                        bestServer = server.id
+    if netFolder then
+        local GetServerList = netFolder.Functions:FindFirstChild("GetServerList")
+        if GetServerList then
+            local success, serverList = pcall(function() return GetServerList:InvokeServer() end)
+            if success and type(serverList) == "table" then
+                for k, server in pairs(serverList) do
+                    if type(server) == "table" then
+                        -- Tablonun içerdiği değer varyasyonları:
+                        local playing = server.playing or server.Players or server.players or server.PlayerCount or 0
+                        local maxPlayers = server.maxPlayers or server.MaxPlayers or server.maxplayers or 24
+                        local sId = server.id or server.Id or server.JobId or server.jobId or k
+                        
+                        -- Tablo içi string olabilecek 'playing' durumlarına karşı 'tonumber' kontrolü
+                        playing = tonumber(playing) or 0
+                        maxPlayers = tonumber(maxPlayers) or 24
+                        
+                        if type(sId) == "string" and sId ~= "" and sId ~= game.JobId then
+                            if playing < (maxPlayers - 1) and playing > highestPlayers then
+                                highestPlayers = playing
+                                bestServer = sId
+                            end
+                        end
                     end
                 end
             end
         end
+    end
+    
+    -- 2) Oyun sisteminden bulamazsa eski Roblox API yöntemine düş (Fallback)
+    if not bestServer then
+        print("[SİSTEM] Kendi sisteminden bulunamadı, Roblox API ile yedek arama başlatılıyor...")
+        local url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true"
         
-        if bestServer then 
-            break 
-        end
-        
-        if data.nextPageCursor then
-            url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true&cursor=" .. data.nextPageCursor
-        else
-            break
+        for i = 1, 5 do 
+            local success, result = pcall(function() return game:HttpGet(url) end)
+            if not success or not result then break end
+            
+            local successDec, data = pcall(function() return HttpService:JSONDecode(result) end)
+            if not successDec or not data or not data.data then break end
+            
+            for _, server in ipairs(data.data) do
+                if type(server) == "table" and type(server.playing) == "number" and type(server.maxPlayers) == "number" then
+                    if server.playing < (server.maxPlayers - 2) and server.id ~= game.JobId then
+                        if server.playing > highestPlayers then
+                            highestPlayers = server.playing
+                            bestServer = server.id
+                        end
+                    end
+                end
+            end
+            
+            if bestServer then 
+                break 
+            end
+            
+            if data.nextPageCursor then
+                url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true&cursor=" .. data.nextPageCursor
+            else
+                break
+            end
         end
     end
     
