@@ -1,4 +1,4 @@
-wait(20)
+wait(15)
 getgenv().SETTINGS = {
     AutoClaimBooth = true,
     LoopInterval = 5, 
