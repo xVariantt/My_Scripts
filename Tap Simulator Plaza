@@ -1,6 +1,3 @@
---- Tap Simulator Auto Booth & Auto Sell v10.6 - Final User Config
-
-
 if not game:IsLoaded() then game.Loaded:Wait() end
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -324,8 +321,12 @@ end
 
 local function findPetIdByName(petName)
     local searchName = string.lower(tostring(petName))
+    local descendants = LocalPlayer:GetDescendants()
     
-    for _, desc in ipairs(LocalPlayer:GetDescendants()) do
+    for i, desc in ipairs(descendants) do
+        -- ÖNEMLİ: Tarama sırasında anlık FPS droplarını / oyun donmalarını önleyen mikro-bekleme (yield):
+        if i % 800 == 0 then task.wait() end
+        
         local foundTarget = false
         
         if desc:IsA("TextLabel") or desc:IsA("TextBox") or desc:IsA("TextButton") then
