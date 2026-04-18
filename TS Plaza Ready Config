@@ -14,9 +14,9 @@ getgenv().SETTINGS = {
     PingDiscordUser = "484739592239579136",
     
     PetsToSell = {
-        {Name = "Rune Guardian", Price = 1050},
-        {Name = "Universal Manipulator", Price = 1100},
-        {Name = "All Seeing Eye", Price = 1100},
+        {Name = "Rune Guardian", Price = 1000},
+        {Name = "Universal Manipulator", Price = 1050},
+        {Name = "All Seeing Eye", Price = 1050},
     }
 }
 
