@@ -16,7 +16,7 @@ getgenv().Config =  {
     },
     ["Auto Enchant"] = {},
 
-    ["CPU Saver"] = false,
+    ["CPU Saver"] = true,
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/7585edb9f1f88388774c694157e5542d.lua"))()
 end)
