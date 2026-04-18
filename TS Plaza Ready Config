@@ -4,21 +4,19 @@ getgenv().SETTINGS = {
     LoopInterval = 5, 
     
     HopIfNoBooth = true,      
-    HopEveryXMinutes = 15,    
+    HopEveryXMinutes = 30,    
     AntiAFK = true,           
     
-    TargetPlaceId = 124342049154699,
+    TargetPlaceId = 95383978784657,
     
     EnableWebhook = true,
     DiscordWebhookUrl = "https://discord.com/api/webhooks/1492552292615061577/qZOjn3XWLqO7r_on2HSnMoyMT9iuMrp2_qC7jMitI9Ky9Xxf5_yzuE_22C2PEoSfgHXO",
     PingDiscordUser = "484739592239579136",
     
     PetsToSell = {
-        {Name = "Nebula Cyborg", Price = 6500},
-        {Name = "Seraphyne", Price = 8000},
-        {Name = "2026 Star", Price = 8000},
-        {Name = "Golden Charm", Price = 270},
-        {Name = "Jormungandr", Price = 100},
+        {Name = "Rune Guardian", Price = 1050},
+        {Name = "Universal Manipulator", Price = 1100},
+        {Name = "All Seeing Eye", Price = 1100},
     }
 }
 
