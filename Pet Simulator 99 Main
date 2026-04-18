@@ -1,59 +1,24 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-setfpscap(20)
-getgenv().Settings = {
-    ["Raid Settings"] = {
-        Enabled = true,
-        Difficulty = "Max", 
-
-        OpenLeprechaunChest = false,
-
-        ["Egg Settings"] = {
-            Enabled = false,
-            MinimumEggMulti = 1000,
-            MinimumLuckyCoins = 1000000,
-            MaxOpenTime = 50000,
-        },
-        ["Heroic"] = {1,2,3},
-        ["Open Rooms"] = {1,2,3},
-        ["Use Boosts"] = true,
-    },
+setfpscap(30)
+getgenv().Config =  {
     ["Webhook"] = {
-        url = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
-        ["Discord Id to ping"] = {"484739592239579136"}, 
+        ["URL"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
+        ["Discord Id to ping"] = {"484739592239579136"},
         ["Send Normal Huges"] = true,
     },
-
     ["Mail Settings"] = {
-        ["User"] = "trcomoloko",
-        ["Only_New_Huges"] = true,
-        ["Min_Gems"] = 500000000,
-        ["MAX_MAIL_COST"] = 1000000,
-        ["Mailing"] = {}, 
+        ["User"] = "",
+        ["Min_Gems"] = 99999999999999999999,
+        ["MAX_MAIL_COST"] = 9999999999,
+        ["Mailing"] = {},
+        ["Only_New_Huges"] = false,
     },
+    ["Auto Enchant"] = {},
 
-    ["Hatch Starter Pets"] = false,
-    ["CPU Saver"] = true,
-
-    ["Auto Upgrade"] = true, 
-    ["UpgradeSettings"] = {
-        LuckyRaidPets = 31,
-        LuckyRaidDamage = 99,
-        LuckyRaidAttackSpeed = 99,
-        LuckyRaidPetSpeed = 0,
-        LuckyRaidEggCost = 0,
-        LuckyRaidMoreCurrency = 0,
-        LuckyRaidXP = 0,
-        LuckyRaidBetterLoot = 99,
-        LuckyRaidHugeChest = 99,
-        LuckyRaidTitanicChest = 99,
-        LuckyRaidKeyDrops = 99,
-        LuckyRaidBossHugeChances = 99,
-        LuckyRaidBossTitanicChances = 99,
-    },
+    ["CPU Saver"] = false,
 }
-
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/ac744eeb76f8cd60a809ad60c80acd28.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/7585edb9f1f88388774c694157e5542d.lua"))()
 end)
 
 task.spawn(function()
