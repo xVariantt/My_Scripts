@@ -10,7 +10,7 @@ getgenv().SETTINGS = {
     TargetPlaceId = 95383978784657,
     
     EnableWebhook = true,
-    DiscordWebhookUrl = "https://discord.com/api/webhooks/1492552292615061577/qZOjn3XWLqO7r_on2HSnMoyMT9iuMrp2_qC7jMitI9Ky9Xxf5_yzuE_22C2PEoSfgHXO",
+    DiscordWebhookUrl = "https://discord.com/api/webhooks/1495171015561576670/KO2p2d1GeW-LD_nP5bjPhr6Sv6_1BQrFRSZAaJhkERvgnhgkjXL1fZZVf7UqVxfKyt-1",
     PingDiscordUser = "484739592239579136",
     
     PetsToSell = {
