@@ -4,7 +4,7 @@ getgenv().SETTINGS = {
     LoopInterval = 5, 
     
     HopIfNoBooth = true,      
-    HopEveryXMinutes = 30,    
+    HopEveryXMinutes = 20,    
     AntiAFK = true,           
     
     TargetPlaceId = 95383978784657,
