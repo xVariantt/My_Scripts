@@ -18,7 +18,7 @@ getgenv().Config = {
     ["CPU Saver"] = true,
 
     -- Egg Hatching Settings
-    ["Hatch Eggs"] = true,  -- Enable egg hatching
+    ["Hatch Eggs"] = false,  -- Enable egg hatching
     ["Open Diamond Egg"] = "",  -- Specific diamond egg to open (e.g., "Spring Diamond Egg 100x"), leave empty to disable
 
     -- Upgrade Settings
