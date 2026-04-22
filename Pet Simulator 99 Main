@@ -1,38 +1,35 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
-setfpscap(15)
-getgenv().Config = {
+setfpscap(20)
+getgenv().Config =  {
     ["Webhook"] = {
         ["URL"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
         ["Discord Id to ping"] = {"484739592239579136"},
         ["Send Normal Huges"] = true,
-    },
 
+        ["Rank Updates"] = ""
+    },
     ["Mail Settings"] = {
         ["User"] = "trcomoloko",
         ["Min_Gems"] = 99999999999999999999,
         ["MAX_MAIL_COST"] = 9999999999,
         ["Mailing"] = {},
-        ["Only_New_Huges"] = true
+        ["Only_New_Huges"] = true,
     },
+    ["Auto Enchant"] = {},
+    ["Ignore Do Ranks"] = true,
+    ["Time Trial"] = {
+        ["Disabled"] = false,
+        ["Open Chest"] = 3,
+    },
+
     ["CPU Saver"] = true,
+    ["CPU Saver2"] = false,
 
-    -- Egg Hatching Settings
-    ["Hatch Eggs"] = true,  -- Enable egg hatching
-    ["Open Diamond Egg"] = "",  -- Specific diamond egg to open (e.g., "Spring Diamond Egg 100x"), leave empty to disable
-
-    -- Upgrade Settings
-    ["Upgrade"] = true,  -- Automatically purchase egg upgrades when possible
-
-    -- Zone Farming Settings
-    ["Zone Farm"] = true,  -- Enable zone farming
-    ["Zone Farm Count"] = 4,  -- Number of zones to farm simultaneously (max 4)
-
-    -- Token Boost Settings
-    ["Token Boost"] = true  -- Automatically add time to token boosts
+    ["MaxEggSlots"] = 99,
+    ["MaxPetSlots"] = 99,
 }
-script_key="tEOpwkFDTLIVkGkvvrxtCcubnIGpmjny";
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/aa27acc3f27fb34d8cbe6bd53d1b7ff4.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
 end)
 
 task.spawn(function()
