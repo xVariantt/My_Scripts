@@ -9,11 +9,11 @@ getgenv().Config = {
     },
 
     ["Mail Settings"] = {
-        ["User"] = "trcomoloko",
+        ["User"] = "",
         ["Min_Gems"] = 99999999999999999999,
         ["MAX_MAIL_COST"] = 9999999999,
         ["Mailing"] = {},
-        ["Only_New_Huges"] = true
+        ["Only_New_Huges"] = false
     },
     ["CPU Saver"] = true,
 
