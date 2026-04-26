@@ -18,18 +18,20 @@ getgenv().Config = {
     ["CPU Saver"] = true,
 
     -- Egg Hatching Settings
-    ["Hatch Eggs"] = true,  -- Enable egg hatching
-    ["Open Diamond Egg"] = "",  -- Specific diamond egg to open (e.g., "Spring Diamond Egg 100x"), leave empty to disable
+    ["Hatch Eggs"] = false,
+    ["AutoHatchSelectedEgg"] = 8,
 
     -- Upgrade Settings
-    ["Upgrade"] = false,  -- Automatically purchase egg upgrades when possible
+    ["Upgrade"] = false,
 
     -- Zone Farming Settings
-    ["Zone Farm"] = true,  -- Enable zone farming
-    ["Zone Farm Count"] = 4,  -- Number of zones to farm simultaneously (max 4)
+    ["Zone Farm"] = false,
+    ["Zone Farm Count"] = 4,
+    ["Open Diamond Egg"] = "",
+    ["FarmBossChest"] = true,
 
     -- Token Boost Settings
-    ["Token Boost"] = true  -- Automatically add time to token boosts
+    ["Token Boost"] = false
 }
 script_key="tEOpwkFDTLIVkGkvvrxtCcubnIGpmjny";
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/aa27acc3f27fb34d8cbe6bd53d1b7ff4.lua"))()
