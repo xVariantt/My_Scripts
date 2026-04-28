@@ -18,20 +18,19 @@ getgenv().Config = {
     ["CPU Saver"] = true,
 
     -- Egg Hatching Settings
-    ["Hatch Eggs"] = false,
+    ["Hatch Eggs"] = true,
     ["AutoHatchSelectedEgg"] = 8,
 
     -- Upgrade Settings
     ["Upgrade"] = false,
 
     -- Zone Farming Settings
-    ["Zone Farm"] = false,
+    ["Zone Farm"] = true,
     ["Zone Farm Count"] = 4,
-    ["Open Diamond Egg"] = "",
     ["FarmBossChest"] = true,
 
     -- Token Boost Settings
-    ["Token Boost"] = false
+    ["Token Boost"] = true
 }
 script_key="tEOpwkFDTLIVkGkvvrxtCcubnIGpmjny";
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/aa27acc3f27fb34d8cbe6bd53d1b7ff4.lua"))()
