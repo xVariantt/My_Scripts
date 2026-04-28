@@ -22,7 +22,7 @@ getgenv().Config = {
     ["AutoHatchSelectedEgg"] = 8,
 
     -- Upgrade Settings
-    ["Upgrade"] = false,
+    ["Upgrade"] = true,
 
     -- Zone Farming Settings
     ["Zone Farm"] = true,
