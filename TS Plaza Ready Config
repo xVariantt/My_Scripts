@@ -1,4 +1,4 @@
-wait(15)
+wait(7)
 getgenv().SETTINGS = {
     AutoClaimBooth = true,
     LoopInterval = 5, 
@@ -14,12 +14,12 @@ getgenv().SETTINGS = {
     PingDiscordUser = "484739592239579136",
     
     PetsToSell = {
-        {Name = "Rune Guardian", Price = 800},
-        {Name = "Universal Manipulator", Price = 850},
-        {Name = "All Seeing Eye", Price = 850},
-        {Name = "Nebula Cyborg", Price = 5250},
-        {Name = "Seraphyne", Price = 5500},
-        {Name = "2026 Star", Price = 5500},
+        {Name = "Rune Guardian", Price = 700},
+        {Name = "Universal Manipulator", Price = 725},
+        {Name = "All Seeing Eye", Price = 750},
+        {Name = "Nebula Cyborg", Price = 4200},
+        {Name = "Seraphyne", Price = 4450},
+        {Name = "2026 Star", Price = 4450},
     }
 }
 
