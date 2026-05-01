@@ -7,7 +7,6 @@ local HttpService = game:GetService("HttpService")
 local LocalPlayer = Players.LocalPlayer
 
 local SETTINGS = getgenv().SETTINGS
--- =======================================
 
 local lastSaleTime = 0
 
@@ -262,6 +261,12 @@ local function ClaimAndTeleportToBooth()
 
     if #allBooths == 0 then return false end
 
+    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local hrp = char:WaitForChild("HumanoidRootPart", 5)
+    local myPos = hrp and hrp.Position or Vector3.new(0, 0, 0)
+
+    local emptyBooths = {}
+
     for _, booth in ipairs(allBooths) do
         local part = booth.PrimaryPart or booth:FindFirstChildWhichIsA("BasePart", true)
         
@@ -287,35 +292,50 @@ local function ClaimAndTeleportToBooth()
             end
             
             if not isTaken then
-                local char = LocalPlayer.Character
-                local hrp = char and char:FindFirstChild("HumanoidRootPart")
-                
-                if hrp then
-                    local baseCFrame = part.CFrame * CFrame.new(0, -2.5, 8)
-                    hrp.CFrame = CFrame.lookAt(baseCFrame.Position, part.Position)
-                    task.wait(0.5)
-                end
-                
-                local success, result = pcall(function() return ClaimBoothRemote:InvokeServer(booth) end)
-                task.wait(0.3)
-                pcall(function() ClaimBoothRemote:InvokeServer(unpack({booth})) end)
-                task.wait(0.5)
-                
-                local checkOwnerAttr = booth:GetAttribute("Owner") or booth:GetAttribute("OwnerId")
-                local checkOwnerObj = (booth:FindFirstChild("Owner") and booth.Owner.Value)
-                local checkOwnerString = tostring(checkOwnerAttr) .. tostring(checkOwnerObj)
-                
-                if string.find(checkOwnerString, LocalPlayer.Name) or string.find(checkOwnerString, tostring(LocalPlayer.UserId)) then
-                    print("[BAŞARILI] Booth rezerve edildi!")
-                    return booth
-                end
-                
-                if success and result == true then
-                    return booth
-                end
+                local dist = (part.Position - myPos).Magnitude
+                table.insert(emptyBooths, {booth = booth, part = part, dist = dist})
             end
         end
     end
+
+    if #emptyBooths == 0 then return false end
+
+    -- Stantları oyuncuya olan uzaklıklarına göre sırala
+    -- Bu sayede oyuncu başka bir haritada saklanan sahte/boş plazaya değil, 
+    -- şu an içinde bulunduğu aktif plazadaki en yakın boş stanta ışınlanır.
+    table.sort(emptyBooths, function(a, b)
+        return a.dist < b.dist
+    end)
+
+    for _, data in ipairs(emptyBooths) do
+        local booth = data.booth
+        local part = data.part
+        
+        if hrp then
+            local baseCFrame = part.CFrame * CFrame.new(0, -2.5, 8)
+            hrp.CFrame = CFrame.lookAt(baseCFrame.Position, part.Position)
+            task.wait(0.5)
+        end
+        
+        local success, result = pcall(function() return ClaimBoothRemote:InvokeServer(booth) end)
+        task.wait(0.3)
+        pcall(function() ClaimBoothRemote:InvokeServer(unpack({booth})) end)
+        task.wait(0.5)
+        
+        local checkOwnerAttr = booth:GetAttribute("Owner") or booth:GetAttribute("OwnerId")
+        local checkOwnerObj = (booth:FindFirstChild("Owner") and booth.Owner.Value)
+        local checkOwnerString = tostring(checkOwnerAttr) .. tostring(checkOwnerObj)
+        
+        if string.find(checkOwnerString, LocalPlayer.Name) or string.find(checkOwnerString, tostring(LocalPlayer.UserId)) then
+            print("[BAŞARILI] Booth rezerve edildi!")
+            return booth
+        end
+        
+        if success and result == true then
+            return booth
+        end
+    end
+    
     return nil
 end
 
