@@ -1,39 +1,52 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(15)
-getgenv().Config = {
+getgenv().Config =  {
     ["Webhook"] = {
         ["URL"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
         ["Discord Id to ping"] = {"484739592239579136"},
         ["Send Normal Huges"] = true,
-    },
 
+        ["Rank Updates"] = "",
+        ["Rank Update Min"] = 20, -- will send rank update when reaches that rank
+
+        ["Admin Abuse"] = "" -- send when something gets claimed
+    },
     ["Mail Settings"] = {
-        ["User"] = "trcomoloko",
+        ["User"] = "",
         ["Min_Gems"] = 99999999999999999999,
         ["MAX_MAIL_COST"] = 9999999999,
         ["Mailing"] = {},
-        ["Only_New_Huges"] = true
+        ["Send Old Huges"] = false,
     },
-    ["CPU Saver"] = true,
+    ["Auto Enchant"] = {"Tap Power", "Tap Power", "Tap Power", "Criticals", "Chest Breaker", "Large Taps"},
+    ["Time Trial"] = {
+        ["Disabled"] = false, -- will disable Timetrial
+        ["Open Chest"] = 3, -- 1,2,3 or do false to not open
+    },
 
-    -- Egg Hatching Settings
-    ["Hatch Eggs"] = true,
-    ["AutoHatchSelectedEgg"] = 8,
+    ["CPU Saver"] = true, -- makes your game run smoother
 
-    -- Upgrade Settings
-    ["Upgrade"] = true,
+    ["MaxEggSlots"] = 99,
+    ["MaxPetSlots"] = 99,
 
-    -- Zone Farming Settings
-    ["Zone Farm"] = true,
-    ["Zone Farm Count"] = 4,
-    ["FarmBossChest"] = true,
+    ["Ignore Do Ranks"] = true, -- wont do quest at all
 
-    -- Token Boost Settings
-    ["Token Boost"] = true
+    ["Fast Rankup"] = false, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
+    ["Fast Rankup to"] = 20, -- choose your rank you want to do
+
+
+    ["StarterPets"] = false, -- will hatch event pets
+    
+    ["ClaimFreeStuff"] = false, -- disables claiming stuff loop (may fix stuck on upgrading stuff)
+    ["AutoCombinePresents"] = false,
+    ["MaxCombineTier"] = 4, -- 1 = max Medium, 2 = max Large, 3 = max X-Large, 4 = max Titanic (default, craft everything)
+    ["OpenPresent"] = false, -- 1 = small, 2 = Medium, 3 = Large, 4 = X-Large, 5 = Titanic, false = disabled
+
+    ["AutoConsumeFlag"] = {"Strength Flag","Hasty Flag"},
+    ["AutoSprinkler"] = false,
 }
-script_key="tEOpwkFDTLIVkGkvvrxtCcubnIGpmjny";
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/aa27acc3f27fb34d8cbe6bd53d1b7ff4.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
 end)
 
 task.spawn(function()
