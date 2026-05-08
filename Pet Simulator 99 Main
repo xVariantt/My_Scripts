@@ -7,10 +7,8 @@ getgenv().Config =  {
         ["Discord Id to ping"] = {"484739592239579136"},
         ["Send Normal Huges"] = true,
 
-        ["Rank Updates"] = "",
-        ["Rank Update Min"] = 20, -- will send rank update when reaches that rank
-
-        ["Admin Abuse"] = "" -- send when something gets claimed
+        ["Admin Abuse"] = "", -- send when something gets claimed
+        ["TitanicPresentWebhook"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
     },
     ["Mail Settings"] = {
         ["User"] = "",
@@ -24,29 +22,16 @@ getgenv().Config =  {
         ["Disabled"] = false, -- will disable Timetrial
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
     },
-
     ["CPU Saver"] = true, -- makes your game run smoother
 
-    ["MaxEggSlots"] = 99,
-    ["MaxPetSlots"] = 99,
-
-    ["Ignore Do Ranks"] = true, -- wont do quest at all
-
-    ["Fast Rankup"] = false, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
-    ["Fast Rankup to"] = 20, -- choose your rank you want to do
-
-
-    ["StarterPets"] = false, -- will hatch event pets
-    
-    ["ClaimFreeStuff"] = false, -- disables claiming stuff loop (may fix stuck on upgrading stuff)
-    ["AutoCombinePresents"] = false,
+    ["AutoCombinePresents"] = true, -- combines Prestes to the desired level
     ["MaxCombineTier"] = 4, -- 1 = max Medium, 2 = max Large, 3 = max X-Large, 4 = max Titanic (default, craft everything)
     ["OpenPresent"] = false, -- 1 = small, 2 = Medium, 3 = Large, 4 = X-Large, 5 = Titanic, false = disabled
 
     ["AutoConsumeFlag"] = {"Strength Flag","Hasty Flag"},
-    ["AutoSprinkler"] = false,
+    ["AutoSprinkler"] = true,
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/6d2ed744b6531eccecdf4edf18338170.lua"))()
 end)
 
 task.spawn(function()
