@@ -6,9 +6,6 @@ getgenv().Config =  {
         ["URL"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
         ["Discord Id to ping"] = {"484739592239579136"},
         ["Send Normal Huges"] = true,
-
-        ["Admin Abuse"] = "", -- send when something gets claimed
-        ["TitanicPresentWebhook"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
     },
     ["Mail Settings"] = {
         ["User"] = "",
@@ -17,21 +14,11 @@ getgenv().Config =  {
         ["Mailing"] = {},
         ["Send Old Huges"] = false,
     },
-    ["Auto Enchant"] = {"Tap Power", "Tap Power", "Tap Power", "Criticals", "Chest Breaker", "Large Taps"},
-    ["Time Trial"] = {
-        ["Disabled"] = false, -- will disable Timetrial
-        ["Open Chest"] = 3, -- 1,2,3 or do false to not open
-    },
-    ["CPU Saver"] = true, -- makes your game run smoother
-
-    ["AutoCombinePresents"] = true, -- combines Prestes to the desired level
-    ["MaxCombineTier"] = 4, -- 1 = max Medium, 2 = max Large, 3 = max X-Large, 4 = max Titanic (default, craft everything)
-    ["OpenPresent"] = false, -- 1 = small, 2 = Medium, 3 = Large, 4 = X-Large, 5 = Titanic, false = disabled
-
-    ["AutoConsumeFlag"] = {"Strength Flag","Hasty Flag"},
-    ["AutoSprinkler"] = true,
+    ["CPU Saver"] = true,
+    ["AutoUseDice"] = "Mega Lucky Dice V2",
+    ["PetsToSell"] = {"Sand Turtle"},
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/6d2ed744b6531eccecdf4edf18338170.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/9f9b656e577ba1b9d87d4c855e7ac1a4.lua"))()
 end)
 
 task.spawn(function()
