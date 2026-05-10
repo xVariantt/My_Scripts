@@ -15,7 +15,7 @@ getgenv().Config =  {
         ["Mailing"] = {},
         ["Send Old Huges"] = false,
     },
-    ["CPU Saver"] = false,
+    ["CPU Saver"] = true,
     ["AutoUseDice"] = "Mega Lucky Dice II V2",
     ["PetsToSell"] = {"Sand Turtle","Sprout Stag"},
 }
