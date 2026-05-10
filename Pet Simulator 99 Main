@@ -1,6 +1,7 @@
 repeat wait() until game:IsLoaded()
 task.spawn(function()
 setfpscap(15)
+script_key="YAXIhTDRJKPbMbrFtzeKoGuoeFMVWgsz";
 getgenv().Config =  {
     ["Webhook"] = {
         ["URL"] = "https://discord.com/api/webhooks/1462843242721837187/N5zXWmcAiUsB0SZopiWsSDyedGYteKVB5rnqAhUVUPnNe3pWmkLHPU1QWKCBIbkXMmE2",
@@ -8,15 +9,15 @@ getgenv().Config =  {
         ["Send Normal Huges"] = true,
     },
     ["Mail Settings"] = {
-        ["User"] = "",
+        ["User"] = "trcomoloko",
         ["Min_Gems"] = 99999999999999999999,
         ["MAX_MAIL_COST"] = 9999999999,
         ["Mailing"] = {},
         ["Send Old Huges"] = false,
     },
-    ["CPU Saver"] = true,
-    ["AutoUseDice"] = "Mega Lucky Dice V2",
-    ["PetsToSell"] = {"Sand Turtle"},
+    ["CPU Saver"] = false,
+    ["AutoUseDice"] = "Mega Lucky Dice II V2",
+    ["PetsToSell"] = {"Sand Turtle","Sprout Stag"},
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/9f9b656e577ba1b9d87d4c855e7ac1a4.lua"))()
 end)
